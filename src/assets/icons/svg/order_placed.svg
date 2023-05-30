@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="96" height="96" viewBox="0 0 96 96">
+  <defs>
+    <clipPath id="clip-order_placed">
+      <rect width="96" height="96"/>
+    </clipPath>
+  </defs>
+  <g id="order_placed" clip-path="url(#clip-order_placed)">
+    <path id="Icon_open-document" data-name="Icon open-document" d="M0,0V94.5H65.833V47.25H28.214V0ZM37.619,0V35.437H65.833ZM9.4,23.625h9.4V35.437H9.4Zm0,23.625h9.4V59.062H9.4Zm0,23.625H47.023V82.688H9.4Z" transform="translate(12.378 1.5)" fill="#fff" stroke="#06b37b" stroke-width="2"/>
+  </g>
+</svg>

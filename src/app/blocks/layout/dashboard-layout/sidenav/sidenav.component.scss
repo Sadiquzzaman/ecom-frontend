@@ -1,0 +1,80 @@
+.sidenav-container {
+  height: 100% !important;
+
+  .sidenav {
+    // max-width: 270px !important;
+    width: 270px !important;
+    // width: fit-content;
+  }
+
+  .sidenav .mat-toolbar {
+    background: inherit !important;
+  }
+
+  .mat-toolbar.mat-primary {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1 !important;
+  }
+
+  .admin-header {
+    margin-left: 0px;
+    ::ng-deep .welcome-text {
+      color: white;
+    }
+  }
+
+  .content-padding {
+    padding: 1rem;
+  }
+}
+
+.icon-color {
+  color: #28b37b;
+}
+
+.loading-shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 56px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.is-active {
+  background-color: #ddd4d4 !important;
+}
+
+.mat-expansion-panel-header {
+  padding: 0 10px !important;
+}
+
+::ng-deep .mat-expansion-panel-body {
+  padding: 0 10px !important;
+}
+
+#drawer::-webkit-scrollbar {
+  width: 12px; /* width of the entire scrollbar */
+}
+
+#drawer::-webkit-scrollbar-thumb {
+  background-color: #28b37b; /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+}
+
+.scroller {
+  scrollbar-color: #28b37b;
+  scrollbar-width: 12px;
+}
+
+// mat-spinner {
+//   display: none;
+// }
+// router-outlet + mat-spinner {
+//   display: block;
+// }

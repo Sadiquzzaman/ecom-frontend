@@ -1,0 +1,73 @@
+<div class="shop-profile-section" fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="100" fxFlex.gt-xs="70">
+    <app-breadcrumb [navigation]="navbar"></app-breadcrumb>
+    <div class="top-section">
+      <app-image
+        [imageName]="shopType?.image"
+        [loader]="false"
+        [type]="shopTypeImageType"
+        height="310px"
+      >
+      </app-image>
+      <div
+        class="shop-info"
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+        fxLayoutGap="3rem"
+      >
+        <div class="cat-name" fxFlex="20">{{ shopType?.name }}</div>
+        <div
+          class="cat-description"
+          fxFlex.xs="70"
+          fxFlex.sm="60"
+          fxFlex.gt-sm="50"
+        >
+          {{ shopType?.description }}
+        </div>
+      </div>
+    </div>
+    <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="text">shops</div>
+      <div class="button-section" fxLayout="row" fxLayoutGap="2rem">
+        <button [matMenuTriggerFor]="filter" class="filter-button" mat-button>
+          Filters
+          <mat-icon>arrow_drop_down</mat-icon>
+        </button>
+        <mat-menu #filter="matMenu">
+          <div style="margin: 10px">
+            <mat-radio-group fxLayout="column">
+              <mat-radio-button class="mat-radio-top" value="highToLow"
+                >High to Low Rating</mat-radio-button
+              >
+              <mat-radio-button class="mat-radio-bottom" value="lowToHigh"
+                >Low to High Rating</mat-radio-button
+              >
+            </mat-radio-group>
+          </div>
+        </mat-menu>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  (scrolled)="onScrollDown($event)"
+  [infiniteScrollDistance]="scrollDistance"
+  [infiniteScrollThrottle]="throttle"
+  infinite-scroll
+>
+  <app-shop-content
+    *ngIf="shops.length; else noShop"
+    [feeds]="shops"
+  ></app-shop-content>
+
+  <div class="custom-spinner" fxLayout="row" fxLayoutAlign="center center">
+    <mat-spinner *ngIf="isLoading" [diameter]="50"></mat-spinner>
+  </div>
+
+  <ng-template #noShop>
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <h4 class="text-bold">NO SHOP FOUND</h4>
+    </div>
+  </ng-template>
+</div>

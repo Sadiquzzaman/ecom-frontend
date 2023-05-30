@@ -1,0 +1,132 @@
+<div class="bank-details-add" fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="60" fxFlex.lt-md="100">
+    <div class="padding-top-20">
+      <mat-card>
+        <mat-toolbar class="theme-background-color">
+          <mat-toolbar-row class="margin-left text-white">
+            Add Bank Details
+          </mat-toolbar-row>
+        </mat-toolbar>
+
+        <mat-card-content class="padding-out">
+          <form [formGroup]="addBankDetailsForm" (ngSubmit)="save()">
+            <div fxLayout="column">
+              <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Bank Name</mat-label>
+                <mat-select
+                  formControlName="bankId"
+                  name="bankId"
+                  placeholder="Write your bank name"
+                  required
+                >
+                  <mat-option>
+                    <ngx-mat-select-search
+                      [formControl]="bankFiltering"
+                      [searching]="isBankSearching"
+                      noEntriesFoundLabel="No Such Bank Found"
+                      placeholderLabel="Search Bank"
+                    >
+                    </ngx-mat-select-search>
+                  </mat-option>
+                  <mat-option
+                    *ngFor="let bank of filteredBankOptions | async"
+                    [value]="bank.id"
+                  >
+                    {{ bank.bankName }}
+                  </mat-option>
+                </mat-select>
+                <mat-error>Bank Name is required</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div fxLayout="column">
+              <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Account Holder Name</mat-label>
+                <input
+                  formControlName="accountHolderName"
+                  matInput
+                  placeholder="Write account holder name"
+                  required
+                  type="text"
+                />
+                <mat-error>Account Holder Name is required</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div fxLayout="column">
+              <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Account Number</mat-label>
+                <input
+                  formControlName="accountNumber"
+                  matInput
+                  placeholder="Write your account number"
+                  required
+                  type="text"
+                />
+                <mat-error>Account Number is required</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div fxLayout="column">
+              <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Remarks</mat-label>
+                <textarea
+                  class="address-bar"
+                  formControlName="remarks"
+                  matInput
+                  placeholder="Write Remarks"
+                  name="remarks"
+                  rows="5"
+                  type="text"
+                ></textarea>
+
+                <mat-error>Remarks is required</mat-error>
+              </mat-form-field>
+            </div>
+
+            <!-- <div fxLayout="column">
+                <mat-form-field appearance="outline" floatLabel="always">
+                  <mat-label>Remarks</mat-label>
+                  <input
+                    formControlName="remarks"
+                    matInput
+                    placeholder="Write Remarks"
+                    required
+                  />
+                  <mat-error>Remarks is required</mat-error>
+                </mat-form-field>
+              </div> -->
+
+            <div
+              class="padding-top-20"
+              fxLayout="row"
+              fxLayout.lt-sm="column"
+              fxLayoutAlign="end"
+              fxLayoutGap="15px"
+              fxLayoutGap.lt-md="10px"
+            >
+              <button
+                class="text-white"
+                color="warn"
+                fxFlex="10%"
+                mat-raised-button
+                type="reset"
+                (click)="resetForm()"
+              >
+                <span class="text-white">Reset</span>
+              </button>
+              <button
+                class="theme-background-color"
+                fxFlex="10%"
+                mat-raised-button
+                type="submit"
+              >
+                <span class="text-white">Update</span>
+              </button>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

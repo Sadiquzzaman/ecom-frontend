@@ -1,0 +1,25 @@
+<div
+  class="following-shops-section"
+  fxLayout="row"
+  fxLayoutAlign="center center"
+>
+  <div fxFlex="100" fxFlex.gt-xs="70">
+    <div
+      class="following-shops-section"
+      fxLayout="row wrap"
+      fxLayoutAlign="space-between center"
+    >
+      <span class="header">FOLLOWING SHOPS</span>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="shops?.length">
+  <app-shop-content [feeds]="shops"></app-shop-content>
+</div>
+
+<div *ngIf="shops?.length === 0">
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <h4 class="text-bold">NO FOLLOWING SHOP FOUND</h4>
+  </div>
+</div>

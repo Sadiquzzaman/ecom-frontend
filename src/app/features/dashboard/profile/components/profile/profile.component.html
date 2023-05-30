@@ -1,0 +1,100 @@
+<div class="mtb16" fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="50" fxFlex.lt-md="100">
+    <div fxLayout="column wrap">
+      <div fxFlex="100" fxFlex.lt-md="100">
+        <div
+          class="padding-top-20"
+          fxLayout="row"
+          fxLayoutAlign="center center"
+        ></div>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <div fxFlex="100" fxFlex.lt-md="100">
+          <div class="profile">
+            <mat-card>
+              <div fxLayout="column" fxLayoutGap="1rem">
+                <div
+                  fxLayout="column"
+                  fxLayoutAlign="center center"
+                  fxLayoutGap="1rem"
+                >
+                  <mat-card-content>
+                    <mat-label class="header-text">User Details</mat-label>
+                  </mat-card-content>
+                  <img
+                    [src]="'assets/img/default_profile.png'"
+                    alt="defult profile image"
+                    class="cover"
+                    height="50"
+                    width="50"
+                  />
+                  <div
+                    fxLayout="row"
+                    fxLayoutAlign="center center"
+                    fxLayoutGap="10px"
+                  >
+                    <p>firstName</p>
+                    <p></p>
+                    <p>lastName</p>
+                  </div>
+                </div>
+
+                <mat-card-content>
+                  <mat-label>Title:</mat-label>
+                  <h1>title</h1>
+                  <mat-divider></mat-divider>
+                </mat-card-content>
+                <mat-card-content>
+                  <mat-label>Description:</mat-label>
+                  <h1>description</h1>
+                  <mat-divider></mat-divider>
+                </mat-card-content>
+                <mat-card-content>
+                  <mat-label>Present Address:</mat-label>
+                  <h3>presentAddress</h3>
+                  <mat-divider></mat-divider>
+                </mat-card-content>
+                <mat-card-content>
+                  <mat-label>Permenent Address:</mat-label>
+                  <h3>permanentAddress</h3>
+                  <mat-divider></mat-divider>
+                </mat-card-content>
+              </div>
+              <br/>
+
+              <div fxLayout="column" fxLayoutGap="1rem">
+                <div
+                  fxLayout="column"
+                  fxLayoutAlign="center center"
+                  fxLayoutGap="1rem"
+                >
+                  <mat-card-content>
+                    <mat-label class="header-text">Company Details</mat-label>
+                  </mat-card-content>
+                  <mat-card-content>
+                    <mat-icon mat-card-avatar>
+                      <div *ngIf="logo">
+                        <app-image
+                          [imageName]="logo"
+                          [type]="companyImageType"
+                        ></app-image>
+                      </div>
+                    </mat-icon>
+                  </mat-card-content>
+                  <mat-card-content>
+                    <h1>companyName</h1>
+                  </mat-card-content>
+                </div>
+                <mat-card-content>
+                  <mat-label>Company Address:</mat-label>
+                  <h3>companyAddress</h3>
+                  <mat-divider></mat-divider>
+                </mat-card-content>
+              </div>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

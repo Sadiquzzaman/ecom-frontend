@@ -1,0 +1,45 @@
+.notification-button {
+  color: white;
+  cursor: pointer;
+}
+
+.notification-header {
+  color: black;
+}
+
+.notification-date-section {
+  font-size: 10px;
+  color: black;
+}
+
+.notification-expand {
+  padding: 0 1rem 0 0.5rem !important;
+}
+
+.notification {
+  padding: 4px;
+  z-index: 1000;
+  background-color: #ffbc1e;
+  color: white;
+  border-radius: 10px;
+  text-align: center;
+  position: relative;
+  right: 8px;
+  bottom: 8px;
+}
+
+.see-all-button {
+  width: 15rem;
+  height: 2.2rem;
+  border: 2px solid #28b37b;
+  background-color: #28b37b;
+  .btn-text {
+    color: #ffffff;
+  }
+}
+
+.notification-message {
+  padding: .5rem 1rem .5rem 1rem;
+  border-radius: 5px;
+  background-color: #e2e2e2;
+}

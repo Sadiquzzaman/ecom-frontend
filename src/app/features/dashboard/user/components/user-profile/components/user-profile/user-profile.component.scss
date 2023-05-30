@@ -1,0 +1,63 @@
+.profile-section {
+  .user-name {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #6d6d6d;
+    font-family: sans-serif;
+  }
+  .wallet-icon {
+    color: #9c9c9c;
+    font-size: 1.2rem;
+  }
+  .total-point {
+    color: #74beff;
+    font-size: small;
+  }
+  .green-text {
+    color: #3cc397;
+    font-size: small;
+  }
+  .card-section {
+    border-radius: 0px;
+    background-color: #f9f9f9;
+    overflow: hidden;
+    .head {
+      color: #929292;
+      font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    }
+    .description {
+      color: #535353;
+      font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    }
+  }
+
+  .footer-section {
+    padding: 3rem 0 0 0;
+    .head {
+      color: #929292;
+      font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    }
+    .notification-btn {
+      border-radius: 1px;
+      border: 1px solid #b3b3b3;
+      height: 1.3rem;
+      align-items: center;
+    }
+  }
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: #2bbe8e;
+}
+@media (max-width: 560px) {
+  .userProfileMobile {
+    max-width: 90% !important;
+  }
+  .user-name {
+    line-height: 2rem;
+  }
+  .userMobileDiv {
+    margin-bottom: 0.5rem !important;
+  }
+}

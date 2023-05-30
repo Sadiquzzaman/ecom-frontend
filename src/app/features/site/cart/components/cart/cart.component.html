@@ -1,0 +1,336 @@
+<!-- <mat-progress-bar color="primary" mode="indeterminate"> </mat-progress-bar> -->
+<div
+  class="loading-shade"
+  *ngIf="!isCartInfoLoad"
+  fxLayout="column"
+  fxLayoutAlign="start center"
+>
+  <mat-spinner></mat-spinner>
+</div>
+
+<div class="order-details-section" fxLayout="row" fxLayoutAlign="center center">
+  <div class="cartTableSec" fxFlex="70" fxLayout="column" fxLayoutGap=".5rem">
+    <div
+      fxFlex="70"
+      fxLayout="column"
+      fxLayoutGap="2rem"
+      fxLayoutGap.lt-md="1.5rem"
+      class="table-responsive"
+    >
+      <table class="table-section">
+        <tr>
+          <th class="text-left" style="width: 15%">Product Image</th>
+          <th class="description-header" style="width: 30%">
+            Product Description
+          </th>
+          <th class="text-right" style="width: 15%">Unit Price</th>
+          <th class="text-right" style="width: 15%">Quantity</th>
+          <th class="text-right" style="width: 20%">Sub Total</th>
+          <th></th>
+        </tr>
+
+        <tr *ngFor="let item of cartInfoDetails; index as i">
+          <td style="text-align: left; vertical-align: top">
+            <img
+              [src]="item.product.src"
+              style="width: 70px; height: 70px"
+              alt=""
+            />
+          </td>
+          <td style="text-align: left; vertical-align: top">
+            <span>{{ item?.product.name }}</span>
+            <ng-container
+              *ngFor="let attribute of item?.productAttribute?.attributes"
+            >
+              <span
+                class="sub-text"
+                *ngIf="
+                  attribute?.attributeGroup?.name &&
+                  attribute?.attributeGroup?.name?.toLowerCase() != 'default'
+                "
+              >
+                <br />{{ attribute?.attributeGroup?.name }}:
+                {{ attribute?.name }}
+              </span>
+            </ng-container>
+          </td>
+          <td class="text-right">
+            {{
+              toFixedNumber(getPrice(item)) | currency: "Tk ":"symbol":"1.2-2"
+            }}/pc
+          </td>
+          <td class="text-right">
+            <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="5px">
+              <mat-icon
+                (click)="increment(item.product, item?.productAttribute?.id)"
+                class="add-icon"
+                >add</mat-icon
+              >
+              <span>{{ item?.quantity }}</span>
+              <mat-icon
+                (click)="
+                  decrement(
+                    item.product,
+                    item.quantity,
+                    item?.productAttribute?.id
+                  )
+                "
+                class="remove-icon"
+                >remove</mat-icon
+              >
+            </div>
+          </td>
+          <td class="text-right">
+            {{
+              toFixedNumber(getPrice(item)) * item.quantity
+                | currency: "Tk ":"symbol":"1.2-2"
+            }}
+          </td>
+          <td>
+            <mat-icon
+              (click)="remove(item.product.id, item?.productAttribute?.id)"
+              class="delete-icon"
+              >delete</mat-icon
+            >
+          </td>
+          <mat-divider></mat-divider>
+        </tr>
+
+        <mat-divider></mat-divider>
+        <tr>
+          <td colspan="3">
+            <span>&nbsp;</span>
+          </td>
+          <td class="text-right">
+            <span>{{ unit[index] }}:</span>
+          </td>
+          <td class="text-right">
+            <span>{{ calculatedCart.items }}</span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <span>&nbsp;</span>
+          </td>
+          <td class="text-right">
+            <span>Sub Total:</span>
+          </td>
+          <td class="text-right">
+            <span
+              >{{
+                calculatedCart.totalAmount | currency: "Tk ":"symbol":"1.2-2"
+              }}
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <span>&nbsp;</span>
+          </td>
+          <td class="text-right">
+            <span>Discount:</span>
+          </td>
+          <td class="text-right">
+            <span>{{
+              calculatedCart.discount | currency: "Tk ":"symbol":"1.2-2"
+            }}</span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <span>&nbsp;</span>
+          </td>
+          <td class="text-right">
+            <span>Shipping Charge:</span>
+          </td>
+          <td class="text-right">
+            <span>{{
+              calculatedCart.shippingCharge | currency: "Tk ":"symbol":"1.2-2"
+            }}</span>
+          </td>
+        </tr>
+        <tr ng-show="calculatedCart.additionalShippingCharge > 0">
+          <td colspan="3">
+            <span>&nbsp;</span>
+          </td>
+          <td class="text-right">
+            <span>Additional Shipping Charge:</span>
+          </td>
+          <td class="text-right">
+            <span>{{
+              calculatedCart.additionalShippingCharge
+                | currency: "Tk ":"symbol":"1.2-2"
+            }}</span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <span>&nbsp;</span>
+          </td>
+          <td class="text-right">
+            <span>Total:</span>
+          </td>
+          <td class="text-right">
+            <span>{{ totalAmount | currency: "Tk ":"symbol":"1.2-2" }}</span>
+          </td>
+        </tr>
+        <tr *ngIf="cuponValue">
+          <td colspan="3">
+            <span>&nbsp;</span>
+          </td>
+          <td class="text-right">
+            <span>Cupon:</span>
+          </td>
+          <td class="text-right">
+            <span>{{ cuponValueStr }}</span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <span>&nbsp;</span>
+          </td>
+          <td class="text-right">
+            <span>Vat:</span>
+          </td>
+          <td class="text-right">
+            <span>{{
+              calculatedCart.vat | currency: "Tk ":"symbol":"1.2-2"
+            }}</span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <span>&nbsp;</span>
+          </td>
+          <td class="text-right">
+            <span>Grand Total:</span>
+          </td>
+          <td class="text-right">
+            <span>{{
+              totalPriceincludeVat | currency: "Tk ":"symbol":"1.2-2"
+            }}</span>
+          </td>
+        </tr>
+      </table>
+
+      <div
+        fxLayout="row"
+        fxLayout.lt-md="column"
+        fxLayoutAlign="space-between center"
+        fxLayoutAlign.lt-sm="space-between start"
+        fxLayoutGap.lt-md="1.5rem"
+      >
+        <div
+          class="shipping-section"
+          fxLayout="column"
+          fxLayoutAlign="space-between start"
+          fxLayoutGap="2rem"
+        >
+          <span fxLayoutGap="3%">
+            Please select shipping address or
+            <a class="add-shipping" (click)="openDialog(true)">ADD NEW</a></span
+          >
+          <mat-radio-button
+            *ngFor="let address of shippingAddresses"
+            [value]="address"
+            (change)="selection = $event.value"
+          >
+            <div
+              fxLayout="row"
+              fxLayoutAlign="space-between center"
+              fxLayoutGap=".8rem"
+            >
+              <div fxLayout="column">
+                <span>Alias: {{ address.alias }} </span>
+                <span
+                  >Name: {{ address.firstname }} {{ address.lastname }}</span
+                >
+                <span>Phone: {{ address.phone }}</span>
+                <span
+                  >Address: {{ address.address }}, <br />{{
+                    address?.thana?.name
+                  }}, {{ address?.district?.name }}</span
+                >
+              </div>
+              <div *ngIf="selection != null && selection.id == address.id">
+                <button
+                  mat-button
+                  fxLayout="row"
+                  fxLayoutAlign="center center"
+                  (click)="openDialog(false)"
+                >
+                  <mat-icon>edit</mat-icon>
+                  <span>Edit</span>
+                </button>
+                <button
+                  mat-button
+                  fxLayout="row"
+                  fxLayoutAlign="center center"
+                  (click)="deleteShippingAddress()"
+                >
+                  <mat-icon>delete</mat-icon>
+                  <span>Delete</span>
+                </button>
+              </div>
+            </div>
+          </mat-radio-button>
+          <!-- <button
+            mat-raised-button
+            class="add-new-btn"
+            (click)="openDialog(true)"
+          >
+            <span class="btn-text"> Add New Shipping Address </span>
+          </button> -->
+        </div>
+
+        <div
+          class="coupon-box"
+          fxFlexAlign="space-between center"
+          fxLayout="row"
+          fxLayoutGap="5px"
+        >
+          <div class="promo-text">
+            <span class="promo">Promo Code</span>
+          </div>
+
+          <div>
+            <input
+              (keyup.enter)="couponApply()"
+              [(ngModel)]="coupon"
+              class="coupon-input"
+              placeholder="XCOUPON"
+            />
+          </div>
+
+          <div class="coupon-button">
+            <button
+              (click)="couponApply()"
+              [disabled]="!coupon"
+              class="apply-button"
+              mat-button
+              matTooltip="Add a coupon"
+            >
+              <span class="text">APPLY</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="footer"
+        fxLayout="row"
+        fxLayout.lt-md="column"
+        fxLayoutGap.lt-md="10px"
+        fxLayoutAlign="space-between center"
+      >
+        <button mat-button class="cont-btn" routerLink="/product">
+          <span class="continue-text">Continue Shopping</span>
+        </button>
+        <button mat-button class="edit" (click)="proceedToBilling()">
+          <span class="proceed-text">Proceed to pay</span>
+        </button>
+      </div>
+    </div>
+    <div fxFlex="15"></div>
+  </div>
+</div>

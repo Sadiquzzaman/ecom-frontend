@@ -1,0 +1,209 @@
+@media screen and (max-width: 960px) {
+  .mat-table {
+    border: 0;
+    vertical-align: middle;
+  }
+
+  .mat-table caption {
+    font-size: 1em;
+  }
+
+  .mat-table .mat-header-cell {
+    border: 10px solid;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+
+  .mat-table .mat-row {
+    border-bottom: 5px solid #ddd;
+    display: block;
+  }
+  .mat-table .mat-cell:first-child {
+    padding-left: 0;
+  }
+
+  .mat-table .mat-cell {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: 1em;
+    text-align: right;
+    font-weight: bold;
+    height: 30px;
+    line-height: 46px;
+    padding-right: 16px;
+  }
+  .mat-table .mat-cell:before {
+    content: attr(data-label);
+    float: left;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-size: 0.85em;
+    padding-left: 16px;
+  }
+  .mat-table .mat-cell:last-child {
+    border-bottom: -1px;
+  }
+}
+
+a {
+  text-decoration: none;
+}
+
+.assign-btn {
+  // min-width: 6rem;
+  // max-height: 2rem;
+  // border-radius: 2px;
+  border: 1px solid #28b37b;
+  background-color: #28b37b;
+  .btn-text {
+    color: #ffffff;
+  }
+}
+
+.order-btn {
+  // min-width: 6rem;
+  // max-height: 2rem;
+  // border-radius: 2px;
+  background-color: #7b3fa3;
+  border: 1px solid #7b3fa3;
+  .btn-text {
+    color: #ffffff;
+  }
+}
+
+.container {
+  padding-top: 1rem;
+}
+
+.result-container {
+  padding-bottom: 1rem;
+}
+
+.submit-button {
+  width: 8rem;
+  border-radius: 2px;
+  background-color: #28b37b;
+  height: 3rem;
+  margin-bottom: 1rem;
+  .btn-text {
+    color: #ffffff;
+  }
+}
+
+.paraOption {
+  line-height: 1rem;
+  padding-top: 1rem;
+}
+
+.small {
+  font-size: 11px;
+}
+
+.filter-box {
+  padding: 1.5rem 0 0 0;
+}
+
+.customer {
+  width: 20rem;
+}
+
+.admin-sales {
+  overflow: hidden;
+}
+
+.reset-button {
+  width: 8rem;
+  border-radius: 2px;
+  background-color: rgb(255, 132, 132);
+  height: 3rem;
+  margin-bottom: 1rem;
+  .btn-text {
+    color: #ffffff;
+  }
+}
+.excell-button {
+  width: 10rem;
+  height: 2.5rem;
+  border-radius: 2px;
+  background-color: #28b37b;
+  margin-left: 1rem;
+  .btn-text {
+    color: #ffffff;
+  }
+}
+
+// .mat-column-sl {
+//   flex: none;
+//   width: 3%;
+//   justify-content: left !important;
+//   text-align: left !important;
+// }
+
+// .mat-column-updatedAt {
+//   flex: none;
+//   width: 12%;
+//   justify-content: left !important;
+//   text-align: left !important;
+// }
+
+// .mat-column-expectedDeliveryDate {
+//   flex: none;
+//   width: 10%;
+//   justify-content: left !important;
+//   text-align: left !important;
+// }
+
+// .mat-column-shop {
+//   flex: none;
+//   width: 20%;
+//   justify-content: left !important;
+//   text-align: left !important;
+// }
+
+// .mat-column-payment {
+//   flex: none;
+//   width: 10%;
+//   justify-content: center !important;
+//   text-align: center !important;
+// }
+
+// .mat-column-deliveryAddress {
+//   flex: none;
+//   width: 25%;
+//   justify-content: left !important;
+//   text-align: left !important;
+// }
+
+// .mat-column-invoice {
+//   flex: none;
+//   width: 10%;
+//   justify-content: right !important;
+//   text-align: right !important;
+// }
+
+// .mat-column-transporter {
+//   flex: none;
+//   width: 15%;
+//   justify-content: center !important;
+//   text-align: center !important;
+// }
+
+// .mat-column-action {
+//   flex: none;
+//   width: 12%;
+//   justify-content: right !important;
+//   text-align: right !important;
+// }
+
+.mat-button {
+  min-width: 80px;
+}
+
+.button-header {
+  min-width: 80px;
+  text-align: center;
+}

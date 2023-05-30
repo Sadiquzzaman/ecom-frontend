@@ -1,0 +1,70 @@
+<div class="review-section" fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="70" fxLayout="column" fxLayoutGap="2rem">
+    <form
+      fxLayout="column"
+      fxLayoutAlign="space-between start"
+      fxLayoutGap="2rem"
+      [formGroup]="reviewForm"
+      (ngSubmit)="postReview()"
+    >
+      <span class="top-text">
+        Please Take a moment to review your experience with us. Your feedback
+        not only helps us, it helps other potential customers. Thank You!
+      </span>
+
+      <!--  Rating component goes here  -->
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <button
+          mat-icon-button
+          *ngFor="let ratingId of ratingArr; index as i"
+          [id]="'star_' + i"
+          (click)="onClick(i + 1)"
+        >
+          <mat-icon class="icon">
+            {{ showIcon(i) }}
+          </mat-icon>
+        </button>
+      </div>
+
+      <input
+        [fxHide]="true"
+        formControlName="starRate"
+        matInput
+        name="starRate"
+        type="text"
+      />
+      <mat-error *ngIf="rating === 0 && isPostSubmitted">
+        Star count is required and cannot be zero
+      </mat-error>
+      <p class="body-2">
+        Given rating: <span class="body-2">{{ rating }}</span> /
+        <span class="body-2">{{ starCount }}</span>
+      </p>
+
+      <div fxLayout="column" fxLayoutGap="1%">
+        <mat-label
+          >Please by briefing about your experience with us help others. Your
+          feedback will help us to make better service for others. Thank
+          You!</mat-label
+        >
+        <mat-form-field appearance="outline">
+          <textarea
+            class="review-bar"
+            formControlName="review"
+            matInput
+            placeholder="Write here..."
+            name="review"
+            type="text"
+          ></textarea>
+
+          <mat-error>Description is required!</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-stroked-button class="submit-button" type="submit">
+          <span class="btn-text">POST</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

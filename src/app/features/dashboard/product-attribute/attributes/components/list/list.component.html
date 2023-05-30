@@ -1,0 +1,94 @@
+<div class="padding-top-20">
+  <div class="mat-elevation-z8">
+    <!-- <div
+      *ngIf="pagination.isLoading"
+      fxLayout="row"
+      fxLayoutAlign="center center"
+      style="height: 400px"
+    >
+      <mat-spinner color="primary"></mat-spinner>
+    </div> -->
+
+    <ng-container *ngIf="pagination.isLoading">
+      <mat-progress-bar color="primary" mode="indeterminate">
+      </mat-progress-bar>
+      <div class="loading-shade"></div>
+    </ng-container>
+
+    <mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="sl.no">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Sl.</mat-header-cell>
+        <mat-cell *matCellDef="let row; let i = index" data-label="sl.no">
+          {{ paginator.pageIndex * paginator.pageSize + (i + 1) }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Attribute name
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="name">
+          <div>
+            <span>{{ row?.name }}</span>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Attribute description
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="description">
+          <div>
+            <span>{{ row?.description }}</span>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="createdAt">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          created At
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="createdAt">
+          <div>
+            <span>{{ row.createAt | date }}</span>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="updatedAt">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Updated At
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="updatedAt">
+          <div>
+            <span>{{ row.updatedAt | date }}</span>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+        <mat-cell *matCellDef="let row" mat-cell>
+          <button (click)="edit(row.id)" mat-button title="edit" edit>
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button (click)="delete(row.id)" mat-button title="delete">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+
+    <mat-paginator
+      [length]="pagination.totalCount"
+      [pageSizeOptions]="[10, 20, 30, 40, 50, pagination.totalCount]"
+      [pageSize]="pagination.rowsPerPage"
+      showFirstLastButtons
+    >
+    </mat-paginator>
+  </div>
+</div>

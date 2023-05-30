@@ -1,0 +1,132 @@
+.invoice-section {
+  padding: 2rem 0 3rem 0;
+  .heading {
+    font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+    font-size: 2rem;
+  }
+
+  #contentToConvert {
+    padding: 3rem;
+  }
+
+  .print-icon {
+    color: #6d6d6d;
+    font-size: 2rem;
+    cursor: pointer;
+  }
+  .id-header {
+    background-color: #28b37b;
+    height: 2.5rem;
+    .id {
+      margin-left: 1rem !important;
+    }
+    .date {
+      margin-right: 1rem !important;
+    }
+  }
+  .puchase-text {
+    //font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+    color: #5c5c5c;
+    font-size: 1rem;
+  }
+
+  .value-text {
+    //font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+    color: #5c5c5c;
+    font-size: 1rem;
+  }
+
+  .address-section {
+    border: 2px solid #adadad;
+    border-radius: 2px;
+    overflow: hidden;
+
+    .billing {
+      background-color: #adadad;
+      // max-height: 50px;
+      height: 40px;
+      padding: 5px;
+      width: 30%;
+    }
+    .address {
+      background-color: #adadad;
+      // max-height: 100px;
+      height: 70px;
+      padding: 5px;
+    }
+  }
+
+  .table-section {
+    padding: 3rem 0 7rem 0;
+
+    table {
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      border: 1px solid rgb(138, 137, 137);
+      border-collapse: collapse;
+    }
+
+    th {
+      padding: 0.312rem;
+      text-align: center;
+      background-color: #28b37b;
+    }
+
+    td {
+      text-align: center;
+      padding: 0.4rem;
+
+      &:last-child {
+        text-align: right;
+      }
+    }
+
+    .table-cell {
+      border: unset;
+      text-align: right;
+    }
+
+    .table-cell-final {
+      border: unset;
+      text-align: right;
+    }
+  }
+
+  .download-btn {
+    width: 10rem;
+    height: 2.5rem;
+    background-color: #28b37b;
+    .btn-txt {
+      color: #ffffff;
+    }
+  }
+  .mat-icon {
+    color: #fff;
+  }
+  .pdf-generator {
+    padding: 2rem 1rem 0 2rem;
+  }
+}
+
+// .example-container {
+//   position: relative;
+// }
+
+.example-table-container {
+  position: relative;
+  min-height: 200px;
+  // max-height: 400px;
+  overflow: auto;
+}
+
+.customer-table {
+  width: 100%;
+  td,
+  th {
+    text-align: left;
+    vertical-align: top;
+  }
+}

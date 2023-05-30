@@ -1,0 +1,111 @@
+<div class="padding-top-20">
+  <div class="mat-elevation-z8">
+    <!-- <div
+      *ngIf="pagination.isLoading"
+      fxLayout="row"
+      fxLayoutAlign="center center"
+      style="height: 400px"
+    >
+      <mat-spinner color="primary"></mat-spinner>
+    </div> -->
+
+    <ng-container *ngIf="pagination.isLoading">
+      <mat-progress-bar color="primary" mode="indeterminate">
+      </mat-progress-bar>
+      <div class="loading-shade"></div>
+    </ng-container>
+
+    <app-sales-search
+    *ngIf="paginator !== undefined"
+    [entity]="entity"
+    [entityFlex]="32"
+    [secondEntity]="secondEntity"
+    [secondEntityFlex]="32"
+    [thirdEntity]="thirdEntity"
+    [thirdEntityFlex]="32"
+    [dropdown]="dropdownName"
+    [dropdownFlex]="30"
+    [secondDropdown]="secondDropdownName"
+    [secondDropdownFlex]="26"
+    [first_text]="first_text"
+    [first_textFlex]="20"
+    [second_text]="second_text"
+    [second_textFlex]="20"
+    [third_text]="third_text"
+    [third_textFlex]="20"
+    [from_date]="true"
+    [from_dateFlex]="22"
+    [to_date]="true"
+    [to_dateFlex]="22"
+    [gap]="gap"
+    [multipleRow]="multipleRow"
+    [limit]="paginator.pageSize"
+    (submitSearch)="submittedSearch($event)"
+  ></app-sales-search>
+
+    <mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="sl">
+        <mat-header-cell *matHeaderCellDef> Sl. </mat-header-cell>
+        <mat-cell *matCellDef="let row; let i = index" data-label="sl">
+          {{ paginator.pageIndex * paginator.pageSize + (i + 1) }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="createAt">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Date</mat-header-cell
+        >
+        <mat-cell *matCellDef="let row" data-label="createAt">
+          <span> {{ row.createAt | date: "MMM d, y, h:mm a" }}</span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="subject">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Subject</mat-header-cell
+        >
+        <mat-cell *matCellDef="let row" data-label="subject">
+          {{ row.subject }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="message">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Message</mat-header-cell
+        >
+        <mat-cell *matCellDef="let row" data-label="message">
+          {{ row.message }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Email</mat-header-cell
+        >
+        <mat-cell *matCellDef="let row" data-label="email" class="word-beakall">
+          {{ row.email }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="phone">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Phone</mat-header-cell
+        >
+        <mat-cell *matCellDef="let row" data-label="phone">
+          {{ row.phone }}
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+
+    <mat-paginator
+      [length]="pagination.totalCount"
+      [pageSizeOptions]="[10, 20, 30, 40, 50, pagination.totalCount]"
+      [pageSize]="pagination.rowsPerPage"
+      showFirstLastButtons
+    >
+    </mat-paginator>
+  </div>
+</div>

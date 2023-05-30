@@ -1,0 +1,165 @@
+<div class="padding-top-20">
+  <div class="mat-elevation-z8">
+    <ng-container *ngIf="pagination.isLoading">
+      <mat-progress-bar color="primary" mode="indeterminate">
+      </mat-progress-bar>
+      <div class="loading-shade"></div>
+    </ng-container>
+
+    <ng-container *ngIf="token.isAdmin(); else elseTemplate">
+      <app-sales-search
+        *ngIf="paginator !== undefined"
+        [entity]="entity"
+        [from_date]="true"
+        [to_date]="true"
+        [limit]="paginator.pageSize"
+        (submitSearch)="submittedSearch($event)"
+      ></app-sales-search>
+    </ng-container>
+    <ng-template #elseTemplate>
+      <app-sales-search
+        *ngIf="paginator !== undefined"
+        [from_date]="true"
+        [to_date]="true"
+        [limit]="paginator.pageSize"
+        (submitSearch)="submittedSearch($event)"
+      ></app-sales-search>
+    </ng-template>
+
+    <mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="sl">
+        <mat-header-cell *matHeaderCellDef>Sl.</mat-header-cell>
+        <mat-cell *matCellDef="let row; let i = index" data-label="sl">
+          {{ paginator.pageIndex * paginator.pageSize + (i + 1) }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="createAt">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Request Date
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="createAt">
+          <div>
+            <span>{{ row?.createAt | date: "MMM d, y, h:mm a" }}</span>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="totalRefundableAmount">
+        <mat-header-cell *matHeaderCellDef> Refund Amount </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="totalRefundableAmount">
+          <div>
+            <span>{{ row?.totalRefundableAmount }}</span>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="description">
+          <div>
+            <span>{{ row?.description }}</span>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="customer">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Customer
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="customer">
+          <div>
+            <span>{{
+              row?.customer?.user?.firstName +
+                " " +
+                row?.customer?.user?.lastName
+            }}</span>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+        <mat-cell *matCellDef="let row" mat-cell>
+          <a
+            [routerLink]="[
+              '/dashboard/transporter-refund/refund-request/details/' + row?.id
+            ]"
+            [state]="{ refundStatus: '0' }"
+          >
+            <button mat-raised-button class="button">
+              <span class="btn-text">Review</span>
+            </button>
+          </a>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="details">
+        <mat-header-cell *matHeaderCellDef>Details</mat-header-cell>
+        <mat-cell *matCellDef="let row" mat-cell>
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="goToReturnRequestDetails(row.id, row?.assignStatus)"
+          >
+            <span class="text-white">Details</span>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="assignStatus">
+        <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="assignStatus">
+          <mat-chip-list>
+            <mat-chip
+              class="history-content-button w-100"
+              [ngClass]="{
+                requested: row?.assignStatus == 0,
+                reviewed: row?.assignStatus == 2,
+                assigned: row?.assignStatus == 1,
+                approved: row?.assignStatus == 3,
+                closed: row?.assignStatus == 4,
+                rejected: row?.assignStatus == 5
+              }"
+            >
+              <span class="btn-text" *ngIf="row?.assignStatus == 0"
+                >Requested</span
+              >
+
+              <span class="btn-text" *ngIf="row?.assignStatus == 2"
+                >Reviewed</span
+              >
+
+              <span class="btn-text" *ngIf="row?.assignStatus == 1"
+                >Processing</span
+              >
+
+              <span class="btn-text" *ngIf="row?.assignStatus == 3"
+                >Approved</span
+              >
+
+              <span class="btn-text" *ngIf="row?.assignStatus == 4"
+                >Closed</span
+              >
+
+              <span class="btn-text" *ngIf="row?.assignStatus == 5"
+                >Rejected</span
+              >
+            </mat-chip>
+          </mat-chip-list>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+
+    <mat-paginator
+      [length]="pagination.totalCount"
+      [pageSizeOptions]="[10, 20, 30, 40, 50, pagination.totalCount]"
+      [pageSize]="pagination.rowsPerPage"
+      showFirstLastButtons
+    >
+    </mat-paginator>
+  </div>
+</div>

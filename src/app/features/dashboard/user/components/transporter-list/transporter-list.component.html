@@ -1,0 +1,124 @@
+<div class="padding-top-20">
+  <div class="mat-elevation-z8">
+    <ng-container *ngIf="pagination.isLoading">
+      <mat-progress-bar color="primary" mode="indeterminate">
+      </mat-progress-bar>
+      <div class="loading-shade"></div>
+    </ng-container>
+
+    <app-sales-search
+      *ngIf="paginator !== undefined"
+      [entity]="entity"
+      [entityFlex]="32"
+      [secondEntity]="secondEntity"
+      [secondEntityFlex]="32"
+      [thirdEntity]="thirdEntity"
+      [thirdEntityFlex]="32"
+      [dropdown]="dropdownName"
+      [dropdownFlex]="25"
+      [secondDropdown]="secondDropdownName"
+      [secondDropdownFlex]="25"
+      [first_text]="first_text"
+      [first_textFlex]="28"
+      [second_text]="second_text"
+      [second_textFlex]="25"
+      [third_text]="third_text"
+      [third_textFlex]="20"
+      [from_date]="false"
+      [from_dateFlex]="18"
+      [to_date]="false"
+      [to_dateFlex]="18"
+      [gap]="gap"
+      [multipleRow]="multipleRow"
+      [limit]="paginator.pageSize"
+      (submitSearch)="submittedSearch($event)"
+    ></app-sales-search>
+
+    <mat-table [dataSource]="dataSource" matSort>
+      <!--Serial Column-->
+      <ng-container matColumnDef="serial">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Sl.</mat-header-cell>
+        <mat-cell *matCellDef="let row; let i = index" data-label="serial">
+          {{ paginator.pageIndex * paginator.pageSize + (i + 1) }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Firstname Column -->
+      <ng-container matColumnDef="firstName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          FirstName
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="firstName">
+          {{ row.firstName }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Lastname Column -->
+      <ng-container matColumnDef="lastName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          LastName
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="lastName">
+          {{ row.lastName }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Email Column -->
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Email
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="email" class="word-beakall">
+          {{ row.email }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Phone Column -->
+      <ng-container matColumnDef="phone">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Phone
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="phone">
+          {{ row.phone }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Gender Column -->
+      <ng-container matColumnDef="gender">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Gender
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="gender">
+          <ng-container *ngIf="row.gender === 1"> Male</ng-container>
+          <ng-container *ngIf="row.gender === 2"> Female</ng-container>
+          <ng-container *ngIf="row.gender === 3"> Unknown</ng-container>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Action Column -->
+      <!-- <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+        <mat-cell *matCellDef="let row" mat-cell>
+          <button
+            [routerLink]="['/dashboard/user/' + row.id + '/add-role/']"
+            mat-button
+            title="add role"
+          >
+            <mat-icon>supervised_user_circle</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container> -->
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+
+    <mat-paginator
+      [length]="pagination.totalCount"
+      [pageSizeOptions]="[10, 20, 30, 40, 50, pagination.totalCount]"
+      [pageSize]="pagination.rowsPerPage"
+      showFirstLastButtons
+    >
+    </mat-paginator>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+.business-boost-section {
+  margin-top: 5rem;
+  padding: 5rem 0 5rem 0 !important;
+  background-color: rgb(71, 71, 71) !important;
+  margin-bottom: 6rem;
+
+  .heading-section {
+    color: white;
+  }
+
+  .order-description {
+    color: white;
+  }
+
+  .button-paragraph-section {
+    color: white;
+    font-size: 0.7rem;
+  }
+
+  .button-section {
+    background-color: rgb(71, 71, 71);
+    border: 1px solid rgb(209, 209, 209);
+    width: 8rem;
+    height: 2.2rem;
+
+    .button-text {
+      color: rgb(209, 209, 209);
+      font-size: 0.7rem;
+      text-align: center;
+    }
+  }
+}

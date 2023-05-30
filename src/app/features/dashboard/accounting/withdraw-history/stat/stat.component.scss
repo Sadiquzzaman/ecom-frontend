@@ -1,0 +1,49 @@
+:host ::ng-deep .mat-card-header-text {
+  width: 100%;
+  text-align: center;
+  margin: 0 0;
+}
+
+.icon-lg {
+  font-size: 40px;
+}
+
+.mat-card {
+  color: #fff;
+  height: 80px;
+  .mat-card-header {
+    width: 100%;
+  }
+  .mat-card-title {
+    font-size: 20px !important;
+    color: aliceblue;
+    // padding-top: 10px;
+    padding-bottom: 10px;
+    line-height: 25px;
+  }
+  .mat-card-subtitle {
+    font-size: 30px !important;
+    color: #fff;
+    white-space: nowrap;
+    padding-bottom: 15px;
+    // bottom: 2px;
+    // position: absolute;
+    // left: 0;
+    // right: 0;
+  }
+  &.danger {
+    background: linear-gradient(60deg, #e05785, #e05785);
+  }
+  &.warn {
+    background: linear-gradient(60deg, #ebae52, #ebae52);
+  }
+  &.success {
+    background: linear-gradient(60deg, #73bb76, #73bb76);
+  }
+  &.info {
+    background: linear-gradient(60deg, #60d0df, #60d0df);
+  }
+  &.indigo {
+    background: linear-gradient(60deg, #8d6fdf, #8d6fdf);
+  }
+}

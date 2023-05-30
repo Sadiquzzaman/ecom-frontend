@@ -1,0 +1,99 @@
+<div class="contactUs-section" fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="70" fxLayout="column" fxLayoutGap="2rem">
+    <span class="header">Contact Us</span>
+    <form [formGroup]="contactUsForm">
+      <div fxLayout="column" fxLayoutGap="1rem">
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Email</mat-label>
+          <input
+            formControlName="email"
+            matInput
+            name="email"
+            placeholder="Input email here"
+            required
+            type="text"
+          />
+          <mat-error>Valid email required!</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Phone</mat-label>
+          <input
+            formControlName="phone"
+            matInput
+            name="phone"
+            pattern="01[0-9]{9}"
+            placeholder="Write your phone number here"
+            required
+          />
+          <mat-error>Please write Phone number</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Subject</mat-label>
+          <input
+            formControlName="subject"
+            matInput
+            name="subject"
+            placeholder="Write subject"
+            required
+            type="text"
+          />
+          <mat-error>Subject is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Details</mat-label>
+          <textarea
+            formControlName="message"
+            matInput
+            name="message"
+            placeholder="Write your message here"
+            required
+            type="text"
+          ></textarea>
+          <mat-error>Please write message in details</mat-error>
+        </mat-form-field>
+
+        <!-- <mat-radio-group formControlName="isSms">
+          <label> Contact By Sms? </label><br />
+          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+            <mat-radio-button [value]="1">Yes</mat-radio-button>
+            <mat-radio-button [value]="0">No</mat-radio-button>
+          </div>
+        </mat-radio-group>
+
+        <mat-radio-group formControlName="isEmail">
+          <label> Contact By Mail? </label><br />
+          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+            <mat-radio-button [value]="1">Yes</mat-radio-button>
+            <mat-radio-button [value]="0">No</mat-radio-button>
+          </div>
+        </mat-radio-group> -->
+
+        <!-- <div>
+          <ngx-recaptcha2
+            [siteKey]="'ebonear.com'"
+            [useGlobalDomain]="true"
+            formControlName="captcha"
+          >
+          </ngx-recaptcha2>
+        </div> -->
+      </div>
+    </form>
+
+    <div
+      class="ticket-btns"
+      fxLayout="row"
+      fxLayoutAlign="end center"
+      fxLayoutGap="2rem"
+    >
+      <button class="cancel-button" mat-button (click)="clearForm()">
+        <span class="button-text">CANCEL</span>
+      </button>
+      <button class="submit-button" mat-button (click)="submit()">
+        <span class="button-text">SUBMIT</span>
+      </button>
+    </div>
+  </div>
+</div>

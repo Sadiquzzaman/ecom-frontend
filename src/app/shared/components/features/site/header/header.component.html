@@ -1,0 +1,52 @@
+<div class="header-section" fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="70" fxLayout="column" fxLayoutGap=".5rem">
+    <div
+      fxLayout="column"
+      fxLayoutAlign="space-between center"
+      fxLayout.gt-md="row"
+      fxLayoutGap="1rem"
+    >
+      <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="3rem">
+        <a routerLink="/">
+          <img
+            src="../../../../../../assets/icons/png/Ebonear_logo_green.png"
+          />
+        </a>
+
+        <!-- <span class="header-text-section" fxHide fxShow.gt-md>
+          Hotline: {{ companyInfo.phone }}
+        </span> -->
+        <span class="header-text-section" fxHide fxShow.gt-md>
+          Mail: {{ companyInfo.email }}
+        </span>
+      </div>
+
+      <div
+        fxLayout="row"
+        fxLayoutAlign="center center"
+        fxLayoutGap="0.5rem"
+        [fxHide]="token.isLoggedIn()"
+      >
+        <button
+          [routerLink]="['/auth/login']"
+          [state]="{ redirect: router.url }"
+          mat-button
+        >
+          <span>Login</span>
+        </button>
+        <button
+          [routerLink]="['/auth/registration', { type: 'merchant' }]"
+          mat-button
+        >
+          <span>Seller Registration</span>
+        </button>
+      </div>
+
+      <!-- <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="0.5rem" [fxHide]="!token.isLoggedIn()">
+        <button (click)="logOut()" mat-button>
+          <span>Logout</span>
+        </button>
+      </div> -->
+    </div>
+  </div>
+</div>

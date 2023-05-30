@@ -1,0 +1,215 @@
+<div class="padding-top-20">
+  <div class="mat-elevation-z8">
+    <!-- <div
+      *ngIf="pagination.isLoading"
+      fxLayout="row"
+      fxLayoutAlign="center center"
+      style="height: 400px"
+    >
+      <mat-spinner color="primary"></mat-spinner>
+    </div> -->
+
+    <ng-container *ngIf="pagination.isLoading">
+      <mat-progress-bar color="primary" mode="indeterminate">
+      </mat-progress-bar>
+      <div class="loading-shade"></div>
+    </ng-container>
+
+    <app-sales-search
+      *ngIf="paginator !== undefined"
+      [entity]="entity"
+      [entityFlex]="token.isAdmin() ? 40 : 36"
+      [secondEntity]="secondEntity"
+      [secondEntityFlex]="token.isAdmin() ? 40 : 36"
+      [first_text]="textBoxName"
+      [first_textFlex]="token.isAdmin() ? 40 : 36"
+      [dropdown]="dropdownName"
+      [dropdownFlex]="token.isAdmin() ? 40 : 27"
+      [multipleRow]="token.isAdmin()"
+      [limit]="paginator.pageSize"
+      (submitSearch)="submittedSearch($event)"
+    ></app-sales-search>
+
+    <mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="seriall no.">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Sl.</mat-header-cell>
+        <mat-cell *matCellDef="let row; let i = index" data-label="seriall no.">
+          {{ pageSerial + i }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="image">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Image
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="image">
+          <div class="">
+            <app-image
+              *ngIf="row.image"
+              [imageName]="row.image.cover"
+              [width]="'80px'"
+              [height]="'50px'"
+              [type]="coverImageType"
+            ></app-image>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Name</mat-header-cell
+        >
+        <mat-cell
+          *matCellDef="let row"
+          data-label="name"
+          fxLayout="column"
+          fxLayoutGap="10px"
+        >
+          <span>{{ row.name }}</span>
+
+          <app-image
+            *ngIf="row.image"
+            [imageName]="row.image.cover"
+            [width]="'80px'"
+            [height]="'50px'"
+            [type]="coverImageType"
+          ></app-image>
+
+          <!-- <div fxLayout="column" fxLayoutGap="10px">
+            <div>{{ row.name }}</div>
+            <div fxLayout="column" fxLayoutAlign="center start">
+              <div *ngFor="let productAttribute of row.productAttributes">
+                <app-image
+                  *ngIf="productAttribute.image"
+                  [imageName]="productAttribute.image"
+                  [width]="'34px'"
+                  [height]="'26px'"
+                  [type]="coverImageType"
+                ></app-image>
+              </div>
+            </div>
+          </div> -->
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="category">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Category</mat-header-cell
+        >
+        <mat-cell *matCellDef="let row" data-label="category">
+          {{ row?.category?.name }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="shop">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Shop</mat-header-cell
+        >
+        <mat-cell *matCellDef="let row" data-label="shop">
+          {{ row?.shop?.name }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="merchant">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Merchant</mat-header-cell
+        >
+        <mat-cell *matCellDef="let row" data-label="merchant">
+          {{ row?.merchant?.user?.firstName }} &nbsp;
+          {{ row?.merchant?.user?.lastName }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="reference">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Reference
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="reference">
+          <div fxLayout="column" fxLayoutAlign="start start">
+            <div>{{ row.reference }}</div>
+            <div fxLayout="column" fxLayoutAlign="start start">
+              <div *ngFor="let productAttribute of row.productAttributes">
+                {{ productAttribute.reference }}
+              </div>
+            </div>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="price">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Price
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="price">
+          <div fxLayout="column" fxLayoutAlign="start start">
+            <div>{{ row.price }}</div>
+            <div fxLayout="column" fxLayoutAlign="start start">
+              <div *ngFor="let productAttribute of row.productAttributes">
+                {{ productAttribute.price }}
+              </div>
+            </div>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="quantity">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Quantity
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="quantity">
+          <div fxLayout="column" fxLayoutAlign="start start">
+            <div>{{ row.quantity }}</div>
+            <div fxLayout="column" fxLayoutAlign="start start">
+              <div *ngFor="let productAttribute of row.productAttributes">
+                {{ productAttribute.quantity }}
+              </div>
+            </div>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="reserved">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Reserved</mat-header-cell
+        >
+        <mat-cell *matCellDef="let row" data-label="reserved">
+          <div fxLayout="column" fxLayoutAlign="start start">
+            <div>{{ row.reserved }}</div>
+            <div fxLayout="column" fxLayoutAlign="start start">
+              <div *ngFor="let productAttribute of row.productAttributes">
+                {{ productAttribute.reserved }}
+              </div>
+            </div>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="sold">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Sold</mat-header-cell
+        >
+        <mat-cell *matCellDef="let row" data-label="sold">
+          <div fxLayout="column" fxLayoutAlign="start start">
+            <div>{{ row.sold }}</div>
+            <div fxLayout="column" fxLayoutAlign="start start">
+              <div *ngFor="let productAttribute of row.productAttributes">
+                {{ productAttribute.sold }}
+              </div>
+            </div>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+
+    <mat-paginator
+      [length]="pagination.totalCount"
+      [pageSizeOptions]="[10, 20, 30, 40, 50, pagination.totalCount]"
+      [pageSize]="pagination.rowsPerPage"
+      showFirstLastButtons
+    >
+    </mat-paginator>
+  </div>
+</div>

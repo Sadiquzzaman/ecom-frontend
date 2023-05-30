@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" viewBox="0 0 48 48">
+  <defs>
+    <clipPath id="clip-grid_view">
+      <rect width="48" height="48"/>
+    </clipPath>
+  </defs>
+  <g id="grid_view" clip-path="url(#clip-grid_view)">
+    <path id="Icon_open-grid-two-up" data-name="Icon open-grid-two-up" d="M0,0V18H18V0ZM30,0V18H48V0ZM0,30V48H18V30Zm30,0V48H48V30Z" transform="translate(0 0)" fill="#787878"/>
+  </g>
+</svg>

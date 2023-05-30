@@ -1,0 +1,43 @@
+.ticket-section {
+  .header {
+    padding: 3rem 0 2rem 0;
+    font-size: 5rem;
+    font-weight: bold;
+    color: #a3a3a3;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .ticket-btns {
+    margin-bottom: 3rem;
+
+    .submit-button {
+      background-color: #06b37b;
+      min-width: 8rem;
+    }
+
+    .cancel-button {
+      background-color: #ff0000;
+      min-width: 8rem;
+    }
+
+    .button-text {
+      color: #ffffff;
+    }
+  }
+
+  .form-btns {
+    .cancel-button {
+      background-color: #ff8a8a;
+      min-width: 8rem;
+    }
+
+    .button-text {
+      color: #ffffff;
+    }
+  }
+}
+.add-button {
+  background-color: #06b37b;
+  min-width: 8rem;
+  margin-top: -2rem;
+}

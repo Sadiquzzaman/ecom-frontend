@@ -1,0 +1,88 @@
+:host {
+  height: 100%;
+
+  mat-sidenav-container {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+    width: 100%;
+
+    mat-sidenav {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      min-width: 300px;
+      max-width: 300px;
+      overflow-y: hidden;
+      background: white;
+      padding: 0 6px 0 18px;
+    }
+
+    mat-sidenav-content {
+      display: flex;
+      flex-direction: column;
+      align-content: flex-start;
+      justify-content: flex-start;
+      height: 100%;
+      overflow-y: hidden;
+      background: white;
+
+      // taken from https://github.com/angular/components/issues/8680
+      .table-container {
+        width: 100vw; // <!-- THIS WORKS for horizontal scrolling (all columns visibile)
+        // width: 100%; // <!-- THIS DOESNT for horizontal scrolling (no scrollbars)
+        // width: 2800px; // <!-- THIS ALSO DOESNT for horizontal scrolling (no scrollbars)
+      }
+
+      .mat-table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        &.resizing {
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+          cursor: col-resize;
+        }
+        .mat-cell {
+          span {
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+        .mat-header-cell {
+          position: relative;
+          &:not(:last-child) {
+            .resize-holder {
+              cursor: col-resize;
+              width: 20px;
+              height: 100%;
+              position: absolute;
+              right: -10px;
+              top: 0;
+              z-index: 1;
+            }
+          }
+        }
+        .mat-cell,
+        .mat-header-cell {
+          border-right: 1px solid rgba(0, 0, 0, 0.12);
+          &:not(:nth-child(1)) {
+            padding: 0 10px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// table column width helper for mat-tables
+@for $index from 0 through 200 {
+  $size: $index * 2;
+
+  .table-column-#{$size} {
+    // flex: 0 1 #{$size}#{"px"};
+    min-width: #{$size}#{"px"};
+  }
+}

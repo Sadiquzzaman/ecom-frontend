@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" viewBox="0 0 48 48">
+  <defs>
+    <clipPath id="clip-phone">
+      <rect width="48" height="48"/>
+    </clipPath>
+  </defs>
+  <g id="phone" clip-path="url(#clip-phone)">
+    <path id="Icon_awesome-phone-alt" data-name="Icon awesome-phone-alt" d="M46.63,33.919l-10.5-4.5a2.25,2.25,0,0,0-2.625.647l-4.65,5.681A34.749,34.749,0,0,1,12.244,19.135l5.681-4.65a2.244,2.244,0,0,0,.647-2.625l-4.5-10.5a2.265,2.265,0,0,0-2.578-1.3l-9.75,2.25A2.25,2.25,0,0,0,0,4.5,43.5,43.5,0,0,0,43.5,48a2.25,2.25,0,0,0,2.194-1.744l2.25-9.75A2.277,2.277,0,0,0,46.63,33.919Z" transform="translate(0 0)" fill="#c9c9c9"/>
+  </g>
+</svg>

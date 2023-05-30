@@ -1,0 +1,22 @@
+<div class="wishlist-section" fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="100" fxFlex.gt-xs="70">
+    <div
+      class="following-shops-section"
+      fxLayout="row wrap"
+      fxLayoutAlign="space-between center"
+    >
+      <span class="header">PRODUCTS</span>
+    </div>
+  </div>
+</div>
+
+<app-product-content
+  *ngIf="products?.length; else noProduct"
+  [products]="products"
+></app-product-content>
+
+<ng-template #noProduct>
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <h4 class="text-bold">NO PRODUCT FOUND</h4>
+  </div>
+</ng-template>

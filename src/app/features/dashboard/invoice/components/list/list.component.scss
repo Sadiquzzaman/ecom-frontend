@@ -1,0 +1,106 @@
+@media screen and (max-width: 960px) {
+
+  .mat-table caption {
+    font-size: 1em;
+  }
+
+  .mat-table .mat-header-cell {
+    border: 10px solid;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    position: absolute;
+    width: 2rem;
+  }
+
+  .mat-table .mat-row {
+    border-bottom: 5px solid #ddd;
+    display: block;
+  }
+  .mat-table .mat-cell:first-child {
+    padding-left: 0;
+  }
+
+  .mat-table .mat-cell {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: 1em;
+    text-align: right;
+    font-weight: bold;
+    height: 30px;
+    line-height: 46px;
+    padding-right: 16px;
+  }
+  .mat-table .mat-cell:before {
+    content: attr(data-label);
+    float: left;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-size: 0.85em;
+    padding-left: 16px;
+  }
+  .mat-table .mat-cell:last-child {
+    border-bottom: -1px;
+  }
+}
+.text {
+  color: white;
+}
+
+:host {
+    height: 100%;
+
+    mat-sidenav-container {
+        display: flex;
+        flex-flow: column;
+        height: 100%;
+        width: 100%;
+
+        mat-sidenav {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            min-width: 300px;
+            max-width: 300px;
+            overflow-y: hidden;
+            background: white;
+            padding: 0 6px 0 18px;
+        }
+
+        mat-sidenav-content {
+            display: flex;
+            flex-direction: column;
+            align-content: flex-start;
+            justify-content: flex-start;
+            height: 100%;
+            overflow-y: hidden;
+            background: white;
+
+            // taken from https://github.com/angular/components/issues/8680
+            .table-container {
+                width: 100vw; // <!-- THIS WORKS for horizontal scrolling (all columns visibile)
+                // width: 100%; // <!-- THIS DOESNT for horizontal scrolling (no scrollbars)
+                // width: 2800px; // <!-- THIS ALSO DOESNT for horizontal scrolling (no scrollbars)
+            }
+
+            .mat-table {
+                display: block;
+                width: 100%;
+                overflow-x: auto;
+            }
+
+        }
+
+    }
+}
+
+// table column width helper for mat-tables
+@for $index from 0 through 200 {
+    $size: $index * 2;
+
+    .table-column-#{$size} {
+        // flex: 0 1 #{$size}#{"px"};
+        min-width: #{$size}#{"px"};
+    }
+}

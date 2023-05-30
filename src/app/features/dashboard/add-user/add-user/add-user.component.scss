@@ -1,0 +1,62 @@
+.background-card {
+  border-radius: 0 !important;
+  background-color: rgb(255, 255, 255);
+  background-repeat: no-repeat;
+
+  .mini-card {
+    margin: -3rem -1.8rem;
+    background-color: rgb(244, 244, 244);
+    border-radius: 1px !important;
+    transform: scale(0.8);
+
+    .sign-up-top {
+      font-weight: bold;
+      color: #28b37b;
+      font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+      font-size: 1rem;
+    }
+
+    .divider-line {
+      height: 40rem;
+      background-color: rgb(145, 145, 145);
+    }
+
+    .address-bar {
+      height: 5.5rem;
+    }
+
+    .signup-button {
+      height: 2.5rem;
+      background-color: rgb(63, 63, 63);
+      margin-top: 1rem;
+      width: 27rem;
+
+      .signup-text {
+        color: white;
+        font-size: 1.1rem;
+        font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+      }
+    }
+
+    .login-text {
+      color: #28b37b;
+      text-decoration: none;
+      font-size: large;
+    }
+
+    .facebook-icon {
+      color: rgba(67, 167, 255, 255);
+      font-size: 2rem;
+    }
+
+    .gmail-icon {
+      color: rgba(230, 79, 79, 255);
+      font-size: 2rem;
+    }
+
+    .agm-map {
+      height: 300px;
+      padding-bottom: 1rem;
+    }
+  }
+}

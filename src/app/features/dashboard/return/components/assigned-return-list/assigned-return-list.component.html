@@ -1,0 +1,212 @@
+<div class="padding-top-20">
+  <div class="mat-elevation-z8">
+    <ng-container *ngIf="pagination.isLoading">
+      <mat-progress-bar color="primary" mode="indeterminate">
+      </mat-progress-bar>
+      <div class="loading-shade"></div>
+    </ng-container>
+
+    <app-sales-search
+      *ngIf="paginator !== undefined"
+      [gap]="gap"
+      [entity]="entity"
+      [entityFlex]="entityFlex"
+      [secondEntity]="secondEntity"
+      [secondEntityFlex]="secondEntityFlex"
+      [dropdown]="dropdownName"
+      [dropdownFlex]="dropdownFlex"
+      [secondDropdown]="secondDropdownName"
+      [secondDropdownFlex]="secondDropdownFlex"
+      [from_date]="true"
+      [to_date]="true"
+      [searchFlex]="18"
+      [multipleRow]="multipleRow"
+      [limit]="paginator.pageSize"
+      (submitSearch)="submittedSearch($event)"
+    ></app-sales-search>
+
+    <mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="sl">
+        <mat-header-cell *matHeaderCellDef> Sl. </mat-header-cell>
+        <mat-cell *matCellDef="let row; let i = index" data-label="Serial No">
+          {{ paginator.pageIndex * paginator.pageSize + (i + 1) }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="assignedAt">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Pick up Date
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="date">
+          {{
+            row?.refundShipmentAssignment?.expectedPickupDate
+              | date: "MMM d, y - h:mm a"
+          }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="pickUpDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Pick up Date
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="date">
+          {{ row?.expectedPickupDate | date: "MMM d, y - h:mm a" }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="totalRefundableAmount">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Refund Amount
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="totalRefundableAmount">
+          <span>{{ row?.refundRequest?.totalRefundableAmount }}</span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="shippingType">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Ship Type
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="shippingType">
+          <div *ngIf="row?.shippingType == 1">Collect From Customer</div>
+          <div *ngIf="row?.shippingType == 2">Return To Customer</div>
+          <div *ngIf="row?.shippingType == 3">Return To Shop</div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="transporter">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Transporter
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="transporter">
+          <ng-container *ngIf="row?.refundApproval; else elseTemplate">
+            <div fxLayout="column" fxLayoutAlign="space-between start">
+              <div>
+                {{ row?.transporter?.user?.firstName }}
+                {{ row?.transporter?.user?.lastName }}
+              </div>
+              <div>
+                {{ row?.transporter?.user?.phone }}
+              </div>
+            </div>
+          </ng-container>
+          <ng-template #elseTemplate>
+            <div fxLayout="column" fxLayoutAlign="space-between start">
+              <div>
+                {{
+                  row?.refundShipmentAssignment?.transporter?.user?.firstName
+                }}
+                {{ row?.refundShipmentAssignment?.transporter?.user?.lastName }}
+              </div>
+              <div>
+                {{ row?.refundShipmentAssignment?.transporter?.user?.phone }}
+              </div>
+            </div>
+          </ng-template>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="customer">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Customer
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="customer">
+          {{
+            row?.order?.shippingAddress?.firstname +
+              " " +
+              row?.order?.shippingAddress?.lastname
+          }}
+          <br />
+
+          {{ row?.order?.shippingAddress?.phone }} <br />
+          {{ row?.order?.shippingAddress?.address }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="shop">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Shop
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="shop">
+          <ng-container *ngIf="row?.refundApproval; else elseTemplate">
+            <ng-container *ngIf="row?.refundApproval?.shop; else elseTemplate">
+              {{ row?.refundApproval?.shop?.name }}
+              <br />
+
+              {{ row?.refundApproval?.shop?.location }}
+            </ng-container>
+            <ng-template #elseTemplate>
+              <div>N/A</div>
+            </ng-template>
+          </ng-container>
+          <ng-template #elseTemplate>
+            <ng-container *ngIf="row?.shop; else elseTemplate">
+              {{ row?.shop?.name }}
+              <br />
+
+              {{ row?.shop?.location }}
+            </ng-container>
+            <ng-template #elseTemplate> <div>N/A</div></ng-template>
+          </ng-template>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="deliveryAddress">
+        <mat-header-cell *matHeaderCellDef> Pick Up Address </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="deliveryAddress">
+          {{ row?.order?.shippingAddress?.address }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="picked">
+        <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="picked">
+          <a>
+            <button
+              mat-button
+              class="assign-btn"
+              (click)="changeStatus(row.id, 2)"
+            >
+              <span class="btn-text">Pick</span>
+            </button>
+          </a>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="details">
+        <mat-header-cell *matHeaderCellDef>Details </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="details">
+          <ng-container *ngIf="row?.refundApproval; else elseTemplate">
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="goToReturnRequestDetails(row?.refundApproval?.id)"
+            >
+              <span class="text-white">Details</span>
+            </button>
+          </ng-container>
+          <ng-template #elseTemplate>
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="goToReturnRequestDetails(row?.id)"
+            >
+              <span class="text-white">Details</span>
+            </button>
+          </ng-template>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+
+    <mat-paginator
+      [length]="pagination.totalCount"
+      [pageSizeOptions]="[10, 20, 30, 40, 50]"
+      [pageSize]="pagination.rowsPerPage"
+      showFirstLastButtons
+    >
+    </mat-paginator>
+  </div>
+</div>

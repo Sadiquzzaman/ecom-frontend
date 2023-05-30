@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" viewBox="0 0 48 48">
+  <defs>
+    <clipPath id="clip-chat_user_headphone">
+      <rect width="48" height="48"/>
+    </clipPath>
+  </defs>
+  <g id="chat_user_headphone" clip-path="url(#clip-chat_user_headphone)">
+    <g id="Group_1671" data-name="Group 1671" transform="translate(-1849 -783)">
+      <g id="Ellipse_13" data-name="Ellipse 13" transform="translate(1849 783)" fill="#06b37b" stroke="#059845" stroke-width="1">
+        <circle cx="24" cy="24" r="24" stroke="none"/>
+        <circle cx="24" cy="24" r="23.5" fill="none"/>
+      </g>
+      <path id="Icon_awesome-headphones-alt" data-name="Icon awesome-headphones-alt" d="M7.882,14.862H7.094A3.155,3.155,0,0,0,3.941,18.02v3.141A3.156,3.156,0,0,0,7.094,24.32h.788a1.578,1.578,0,0,0,1.576-1.579v-6.3A1.578,1.578,0,0,0,7.882,14.862Zm10.247,0h-.788a1.578,1.578,0,0,0-1.576,1.579v6.3a1.578,1.578,0,0,0,1.576,1.579h.788a3.156,3.156,0,0,0,3.153-3.159V18.02a3.156,3.156,0,0,0-3.153-3.159ZM12.612,2.25A12.852,12.852,0,0,0,0,14.862v5.518a.788.788,0,0,0,.788.788h.788a.788.788,0,0,0,.788-.788V14.862a10.247,10.247,0,0,1,20.494,0v5.518a.788.788,0,0,0,.788.788h.788a.788.788,0,0,0,.788-.788V14.862A12.852,12.852,0,0,0,12.612,2.25Z" transform="translate(1860.388 793.48)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

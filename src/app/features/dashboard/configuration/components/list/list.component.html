@@ -1,0 +1,86 @@
+<div class="padding-top-20">
+  <div class="mat-elevation-z8">
+    <!-- <div
+      *ngIf="pagination.isLoading"
+      fxLayout="row"
+      fxLayoutAlign="center center"
+      style="height: 400px"
+    >
+      <mat-spinner color="primary"></mat-spinner>
+    </div> -->
+
+    <ng-container *ngIf="pagination.isLoading">
+      <mat-progress-bar color="primary" mode="indeterminate">
+      </mat-progress-bar>
+      <div class="loading-shade"></div>
+    </ng-container>
+
+    <mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="Sl.no">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Sl.</mat-header-cell>
+        <mat-cell *matCellDef="let row; let i = index" data-label="Sl.no">
+          {{ paginator.pageIndex * paginator.pageSize + (i + 1) }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>
+          Configuration name
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="name">
+          <div>
+            <span>{{ row.name }}</span>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="description">
+          <div [ngClass]="{ 'show-less': showShortDesciption }">
+            {{ row.value }}
+          </div>
+          <button mat-button type="button" (click)="alterDescriptionText()">
+            {{ showShortDesciption ? "..." : "..." }}
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="actions">
+          <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <button
+              [routerLink]="['/dashboard/configuration/edit/' + row.id]"
+              color="primary"
+              mat-raised-button
+              title="Update"
+            >
+              <span class="text"> Update </span>
+            </button>
+
+            <!-- <button
+              color="warn"
+              mat-raised-button
+              title="Remove"
+              (click)="delete(row.id)"
+            >
+              <span class="text"> Delete </span>
+            </button> -->
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+
+    <mat-paginator
+      [length]="pagination.totalCount"
+      [pageSizeOptions]="[10, 20, 30, 40, 50, pagination.totalCount]"
+      [pageSize]="pagination.rowsPerPage"
+      showFirstLastButtons
+    >
+    </mat-paginator>
+  </div>
+</div>

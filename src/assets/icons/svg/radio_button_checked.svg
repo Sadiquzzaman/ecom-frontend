@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" viewBox="0 0 48 48">
+  <defs>
+    <clipPath id="clip-radio_button_checked">
+      <rect width="48" height="48"/>
+    </clipPath>
+  </defs>
+  <g id="radio_button_checked" clip-path="url(#clip-radio_button_checked)">
+    <path id="Icon_material-radio-button-checked" data-name="Icon material-radio-button-checked" d="M26.823,14.912A11.912,11.912,0,1,0,38.735,26.823,11.916,11.916,0,0,0,26.823,14.912ZM26.823,3A23.823,23.823,0,1,0,50.646,26.823,23.832,23.832,0,0,0,26.823,3Zm0,42.882A19.059,19.059,0,1,1,45.882,26.823,19.053,19.053,0,0,1,26.823,45.882Z" transform="translate(-3 -2.999)" fill="#ffbc1e"/>
+  </g>
+</svg>

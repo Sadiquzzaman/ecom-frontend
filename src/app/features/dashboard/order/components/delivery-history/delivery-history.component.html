@@ -1,0 +1,211 @@
+<ng-container *ngIf="shopInvoice.length == 0">
+  <!-- <div class="loading-shade">
+    <mat-spinner class="matSpinner"></mat-spinner>
+  </div> -->
+  <mat-progress-bar color="primary" mode="indeterminate"> </mat-progress-bar>
+  <div class="loading-shade"></div>
+</ng-container>
+
+<div class="status-section" fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="70" fxFlex.lt-sm="100" fxLayout="column" fxLayoutGap=".5rem">
+    <mat-card class="card-section">
+      <div fxLayout="column" fxLayoutAlign="space-between center">
+        <h2 style="margin-bottom: 0px">Current Delivery Status Details</h2>
+        <hr style="width: 40%" />
+        <span class="header">Order # {{ orderId }} </span>
+      </div>
+
+      <ng-container *ngFor="let item of shopInvoice">
+        <div class="py-20 header">
+          Shop Invoice # <span class="text-secondary">{{ item.id }}</span
+          ><br />
+          Payment Status # <span class="text-secondary">{{ item.status }}</span
+          ><br />
+          Delivery Status #
+          <span
+            class="text-secondary"
+            *ngIf="item?.deliveryAssignment?.status; else pending"
+          >
+            {{ shippingStatus[item.deliveryAssignment.status] }}
+          </span>
+
+          <ng-template #pending>
+            <span class="text-secondary">
+              <ng-container *ngIf="order.status < 2">
+                Order is Pending
+              </ng-container>
+              <ng-container *ngIf="order.status == 2">
+                Order Placed
+              </ng-container>
+            </span>
+          </ng-template>
+        </div>
+
+        <table class="order-table">
+          <tr>
+            <td class="w-50">
+              <img
+                class="w-60"
+                src="assets/icons/png/{{
+                  order.status < 2 ? 'not_order_placed.png' : 'order_placed.png'
+                }}"
+              />
+            </td>
+            <td class="w-50">
+              <img
+                class="w-60"
+                src="assets/icons/png/{{
+                  item?.deliveryAssignment?.status < 1
+                    ? 'not_delivery_person.png'
+                    : 'delivery_person.png'
+                }}"
+              />
+            </td>
+            <td class="w-50">
+              <img
+                class="w-60"
+                src="assets/icons/png/{{
+                  item?.deliveryAssignment?.status < 2
+                    ? 'not_on_the_way.png'
+                    : 'on_the_way.png'
+                }}"
+              />
+            </td>
+            <td class="w-50">
+              <img
+                class="w-60"
+                src="assets/icons/png/{{
+                  item?.deliveryAssignment?.status < 3
+                    ? 'not_delivered.png'
+                    : 'delivered.png'
+                }}"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td class="{{ order.status < 2 ? 'text-secondary' : '' }}">
+              Order Placed
+            </td>
+            <td
+              class="{{
+                item?.deliveryAssignment?.status < 1 ? 'text-secondary' : ''
+              }}"
+            >
+              Assigned to Delivery Person
+            </td>
+            <td
+              class="{{
+                item?.deliveryAssignment?.status < 2 ? 'text-secondary' : ''
+              }}"
+            >
+              On the way
+            </td>
+            <td
+              class="{{
+                item?.deliveryAssignment?.status < 3 ? 'text-secondary' : ''
+              }}"
+            >
+              Delivered
+            </td>
+          </tr>
+          <tr>
+            <td class="pb-10" colspan="4">&nbsp;</td>
+          </tr>
+          <tr>
+            <td>
+              <img
+                class="w-40"
+                src="assets/icons/png/{{
+                  order.status < 2 ? 'task_not_done.png' : 'task_done.png'
+                }}"
+              />
+            </td>
+            <td>
+              <img
+                class="w-40"
+                src="assets/icons/png/{{
+                  item?.deliveryAssignment?.status < 1
+                    ? 'task_not_done.png'
+                    : 'task_done.png'
+                }}"
+              />
+            </td>
+            <td>
+              <img
+                class="w-40"
+                src="assets/icons/png/{{
+                  item?.deliveryAssignment?.status < 2
+                    ? 'task_not_done.png'
+                    : 'task_done.png'
+                }}"
+              />
+            </td>
+            <td>
+              <img
+                class="w-40"
+                src="assets/icons/png/{{
+                  item?.deliveryAssignment?.status < 3
+                    ? 'task_not_done.png'
+                    : 'task_done.png'
+                }}"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <hr
+                class="mt-26 {{
+                  item?.deliveryAssignment?.status
+                    ? 'success-border'
+                    : 'text-secondary-border'
+                }}"
+              />
+            </td>
+            <td>
+              <hr
+                class="mt-26 {{
+                  item?.deliveryAssignment?.status < 2
+                    ? 'text-secondary-border'
+                    : 'success-border'
+                }}"
+              />
+              <hr
+                class="mt-9 {{
+                  item?.deliveryAssignment?.status
+                    ? 'success-border'
+                    : 'text-secondary-border'
+                }}"
+              />
+            </td>
+            <td>
+              <hr
+                class="mt-26 {{
+                  item?.deliveryAssignment?.status < 3
+                    ? 'text-secondary-border'
+                    : 'success-border'
+                }}"
+              />
+              <hr
+                class="mt-9 {{
+                  item?.deliveryAssignment?.status < 2
+                    ? 'text-secondary-border'
+                    : 'success-border'
+                }}"
+              />
+            </td>
+            <td>
+              <hr
+                style="margin-right: 50%; margin-left: 0"
+                class="mt-26 {{
+                  item?.deliveryAssignment?.status < 3
+                    ? 'text-secondary-border'
+                    : 'success-border'
+                }}"
+              />
+            </td>
+          </tr>
+        </table>
+      </ng-container>
+    </mat-card>
+  </div>
+</div>

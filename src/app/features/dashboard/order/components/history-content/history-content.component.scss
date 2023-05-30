@@ -1,0 +1,177 @@
+.history-content-section {
+  padding: 2rem 0 0 0;
+  .table-section {
+    width: 100%;
+    td {
+      padding: 0 0 1.5rem 0;
+    }
+    .table-header {
+      color: #d9d9d9;
+    }
+    .product-name {
+      font-size: 1rem;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      color: #222222;
+    }
+    .description-small {
+      font-size: small;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      color: #222222;
+    }
+    .status-btn {
+      background-color: #43a7ff;
+      min-width: 8rem;
+      max-height: 2rem;
+      border-radius: 5rem;
+    }
+    .order-btn {
+      min-width: 6rem;
+      max-height: 2rem;
+      border-radius: 2px;
+      border: 1px solid #25a55d;
+    }
+    img {
+      margin-top: 1rem;
+    }
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .mat-table {
+    border: 0;
+    vertical-align: middle;
+  }
+
+  .mat-table caption {
+    font-size: 1em;
+  }
+
+  .mat-table .mat-header-cell {
+    border: 10px solid;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+
+  .mat-table .mat-row {
+    border-bottom: 5px solid #ddd;
+    display: block;
+  }
+  .mat-table .mat-cell:first-child {
+    padding-left: 0;
+  }
+
+  .mat-table .mat-cell {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: 1em;
+    text-align: right;
+    font-weight: bold;
+    height: 30px;
+    line-height: 46px;
+    padding-right: 16px;
+  }
+  .mat-table .mat-cell:before {
+    content: attr(data-label);
+    float: left;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-size: 0.85em;
+    padding-left: 16px;
+  }
+  .mat-table .mat-cell:last-child {
+    border-bottom: -1px;
+  }
+
+  ::ng-deep .mat-chip-list > .mat-chip-list-wrapper {
+    display: block;
+  }
+}
+.pending {
+  background-color: #fc8649;
+  color: white;
+}
+button.pending:hover {
+  background-color: rgb(116, 116, 75);
+  color: #fff;
+  transition: 800ms;
+}
+.confirmed {
+  background-color: #43a7ff;
+  color: white;
+}
+button.confirmed:hover {
+  background-color: rgb(116, 116, 75);
+  color: #fff;
+  transition: 800ms;
+}
+.ontheway {
+  background-color: #fc8649;
+  color: white;
+}
+button.ontheway:hover {
+  background-color: rgb(116, 116, 75);
+  color: #fff;
+  transition: 800ms;
+}
+.delivered {
+  background-color: #06b37b;
+  color: white;
+}
+button.delivered:hover {
+  background-color: rgb(116, 116, 75);
+  color: #fff;
+  transition: 800ms;
+}
+.cancelled {
+  background-color: #e54f50;
+  color: white;
+}
+button.cancelled:hover {
+  background-color: rgb(116, 116, 75);
+  color: #fff;
+  transition: 800ms;
+}
+
+::ng-deep .history-content-button .mat-button-wrapper {
+  color: white;
+}
+
+::ng-deep .mat-header-cell.text-center {
+  text-align: center;
+}
+
+::ng-deep .mat-cell,
+.mat-header-cell,
+.mat-footer-cell {
+  justify-content: center;
+}
+
+::ng-deep .mat-mediumpurple {
+  background-color: mediumpurple;
+  color: #fff;
+}
+
+::ng-deep .mat-button,
+.mat-raised-button,
+.mat-stroked-button,
+.mat-flat-button {
+  // min-width: 85px;
+  padding: 0 10px;
+}
+
+::ng-deep .mat-indigo {
+  background-color: indigo;
+  color: #fff;
+}
+
+.mat-confirmed {
+  background-color: #43a7ff;
+}
+
+.text-white {
+  color: aliceblue;
+}

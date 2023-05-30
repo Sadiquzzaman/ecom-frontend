@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" viewBox="0 0 48 48">
+  <defs>
+    <clipPath id="clip-wallet">
+      <rect width="48" height="48"/>
+    </clipPath>
+  </defs>
+  <g id="wallet" clip-path="url(#clip-wallet)">
+    <path id="Icon_awesome-wallet" data-name="Icon awesome-wallet" d="M42.732,11.145H7.412a1.482,1.482,0,0,1,0-2.965H42.992A1.482,1.482,0,0,0,44.474,6.7,4.447,4.447,0,0,0,40.027,2.25H5.93A5.929,5.929,0,0,0,0,8.18v29.65a5.929,5.929,0,0,0,5.93,5.93h36.8a4.587,4.587,0,0,0,4.707-4.447V15.592A4.587,4.587,0,0,0,42.732,11.145ZM38.544,30.417a2.965,2.965,0,1,1,2.965-2.965A2.965,2.965,0,0,1,38.544,30.417Z" transform="translate(0 0.749)" fill="#c9c9c9"/>
+  </g>
+</svg>

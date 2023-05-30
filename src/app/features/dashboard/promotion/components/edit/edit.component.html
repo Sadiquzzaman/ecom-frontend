@@ -1,0 +1,348 @@
+<div class="mtb16" fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="60" fxFlex.lt-md="100">
+    <div class="padding-top-20">
+      <mat-card>
+        <mat-toolbar class="theme-background-color">
+          <mat-toolbar-row class="margin-left text-white">
+            Edit Promotion
+          </mat-toolbar-row>
+        </mat-toolbar>
+
+        <mat-card-content *ngIf="!urlSafe" class="padding-out">
+          <form
+            (ngSubmit)="save()"
+            [formGroup]="promotionForm"
+            fxLayout="column"
+            fxLayoutGap="2rem"
+          >
+            <div fxLayout="column">
+              <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label [ngClass]="{ 'text-secondary': isDisabled() }"
+                  >Promotion Type</mat-label
+                >
+                <mat-select
+                  class="test"
+                  formControlName="type"
+                  placeholder="Select Promotion Type"
+                  required
+                  (selectionChange)="setValidation($event)"
+                  [disabled]="isDisabled()"
+                >
+                  <mat-option
+                    *ngFor="let type of promotionTypes"
+                    [value]="type.id"
+                  >
+                    {{ type.name }}
+                  </mat-option>
+                </mat-select>
+                <mat-error>Promotion Type is required</mat-error>
+              </mat-form-field>
+
+              <!-- <mat-form-field
+                [fxHide]="token.isMerchant()"
+                appearance="outline"
+                floatLabel="always"
+              >
+                <mat-label [ngClass]="{ 'text-secondary': isDisabled() }"
+                  >Merchant</mat-label
+                >
+                <mat-select
+                  formControlName="merchantId"
+                  placeholder="Select Merchant"
+                  required
+                  [disabled]="isDisabled()"
+                >
+                  <mat-option>
+                    <ngx-mat-select-search
+                      [formControl]="merchantFiltering"
+                      [searching]="isMerchantSearching"
+                      noEntriesFoundLabel="No such shop"
+                      placeholderLabel="Search"
+                    >
+                    </ngx-mat-select-search>
+                  </mat-option>
+                  <mat-option
+                    *ngFor="let merchant of filteredMerchantOptions | async"
+                    [value]="merchant.id"
+                  >
+                    {{ merchant.name }}
+                  </mat-option>
+                </mat-select>
+                <mat-error>Merchant is required</mat-error>
+              </mat-form-field> -->
+
+              <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label [ngClass]="{ 'text-secondary': isDisabled() }"
+                  >Shop</mat-label
+                >
+                <mat-select
+                  class="test"
+                  formControlName="shopID"
+                  placeholder="Select Shop"
+                  required
+                  (selectionChange)="onShopChange($event)"
+                  [disabled]="isDisabled()"
+                >
+                  <mat-option>
+                    <ngx-mat-select-search
+                      [formControl]="shopFiltering"
+                      [searching]="isShopSearching"
+                      noEntriesFoundLabel="No such shop"
+                      placeholderLabel="Search"
+                    >
+                    </ngx-mat-select-search>
+                  </mat-option>
+                  <mat-option
+                    *ngFor="let shop of filteredShopOptions | async"
+                    [value]="shop.id"
+                  >
+                    {{ shop.name }}
+                  </mat-option>
+                </mat-select>
+                <mat-error>Shop is required</mat-error>
+              </mat-form-field>
+
+              <!-- {{ promotionForm.controls.type.value }} -->
+
+              <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label [ngClass]="{ 'text-secondary': isDisabled() }"
+                  >Product</mat-label
+                >
+                <mat-select
+                  class="test"
+                  formControlName="productID"
+                  placeholder="Select Product"
+                  [required]="promotionForm.controls.type.value != 3"
+                  (selectionChange)="onProductChange($event)"
+                  [disabled]="isDisabled()"
+                >
+                  <mat-option>
+                    <ngx-mat-select-search
+                      [formControl]="productFiltering"
+                      [searching]="isProductSearching"
+                      noEntriesFoundLabel="No such product"
+                      placeholderLabel="Search"
+                    >
+                    </ngx-mat-select-search>
+                  </mat-option>
+                  <mat-option
+                    *ngFor="let product of filteredProductOptions | async"
+                    [value]="product.id"
+                  >
+                    {{ product.name }}
+                  </mat-option>
+                </mat-select>
+                <mat-error>Product is required</mat-error>
+              </mat-form-field>
+
+              <div fxLayout="row" fxLayoutGap="3%">
+                <div fxFlex="50%" fxLayout="column" fxLayoutGap="1%">
+                  <mat-form-field appearance="outline" floatLabel="always">
+                    <mat-label [ngClass]="{ 'text-secondary': isDisabled() }"
+                      >Start Date</mat-label
+                    >
+                    <input
+                      [matDatepicker]="startDatePicker"
+                      [min]="minDate"
+                      [max]="maxDate"
+                      formControlName="startDate"
+                      matInput
+                      readonly
+                      placeholder="Select Start Date"
+                      (dateChange)="onStartDateChange($event)"
+                      [matDatepickerFilter]="bookedDayFilter"
+                      [disabled]="isDisabled()"
+                    />
+                    <mat-datepicker-toggle
+                      [for]="startDatePicker"
+                      matSuffix
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #startDatePicker></mat-datepicker>
+                    <mat-error>Start Date is required!</mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div fxFlex="50%" fxLayout="column" fxLayoutGap="1%">
+                  <mat-form-field appearance="outline" floatLabel="always">
+                    <mat-label [ngClass]="{ 'text-secondary': isDisabled() }"
+                      >End Date</mat-label
+                    >
+                    <input
+                      [matDatepicker]="endDatePicker"
+                      [min]="minStartDate"
+                      [max]="maxDate"
+                      formControlName="endDate"
+                      matInput
+                      readonly
+                      placeholder="Select End Date"
+                      [matDatepickerFilter]="bookedDayFilter"
+                      (dateChange)="onDateChange()"
+                      [disabled]="isDisabled()"
+                    />
+                    <mat-datepicker-toggle
+                      [for]="endDatePicker"
+                      matSuffix
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #endDatePicker></mat-datepicker>
+                    <mat-error>End Date is required!</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div fxFlex fxLayout="column" fxLayoutGap="1%">
+                <mat-form-field appearance="outline" floatLabel="always">
+                  <mat-label>Title</mat-label>
+                  <input
+                    formControlName="title"
+                    matInput
+                    placeholder="write the promotional title"
+                    name="title"
+                    type="text"
+                    [readonly]="isReadOnly()"
+                  />
+                </mat-form-field>
+              </div>
+
+              <div fxFlex fxLayout="column" fxLayoutGap="1%">
+                <mat-form-field appearance="outline" floatLabel="always">
+                  <mat-label>Description</mat-label>
+                  <textarea
+                    formControlName="description"
+                    matInput
+                    placeholder="write the promotional description"
+                    name="description"
+                    type="text"
+                    [readonly]="isReadOnly()"
+                  ></textarea>
+                </mat-form-field>
+              </div>
+
+              <div *ngIf="selectedCoverFile" class="image-preview-container">
+                <div class="image-preview" fxFill fxLayoutAlign="center center">
+                  <img
+                    [src]="selectedCoverFile.src"
+                    alt="shop cover image"
+                    height="100px"
+                  />
+                </div>
+              </div>
+
+              <div
+                class="image-upload-container btn-bwm"
+                fxLayout="column"
+                fxLayoutGap="1rem"
+                [fxHide]="isReadOnly()"
+              >
+                <label class="italic">Promotion Cover Image</label>
+                <input
+                  [fxShow]="false"
+                  id="imageCoverInputId"
+                  #imageCoverInput
+                  (change)="waitForCoverImageRes(imageCoverInput)"
+                  accept="image/*"
+                  class="image-input"
+                  type="file"
+                  [disabled]="isReadOnly()"
+                />
+                <label for="imageCoverInputId" class="change-btn"
+                  >Select Cover Image</label
+                >
+              </div>
+
+              <div fxFlex fxLayout="column" fxLayoutGap="2%">
+                <mat-radio-group
+                  (change)="changeStatus($event)"
+                  formControlName="promotionStatus"
+                  required
+                  class="mt-10"
+                >
+                  <mat-label class="mr-20 italic">Promotion Status</mat-label>
+
+                  <ng-container *ngFor="let item of promotionStatusArray">
+                    <mat-radio-button
+                      [value]="item.id"
+                      class="mr-50"
+                      [disabled]="isPromotionStatusDisabled(item)"
+                    >
+                      <span
+                        class="text-capitalize"
+                        [ngClass]="{
+                          'text-gray': isPromotionStatusDisabled(item)
+                        }"
+                      >
+                        {{ item.name.toLowerCase() }}
+                      </span>
+                    </mat-radio-button>
+                  </ng-container>
+
+                  <!-- <mat-radio-button
+                    [value]="2"
+                    class="mr-20"
+                    [disabled]="promotionStatus.value > 2"
+                  >
+                    <span
+                      [class]="promotionStatus.value > 2 ? 'text-gray' : ''"
+                    >
+                      Confirm
+                    </span>
+                  </mat-radio-button> -->
+                </mat-radio-group>
+              </div>
+
+              <div
+                fxFlex
+                fxLayout="row"
+                fxLayoutGap="4%"
+                [fxShow]="isCostShow"
+                [style.margin-top]="'20px'"
+              >
+                <div>
+                  <b>Daily Charge : </b
+                  ><span>{{
+                    dailyCharge | currency: "Tk ":"symbol":"1.2-2"
+                  }}</span>
+                </div>
+                <div>
+                  <b>Total Days : </b><span>{{ days }} Day</span>
+                </div>
+                <div>
+                  <b>Total Cost : </b
+                  ><span>{{ cost | currency: "Tk ":"symbol":"1.2-2" }} </span>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="padding-top-20"
+              fxLayout="row"
+              fxLayout.lt-sm="column"
+              fxLayoutAlign="space-between center"
+              fxLayoutGap="15px"
+              fxLayoutGap.lt-md="10px"
+            >
+              <button
+                class="reset-button"
+                mat-raised-button
+                type="reset"
+                [disabled]="isDisabled()"
+              >
+                <span class="text-white">Reset</span>
+              </button>
+              <button class="submit-button" mat-raised-button>
+                <span class="text-white">Submit</span>
+              </button>
+            </div>
+          </form>
+        </mat-card-content>
+
+        <mat-card-content *ngIf="urlSafe" style="padding: 10px">
+          <iframe
+            style="min-height: 700px; width: 100%"
+            frameBorder="0"
+            [src]="urlSafe"
+          ></iframe>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

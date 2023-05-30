@@ -1,0 +1,26 @@
+.dialog-header {
+  color: #333333;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
+}
+
+.cancel-btn {
+  width: 5rem;
+  background-color: #ff0000;
+  .cancel-text {
+    color: #ffffff;
+  }
+}
+
+.save-btn {
+  width: 27rem;
+  background-color: #28b37b;
+  .save-text {
+    color: #ffffff;
+  }
+}
+
+.agm-map {
+  height: 300px;
+  padding-bottom: 1rem;
+}

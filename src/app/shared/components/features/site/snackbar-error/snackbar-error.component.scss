@@ -1,0 +1,19 @@
+.top-index {
+  z-index: 100000;
+}
+
+.floatRight{
+float: right;
+}
+
+.close-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
+}
+
+.dismiss {
+  float: right;
+}
+

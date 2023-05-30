@@ -1,0 +1,205 @@
+@media screen and (max-width: 960px) {
+  .mat-table {
+    border: 0;
+    vertical-align: middle;
+  }
+
+  .mat-table caption {
+    font-size: 1em;
+  }
+
+  .mat-table .mat-header-cell {
+    border: 10px solid;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+
+  .mat-table .mat-row {
+    border-bottom: 5px solid #ddd;
+    display: block;
+  }
+  .mat-table .mat-cell:first-child {
+    padding-left: 0;
+  }
+
+  .mat-table .mat-cell {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: 1em;
+    text-align: right;
+    font-weight: bold;
+    height: 30px;
+    line-height: 46px;
+    padding-right: 16px;
+  }
+  .mat-table .mat-cell:before {
+    content: attr(data-label);
+    float: left;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-size: 0.85em;
+    padding-left: 16px;
+  }
+  .mat-table .mat-cell:last-child {
+    border-bottom: -1px;
+  }
+}
+
+a {
+  text-decoration: none;
+}
+
+.assign-btn {
+  // min-width: 6rem;
+  // max-height: 2rem;
+  // border-radius: 2px;
+  // border: 1px solid #28b37b;
+  background-color: #28b37b;
+  .btn-text {
+    color: #ffffff;
+  }
+}
+
+.order-btn {
+  // min-width: 6rem;
+  // max-height: 2rem;
+  // border-radius: 2px;
+  border: 1px solid #28b37b;
+}
+
+.container {
+  padding-top: 1rem;
+}
+
+.result-container {
+  padding-bottom: 1rem;
+}
+
+.submit-button {
+  // width: 8rem;
+  // border-radius: 2px;
+  // height: 3rem;
+  // margin-bottom: 1rem;
+  background-color: #28b37b;
+  .btn-text {
+    color: #ffffff;
+  }
+}
+
+.paraOption {
+  line-height: 1rem;
+  padding-top: 1rem;
+}
+
+.small {
+  font-size: 11px;
+}
+
+.filter-box {
+  padding: 1.5rem 0 0 0;
+}
+
+.customer {
+  width: 20rem;
+}
+
+.admin-sales {
+  overflow: hidden;
+}
+
+.reset-button {
+  // width: 8rem;
+  // border-radius: 2px;
+  // height: 3rem;
+  // margin-bottom: 1rem;
+  background-color: rgb(255, 132, 132);
+  .btn-text {
+    color: #ffffff;
+  }
+}
+.assign-button {
+  // width: 10rem;
+  // height: 3rem;
+  // border-radius: 2px;
+  // margin-left: 1rem;
+  background-color: #28b37b;
+  .btn-text {
+    color: #ffffff;
+  }
+}
+
+.button {
+  background-color: #28b37b;
+  // border-radius: 2px;
+  // width: 6rem;
+  // height: 2.5rem;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+::ng-deep .justify-center {
+  .mat-sort-header-container {
+    justify-content: center;
+  }
+}
+
+// .mat-column-sl {
+//   flex: none;
+//   width: 2%;
+//   text-align: center;
+//   justify-content: center;
+// }
+
+// .mat-column-pickedAt {
+//   flex: none;
+//   width: 15%;
+//   // text-align: center;
+//   // justify-content: center;
+// }
+
+// .mat-column-totalRefundableAmount {
+//   flex: none;
+//   width: 10%;
+//   text-align: center;
+//   justify-content: center;
+// }
+
+// .mat-column-transporter {
+//   // flex: none;
+//   width: 20%;
+//   // text-align: center;
+//   // justify-content: center;
+// }
+
+// .mat-column-customer {
+//   // flex: none;
+//   width: 30%;
+//   // text-align: center;
+//   // justify-content: center;
+// }
+
+// .mat-column-action {
+//   flex: none;
+//   width: 10%;
+//   text-align: center;
+//   justify-content: center;
+// }
+
+// .mat-column-details {
+//   flex: none;
+//   width: 10%;
+//   text-align: center;
+//   justify-content: center;
+// }
+
+// .mat-cell:first-of-type,
+// mat-header-cell:first-of-type,
+// mat-footer-cell:first-of-type {
+//   padding-left: 10px;
+// }

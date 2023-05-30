@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" viewBox="0 0 48 48">
+  <defs>
+    <clipPath id="clip-date_picker">
+      <rect width="48" height="48"/>
+    </clipPath>
+  </defs>
+  <g id="date_picker" clip-path="url(#clip-date_picker)">
+    <path id="Icon_material-date-range" data-name="Icon material-date-range" d="M18.9,24.6H14.1v4.8h4.8Zm9.6,0H23.7v4.8h4.8Zm9.6,0H33.3v4.8h4.8ZM42.9,7.8H40.5V3H35.7V7.8H16.5V3H11.7V7.8H9.3a4.778,4.778,0,0,0-4.776,4.8L4.5,46.2A4.8,4.8,0,0,0,9.3,51H42.9a4.814,4.814,0,0,0,4.8-4.8V12.6A4.814,4.814,0,0,0,42.9,7.8Zm0,38.4H9.3V19.8H42.9Z" transform="translate(-2.1 -3)" fill="#c9c9c9"/>
+  </g>
+</svg>

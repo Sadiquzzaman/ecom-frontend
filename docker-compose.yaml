@@ -1,0 +1,11 @@
+version: "3.8"
+services: 
+  app: 
+    build: "."
+    command: "ng serve --host 0.0.0.0"
+    ports: 
+      - "3201:3201"
+    restart: always
+    volumes: 
+      - /app/node_modules
+      - "./:/app"

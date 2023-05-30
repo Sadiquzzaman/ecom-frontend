@@ -1,0 +1,13 @@
+<div class="terms-section" fxLayout="row" fxLayoutAlign="center center">
+  <div
+    class="terms-sectionMobile"
+    fxFlex="70"
+    fxLayout="column"
+    fxLayoutGap=".5rem"
+  >
+    <div fxLayout="column" fxLayoutGap="2rem">
+      <span class="header">{{ term?.name }}</span>
+      <span [innerHTML]="term?.value"></span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" viewBox="0 0 48 48">
+  <defs>
+    <clipPath id="clip-file_clip">
+      <rect width="48" height="48"/>
+    </clipPath>
+  </defs>
+  <g id="file_clip" clip-path="url(#clip-file_clip)">
+    <path id="Icon_feather-paperclip" data-name="Icon feather-paperclip" d="M41.508,21.221l-18.2,18.2A11.892,11.892,0,0,1,6.486,22.608L24.69,4.4A7.928,7.928,0,0,1,35.9,15.616L17.678,33.82a3.964,3.964,0,1,1-5.606-5.606l16.818-16.8" transform="translate(-7.739 23.704) rotate(-45)" fill="none" stroke="#c9c9c9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+  </g>
+</svg>

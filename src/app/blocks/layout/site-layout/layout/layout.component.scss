@@ -1,0 +1,17 @@
+.site-layout {
+  min-height: 100%;
+  padding: 0;
+
+  .header {
+    min-height: 62px;
+    background: #232;
+  }
+
+  .footer {
+    bottom: 0;
+  }
+
+  .less-padding {
+    padding: 0.5rem;
+  }
+}

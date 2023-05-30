@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" viewBox="0 0 48 48">
+  <defs>
+    <clipPath id="clip-History">
+      <rect width="48" height="48"/>
+    </clipPath>
+  </defs>
+  <g id="History" clip-path="url(#clip-History)">
+    <path id="Icon_material-history" data-name="Icon material-history" d="M28.877,4.5A20.534,20.534,0,0,0,8.344,25.033H1.5l8.875,8.875.16.319,9.217-9.194H12.907a16.046,16.046,0,1,1,4.7,11.27l-3.24,3.24A20.527,20.527,0,1,0,28.877,4.5ZM26.6,15.907V27.314l9.764,5.795L38,30.348,30.018,25.6v-9.7Z" transform="translate(-1.41 -0.779)" fill="#fff" stroke="#c9c9c9" stroke-width="0.38"/>
+  </g>
+</svg>

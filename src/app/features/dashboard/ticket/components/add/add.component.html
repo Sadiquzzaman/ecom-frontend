@@ -1,0 +1,49 @@
+<div class="ticket-section" fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="60" fxLayout="column" fxLayoutGap="2.2rem">
+    <span class="header">TICKET</span>
+    <div fxLayout="column" fxLayoutGap="4rem">
+      <form (ngSubmit)="submitTicket()" [formGroup]="ticketForm">
+
+        <div fxLayout="column" fxLayoutGap="10px">
+          <mat-label>Department</mat-label>
+          <mat-form-field appearance="outline">
+            <mat-select formControlName="departmentId" name="departmentId" placeholder="Select department" required>
+              <mat-option>
+                <ngx-mat-select-search [formControl]="departmentFiltering" [searching]="isDepartmentSearching"
+                  noEntriesFoundLabel="No such department" placeholderLabel="Search">
+                </ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let department of filteredDepartmentOptions | async" [value]="department.id">
+                {{ department.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error>Department is required</mat-error>
+          </mat-form-field>
+
+          <mat-label>Subject</mat-label>
+          <mat-form-field appearance="outline" floatLabel="always">
+            <input formControlName="subject" matInput name="subject" placeholder="Write subject" required type="text" />
+            <mat-error>Subject is required</mat-error>
+          </mat-form-field>
+
+          <mat-label>Issue Details</mat-label>
+          <mat-form-field appearance="outline" floatLabel="always">
+            <textarea formControlName="issueDetails" matInput name="issueDetails" placeholder="Write your issue here"
+              required type="text"></textarea>
+            <mat-error>Please write issue in details</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="ticket-btns" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="2rem">
+          <button class="cancel-button" mat-button (click)="clearForm()" type="button">
+            <span class="button-text">CANCEL</span>
+          </button>
+          <button class="submit-button" mat-button type="submit">
+            <span class="button-text">SUBMIT</span>
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

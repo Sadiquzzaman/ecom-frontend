@@ -1,0 +1,75 @@
+<div class="department-add" fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="70" fxFlex.lt-md="100">
+    <div class="padding-top-20">
+      <mat-card>
+        <mat-toolbar class="theme-background-color">
+          <mat-toolbar-row class="margin-left text-white">
+            Add New Config
+          </mat-toolbar-row>
+        </mat-toolbar>
+
+        <mat-card-content class="padding-out">
+          <form fxLayout="column" [formGroup]="editRefundConfigForm">
+            <div fxLayout="column">
+              <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Config Name</mat-label>
+                <input
+                  formControlName="name"
+                  matInput
+                  name="name"
+                  placeholder="Config Name"
+                  required
+                />
+                <mat-error>Config Name is required</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div fxLayout="column">
+              <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Description</mat-label>
+                <textarea
+                  formControlName="description"
+                  matInput
+                  name="description"
+                  rows="5"
+                  type="text"
+                  required
+                ></textarea>
+                <mat-error>Description is required!</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div
+              class="padding-top-20"
+              fxLayout="row"
+              fxLayout.lt-sm="column"
+              fxLayoutAlign="end"
+              fxLayoutGap="15px"
+              fxLayoutGap.lt-md="10px"
+            >
+              <button
+                class="text-white"
+                color="warn"
+                fxFlex="10%"
+                mat-raised-button
+                type="reset"
+                (click)="reset()"
+              >
+                <span class="btn-text">Reset</span>
+              </button>
+              <button
+                class="theme-background-color"
+                fxFlex="10%"
+                mat-raised-button
+                type="submit"
+                (click)="save()"
+              >
+                <span class="btn-text">Update</span>
+              </button>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

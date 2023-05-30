@@ -1,0 +1,46 @@
+<div
+  class="profile-section"
+  fxLayoutAlign="center center"
+  class="mat-elevation-z8"
+>
+  <div fxFlex="100">
+    <mat-tab-group (selectedTabChange)="onClick($event)" mat-stretch-tabs>
+      <mat-tab label="All">
+        <app-history-content
+          [status]="0"
+          [isHidden]="isHidden"
+        ></app-history-content>
+      </mat-tab>
+      <mat-tab label="Pending">
+        <app-history-content
+          [status]="1"
+          [isHidden]="isHidden"
+        ></app-history-content>
+      </mat-tab>
+      <mat-tab label="Confirmed">
+        <app-history-content
+          [status]="2"
+          [isHidden]="isHidden"
+        ></app-history-content>
+      </mat-tab>
+      <!-- <mat-tab label="On the way">
+        <app-history-content
+          [status]="3"
+          [isHidden]="isHidden"
+        ></app-history-content>
+      </mat-tab> -->
+      <mat-tab label="Delivered">
+        <app-history-content
+          [status]="4"
+          [isHidden]="isHidden"
+        ></app-history-content>
+      </mat-tab>
+      <mat-tab label="Cancelled">
+        <app-history-content
+          [status]="5"
+          [isHidden]="isHidden"
+        ></app-history-content>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

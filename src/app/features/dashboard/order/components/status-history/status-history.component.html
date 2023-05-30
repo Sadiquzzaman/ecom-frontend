@@ -1,0 +1,171 @@
+<ng-container *ngIf="isLoading">
+  <div class="loading-shade">
+    <mat-spinner class="matSpinner"></mat-spinner>
+  </div>
+</ng-container>
+
+<div class="status-section" fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="70" fxFlex.lt-md="100" fxLayout="column" fxLayoutGap=".5rem">
+    <mat-card class="card-section">
+      <h3 class="invoice-title">Order # {{ orderId }}</h3>
+      <mat-divider></mat-divider><br />
+
+      <div fxLayout="column" fxLayoutGap="1rem">
+        <div
+          fxLayout="row"
+          fxLayoutAlign="space-between center"
+          fxLayout.lt-md="column"
+          fxLayoutAlign.lt-md="center center"
+          fxLayoutGap.lt-md="2rem"
+        >
+          <div fxLayout="column" fxLayoutGap=".8rem" fxFlex="50%">
+            <div fxLayout="row">
+              <span fxFlex="30%">Order Date:</span>
+              <span>{{ order?.createAt | date: "MMM d, y, h:mm a" }}</span>
+            </div>
+            <div fxLayout="row">
+              <span fxFlex="30%">Status:</span>
+              <span class="status">{{ order?.invoice?.status }}</span>
+            </div>
+            <div fxLayout="row">
+              <span fxFlex="30%">Discount:</span>
+              <span>{{ order?.invoice?.totalDiscount }} Tk</span>
+            </div>
+            <div fxLayout="row">
+              <span fxFlex="30%">Shipping Charge:</span>
+              <span>{{ order?.invoice?.totalAdditionalShippingCost }} Tk</span>
+            </div>
+            <div fxLayout="row">
+              <span fxFlex="30%">Total:</span>
+              <span>{{ order?.invoice?.invoiceTotal }} Tk</span>
+            </div>
+          </div>
+
+          <div fxLayout="column" fxLayoutGap=".8rem" fxFlex="50%">
+            <div fxLayout="row">
+              <span fxFlex="20%" fxFlex.lt-md="30">Billing To:</span>
+              <div fxLayout="column" fxLayoutGap="0.2rem">
+                <span
+                  >{{ order?.billingAddress?.firstname }}
+                  {{ order?.billingAddress?.lastname }}</span
+                >
+                <span>{{ order?.billingAddress?.phone }}</span>
+                <span>{{ order?.billingAddress?.address }}</span>
+              </div>
+            </div>
+
+            <div fxLayout="row">
+              <span fxFlex="20%" fxFlex.lt-md="30">Shipping To:</span>
+              <div fxLayout="column" fxLayoutGap="0.2rem">
+                <span
+                  >{{ order?.shippingAddress?.firstname }}
+                  {{ order?.shippingAddress?.lastname }}</span
+                >
+                <span>{{ order?.shippingAddress?.phone }}</span>
+                <span>{{ order?.shippingAddress?.address }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <mat-table #table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="image">
+          <mat-header-cell
+            class="table-header"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+          >
+            Image
+          </mat-header-cell>
+          <mat-cell class="image" *matCellDef="let row" data-label="image">
+            <!-- {{ getImage(row.product?.image?.cover) | json }} -->
+            <img
+              [src]="getImage(row.product?.image?.cover)"
+              alt="Product Image"
+              style="width: 60px; padding: 5px 0"
+            />
+          </mat-cell>
+        </ng-container>
+
+        <!-- Product Description Column -->
+        <ng-container matColumnDef="productDescription">
+          <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>
+            Product Description
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row" data-label="product">
+            <div fxLayout="column">
+              <span>{{ row.product?.name }}</span>
+            </div>
+          </mat-cell>
+        </ng-container>
+
+        <!-- Unit Price Column -->
+        <ng-container matColumnDef="unitPrice">
+          <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>
+            Unit Price
+          </mat-header-cell>
+          <mat-cell
+            style="padding: 0 0 0 1rem"
+            *matCellDef="let row"
+            class="price"
+            data-label="unit price"
+            >{{ row.price }}</mat-cell
+          >
+        </ng-container>
+
+        <!-- Quantity Column -->
+        <ng-container matColumnDef="quantity">
+          <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>
+            Quantity
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row" data-label="quantity">{{
+            row.quantity
+          }}</mat-cell>
+        </ng-container>
+
+        <!-- Discount Column -->
+        <ng-container matColumnDef="discount">
+          <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>
+            Discount
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row" data-label="discount">{{
+            row.productAttribute.discount
+          }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="subTotal">
+          <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>
+            Sub Total
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row" data-label="sub-total">{{
+            row.price * row.quantity
+          }}</mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      </mat-table>
+
+      <div class="footer" fxLayout="row" fxLayoutAlign="space-between center">
+        <div>
+          <span class="star">*** </span>
+          <span
+            >You will not be able to return any product after 24 Hours of it's
+            delivery</span
+          >
+        </div>
+        <a
+          *ngIf="!token.isAdmin()"
+          [routerLink]="['/dashboard/order/return/' + orderId]"
+          class="footer-return"
+        >
+          <button mat-raised-button class="return-button" color="primary">
+            Return
+          </button>
+        </a>
+      </div>
+    </mat-card>
+  </div>
+</div>

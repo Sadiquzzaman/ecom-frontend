@@ -1,0 +1,115 @@
+<mat-sidenav-container class="sidenav-container" [hasBackdrop]="true">
+  <mat-sidenav
+    #drawer
+    id="drawer"
+    [attr.role]="'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+    class="sidenav"
+    fixedInViewport
+  >
+    <mat-toolbar fxLayout="row" fxLayoutAlign="space-between center">
+      <a routerLink="/">
+        <img
+          src="../../../../../assets/icons/png/Ebonear_logo_green.png"
+          height="65%"
+          width="50%"
+        />
+      </a>
+      <button
+        (click)="drawer.toggle()"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        type="button"
+      >
+        <mat-icon aria-label="clear">clear</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <!--merchant-->
+    <mat-nav-list>
+      <mat-accordion>
+        <ng-container *ngFor="let category of categoryData">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title
+                fxLayout="row"
+                fxLayoutAlign="start center"
+                fxLayoutGap="10px"
+              >
+                <mat-icon class="icon-color">inventory_2</mat-icon>
+                <span>{{ category.name }}</span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-divider></mat-divider>
+
+            <a
+              [routerLink]="['/product/category/' + category.id]"
+              mat-list-item
+              [class]="activeChecker(category.id)"
+              [routerLinkActive]="['is-active']"
+              [routerLinkActiveOptions]="{ exact: true }"
+              (click)="drawer.toggle()"
+            >
+              <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+                <mat-icon class="icon-color">list_alt</mat-icon>
+                <span>{{ category.name }} All</span>
+              </div>
+            </a>
+
+            <ng-container *ngIf="category.children.length">
+              <a
+                (click)="drawer.toggle()"
+                *ngFor="let subcategory of category.children"
+                [routerLink]="['/product/category/' + subcategory.id]"
+                mat-list-item
+                [class]="activeChecker(subcategory.id)"
+                [routerLinkActive]="['is-active']"
+                [routerLinkActiveOptions]="{ exact: true }"
+              >
+                <div
+                  fxLayout="row"
+                  fxLayoutAlign="start start"
+                  fxLayoutGap="5px"
+                >
+                  <mat-icon class="icon-color">list_alt</mat-icon>
+                  <span>{{ subcategory.name }}</span>
+                </div>
+              </a>
+            </ng-container>
+          </mat-expansion-panel>
+        </ng-container>
+      </mat-accordion>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="admin-header">
+    <mat-toolbar
+      class="theme-background-color"
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+    >
+      <button
+        (click)="drawer.toggle()"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        type="button"
+      >
+        <mat-icon aria-label="Side nav toggle icon" class="text-white"
+          >menu
+        </mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <!-- <ng-container *ngIf="loading">
+      <mat-progress-bar color="primary" mode="indeterminate">
+      </mat-progress-bar>
+      <div class="loading-shade"></div>
+    </ng-container> -->
+
+    <!-- <div class="content-padding">
+      <div class="loading-shade"></div>
+      <router-outlet></router-outlet>
+    </div> -->
+  </mat-sidenav-content>
+</mat-sidenav-container>

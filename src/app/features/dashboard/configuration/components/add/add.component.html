@@ -1,0 +1,63 @@
+<div class="ticket-section" fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="60" fxLayout="column" fxLayoutGap="2.2rem">
+    <span class="header">Configuration</span>
+    <div fxLayout="column" fxLayoutGap="4rem">
+      <form [formGroup]="configurationForm">
+        <div fxLayout="column" fxLayoutGap="10px">
+          <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Configuration Name</mat-label>
+
+            <mat-select
+              class="test"
+              formControlName="name"
+              placeholder="Write configuration name"
+              name="name"
+              required
+              type="text"
+            >
+              <mat-option
+                *ngFor="let configuration of configurations"
+                [value]="configuration.title"
+              >
+                {{ configuration.viewTitle }}
+              </mat-option>
+            </mat-select>
+
+            <mat-error>Configuration Name is required</mat-error>
+          </mat-form-field>
+
+          <!-- <textarea
+                formControlName="value"
+                matInput
+                name="value"
+              ></textarea> -->
+
+          <angular-editor
+            [config]="editorConfig"
+            formControlName="value"
+            name="value"
+          ></angular-editor>
+        </div>
+      </form>
+
+      <div
+        class="ticket-btns"
+        fxLayout="row"
+        fxLayoutAlign="end center"
+        fxLayoutGap="2rem"
+      >
+        <button class="cancel-button" mat-button>
+          <span class="button-text">CANCEL</span>
+        </button>
+        <button
+          class="submit-button"
+          mat-button
+          type="submit"
+          (click)="submit()"
+        >
+          <span class="button-text">SUBMIT</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

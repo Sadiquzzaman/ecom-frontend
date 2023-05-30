@@ -1,0 +1,224 @@
+<div class="padding-top-20">
+  <div class="mat-elevation-z8">
+    <ng-container *ngIf="pagination.isLoading">
+      <mat-progress-bar color="primary" mode="indeterminate">
+      </mat-progress-bar>
+      <div class="loading-shade"></div>
+    </ng-container>
+
+    <app-sales-search
+      *ngIf="paginator !== undefined"
+      [gap]="gap"
+      [entity]="entity"
+      [entityFlex]="entityFlex"
+      [secondEntity]="secondEntity"
+      [secondEntityFlex]="secondEntityFlex"
+      [dropdown]="dropdownName"
+      [dropdownFlex]="dropdownFlex"
+      [secondDropdown]="secondDropdownName"
+      [secondDropdownFlex]="secondDropdownFlex"
+      [from_date]="true"
+      [to_date]="true"
+      [searchFlex]="18"
+      [multipleRow]="multipleRow"
+      [limit]="paginator.pageSize"
+      (submitSearch)="submittedSearch($event)"
+    ></app-sales-search>
+
+    <mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="sl">
+        <mat-header-cell *matHeaderCellDef> Sl. </mat-header-cell>
+        <mat-cell *matCellDef="let row; let i = index" data-label="serialno">
+          {{ paginator.pageIndex * paginator.pageSize + (i + 1) }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="receivedAt">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Received Date
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="date">
+          {{ row?.receivedAt | date: "MMM d, y - h:mm a" }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="pickedAt">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Picked Date
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="date">
+          {{ row?.pickedAt | date: "MMM d, y - h:mm a" }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="totalRefundableAmount">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Refund Amount
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="totalRefundableAmount">
+          <span>{{ row?.refundRequest?.totalRefundableAmount }}</span>
+        </mat-cell>
+      </ng-container>
+
+      <!-- <ng-container matColumnDef="shippingType">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Ship Type
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="shippingType">
+          <div *ngIf="row?.shippingType == 1">Collect From Customer</div>
+          <div *ngIf="row?.shippingType == 2">Return To Customer</div>
+          <div *ngIf="row?.shippingType == 3">Return To Shop</div>
+        </mat-cell>
+      </ng-container> -->
+
+      <ng-container matColumnDef="transporter">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Transporter
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="transporter">
+          <div fxLayout="column" fxLayoutAlign="space-between start">
+            <div>
+              {{ row?.transporter?.user?.firstName }}
+              {{ row?.transporter?.user?.lastName }}
+            </div>
+            <div>
+              {{ row?.transporter?.user?.phone }}
+            </div>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="customer">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Customer
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="customer">
+          {{
+            row?.order?.shippingAddress?.firstname +
+              " " +
+              row?.order?.shippingAddress?.lastname
+          }}
+          <br />
+
+          {{ row?.order?.shippingAddress?.phone }} <br />
+          {{ row?.order?.shippingAddress?.address }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="deliveryAddress">
+        <mat-header-cell *matHeaderCellDef> Pick Up Address </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="deliveryAddress">
+          {{ row?.order?.shippingAddress?.address }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="details">
+        <mat-header-cell *matHeaderCellDef>Details</mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="details">
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="
+              goToReturnRequestDetails(
+                row?.refundRequest?.id,
+                row?.refundRequest?.assignStatus
+              )
+            "
+          >
+            <span class="text-white">Details</span>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="Status">
+          <mat-chip-list>
+            <mat-chip
+              class="history-content-button w-100"
+              [ngClass]="{
+                requested: row?.refundRequest?.assignStatus == 0,
+                reviewed: row?.refundRequest?.assignStatus == 2,
+                assigned: row?.refundRequest?.assignStatus == 1,
+                approved: row?.refundRequest?.assignStatus == 3,
+                closed: row?.refundRequest?.assignStatus == 4,
+                rejected: row?.refundRequest?.assignStatus == 5
+              }"
+            >
+              <span
+                class="btn-text"
+                *ngIf="row?.refundRequest?.assignStatus == 0"
+                >Requested</span
+              >
+
+              <span
+                class="btn-text"
+                *ngIf="row?.refundRequest?.assignStatus == 2"
+                >Reviewed</span
+              >
+
+              <span
+                class="btn-text"
+                *ngIf="row?.refundRequest?.assignStatus == 1"
+                >Processing</span
+              >
+
+              <span
+                class="btn-text"
+                *ngIf="row?.refundRequest?.assignStatus == 3"
+                >Approved</span
+              >
+
+              <span
+                class="btn-text"
+                *ngIf="row?.refundRequest?.assignStatus == 4"
+                >Closed</span
+              >
+
+              <span
+                class="btn-text"
+                *ngIf="row?.refundRequest?.assignStatus == 5"
+                >Rejected</span
+              >
+            </mat-chip>
+          </mat-chip-list>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="Action">
+          <a
+            *ngIf="row?.refundRequest?.assignStatus == 1"
+            [routerLink]="[
+              '/dashboard/transporter-refund/refund-request/details/' +
+                row?.refundRequest?.id
+            ]"
+            [state]="{ refundStatus: '1' }"
+          >
+            <button mat-raised-button class="assign-btn">
+              <span class="btn-text">Approval</span>
+            </button>
+          </a>
+
+          <mat-chip-list *ngIf="row?.refundRequest?.assignStatus >= 3">
+            <mat-chip class="history-content-button w-100 approved">
+              <span class="btn-text">Done</span>
+            </mat-chip>
+          </mat-chip-list>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+
+    <mat-paginator
+      [length]="pagination.totalCount"
+      [pageSizeOptions]="[10, 20, 30, 40, 50]"
+      [pageSize]="pagination.rowsPerPage"
+      showFirstLastButtons
+    >
+    </mat-paginator>
+  </div>
+</div>

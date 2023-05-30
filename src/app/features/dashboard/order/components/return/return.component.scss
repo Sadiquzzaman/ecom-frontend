@@ -1,0 +1,171 @@
+@media screen and (max-width: 960px) {
+  .mat-table {
+    border: 0;
+    vertical-align: middle;
+  }
+
+  .mat-table caption {
+    font-size: 1em;
+  }
+
+  .mat-table .mat-header-cell {
+    border: 10px solid;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+
+  .mat-table .mat-row {
+    border-bottom: 5px solid #ddd;
+    display: block;
+  }
+  .mat-table .mat-cell:first-child {
+    padding-left: 0;
+  }
+
+  .mat-table .mat-cell {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: 1em;
+    text-align: right;
+    font-weight: bold;
+    // height: 30px;
+    line-height: 46px;
+    padding-right: 16px;
+  }
+  .mat-table .mat-cell:before {
+    content: attr(data-label);
+    float: left;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-size: 0.85em;
+    padding-left: 16px;
+  }
+  .mat-table .mat-cell:last-child {
+    border-bottom: -1px;
+  }
+}
+.return-section {
+  padding: 2rem;
+  .hearder {
+    font-size: 1.5rem;
+  }
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: #06b37b;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.quantity {
+  width: 3.5rem;
+  // margin-top: 1.5rem;
+}
+
+.reason {
+  width: 85%;
+}
+
+.mat-cell:first-of-type,
+.mat-header-cell:first-of-type {
+  padding-left: 10px;
+}
+
+// .mat-column-checkbox {
+//   flex: none;
+//   width: 2%;
+//   justify-content: left !important;
+//   text-align: left !important;
+// }
+
+// .mat-column-product {
+//   flex: none;
+//   width: 32%;
+//   justify-content: left !important;
+//   text-align: left !important;
+// }
+
+// .mat-column-quantity {
+//   flex: none;
+//   width: 9%;
+//   justify-content: center !important;
+//   text-align: center !important;
+// }
+
+// .mat-column-return_quantity {
+//   flex: none;
+//   width: 8%;
+//   justify-content: center !important;
+//   text-align: center !important;
+// }
+
+// .mat-column-reason {
+//   flex: none;
+//   width: 40%;
+//   justify-content: left !important;
+//   text-align: left !important;
+// }
+
+.refund-link {
+  color: #06b37b;
+}
+
+.mat-header-cell:last-of-type {
+  justify-content: left !important;
+  text-align: left !important;
+}
+
+.submit-btn {
+  // width: 6rem;
+  // height: 2.5rem;
+  background-color: #06b37b;
+  // border-radius: 2px;
+  .btn-text {
+    color: #ffffff;
+  }
+}
+
+.mat-header-cell {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+::ng-deep .quantity > div.mat-form-field-wrapper,
+::ng-deep .reason > div.mat-form-field-wrapper {
+  padding-bottom: 0.5rem !important;
+}
+
+.shop-title {
+  font-size: 17px;
+  font-style: italic;
+}
+
+.invoice-title {
+  margin: 0px;
+  letter-spacing: normal;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+::ng-deep .back-button > .mat-button-wrapper {
+  color: white !important;
+}
+
+mat-header-row {
+  min-height: 20px;
+}
+
+.noDelivered {
+  color: chocolate;
+  text-align: center;
+  padding-top: 20px;
+  font-style: italic;
+  height: 200px;
+}

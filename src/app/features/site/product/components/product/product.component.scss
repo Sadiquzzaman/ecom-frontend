@@ -1,0 +1,31 @@
+.product-section {
+  .popular-product-header {
+    padding-top: 1.5rem;
+    .product-header {
+      font-weight: bold;
+      color: black;
+      font-family: sans-serif;
+      font-size: 1rem;
+      text-transform: uppercase;
+    }
+  }
+  .trending-product-header {
+    padding-top: 0.5rem;
+    .product-header {
+      font-weight: bold;
+      color: black;
+      font-family: sans-serif;
+      font-size: 1rem;
+      text-transform: uppercase;
+    }
+  }
+  .product header {
+    margin-top: 2rem;
+  }
+
+  .custom-spinner ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+    margin-top: 1rem;
+    stroke: #28B37B;
+  }
+}
+

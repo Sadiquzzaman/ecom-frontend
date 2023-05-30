@@ -1,0 +1,20 @@
+<div class="breadcrumb-section" fxLayout="row">
+  <a [routerLink]="['/']"> <mat-icon>home</mat-icon></a>
+  <div fxLayout="row" fxLayoutGap="5px">
+    <div
+      *ngFor="let navbar of navigation"
+      fxLayout="row"
+      fxLayoutAlign="center center"
+    >
+      <mat-icon>chevron_right</mat-icon>
+      <ng-container *ngIf="navbar.link; else elseTemplate">
+        <a routerLink="{{ navbar.link }}">
+          {{ navbar.name }}
+        </a>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <span>{{ navbar.name }}</span>
+      </ng-template>
+    </div>
+  </div>
+</div>

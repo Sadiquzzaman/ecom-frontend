@@ -1,0 +1,68 @@
+.feed-header-section {
+  margin-top: 2rem;
+
+  .feed-header {
+    font-size: 2.3rem;
+    color: #999999;
+    font-family: Humanistic sans-serif;
+    margin-top: 1rem;
+  }
+
+  .background-black {
+    background-color: rgb(44, 44, 44);
+    width: 10rem;
+    height: 2.2rem;
+    border-radius: 1.5px;
+  }
+
+  .background-white {
+    background-color: rgb(172, 169, 169);
+    width: 10rem;
+    height: 2.2rem;
+    border-radius: 1.5px;
+  }
+
+  .button-style {
+    color: white;
+  }
+
+  .view-button {
+    border: 1px solid #28b37b;
+    margin-right: 1rem;
+    height: 2.2rem;
+    border-radius: 2px;
+  }
+
+  .filter-button {
+    border: 1px solid #28b37b;
+    height: 2.2rem;
+    width: 6.5rem;
+    border-radius: 2px;
+  }
+}
+
+.view-icon {
+  color: #28b37b;
+}
+.checkbox-margin {
+  margin: 0 0.5rem;
+}
+
+.filter-section {
+  margin: 1rem;
+}
+
+::ng-deep
+  .mat-radio-button.mat-accent.mat-radio-checked
+  .mat-radio-outer-circle {
+  border-color: #28b37b;
+}
+
+::ng-deep.mat-radio-button.mat-accent .mat-radio-inner-circle {
+  color: #28b37b;
+  background-color: #28b37b;
+}
+
+::ng-deep.mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+  background-color: #28b37b;
+}

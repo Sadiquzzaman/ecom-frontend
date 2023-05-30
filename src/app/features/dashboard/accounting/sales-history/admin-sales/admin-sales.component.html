@@ -1,0 +1,149 @@
+<div class="admin-sales">
+  <div class="mat-elevation-z8">
+
+    <ng-container *ngIf="pagination.isLoading">
+      <mat-progress-bar color="primary" mode="indeterminate">
+      </mat-progress-bar>
+      <div class="loading-shade"></div>
+    </ng-container>
+
+    <app-sales-search
+      *ngIf="paginator !== undefined"
+      [entity]="entity"
+      [from_date]="true"
+      [to_date]="true"
+      [limit]="paginator.pageSize"
+      (submitSearch)="submittedSearch($event)"
+    ></app-sales-search>
+
+    <mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="updatedAt">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Sl.
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row; let i = index" data-label="serialno">
+          {{ paginator.pageIndex * paginator.pageSize + (i + 1) }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="createAt">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Date
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="date">
+          {{ row.createAt | date: "MMM d, y, h:mm a" }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="customer">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Customer
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="customer">
+          {{ row.user.firstName }} {{ row.user.lastName }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          class="justify-center"
+        >
+          <span class="justify-center">Status</span>
+        </mat-header-cell>
+        <mat-cell
+          *matCellDef="let row"
+          data-label="status"
+          class="justify-center"
+        >
+          {{ row?.status }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="invoiceTotal">
+        <mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          class="justify-center"
+          >Amount
+        </mat-header-cell>
+        <mat-cell
+          *matCellDef="let row"
+          data-label="amount"
+          class="justify-center"
+        >
+          {{ row?.invoiceTotal }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="orderId">
+        <mat-header-cell *matHeaderCellDef class="justify-center"
+          >Orders</mat-header-cell
+        >
+        <mat-cell
+          *matCellDef="let row"
+          data-label="orderId"
+          class="justify-center"
+        >
+          <a
+            class="order-id"
+            [routerLink]="['/dashboard/order/details/' + row.order.id]"
+          >
+            <button
+              mat-raised-button
+              class="history-content-button"
+              color="primary"
+            >
+              Order
+            </button></a
+          >
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="InvoiceId">
+        <mat-header-cell *matHeaderCellDef>Invoices</mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="InvoiceId">
+          <!-- <a [routerLink]="['/dashboard/order/invoice/' + row.id]">
+            <button mat-button class="invoice-button">
+              <span class="btn-text">Invoice Details</span>
+            </button>
+          </a> -->
+
+          <a [routerLink]="['/dashboard/order/invoice/' + row.id]">
+            <button
+              mat-raised-button
+              class="history-content-button"
+              color="mediumpurple"
+            >
+              Invoice
+            </button>
+          </a>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <div>
+        <button
+          mat-button
+          class="excell-button"
+          (click)="exportFile('xlsx')"
+          *ngIf="dataSource.length"
+        >
+          <span class="btn-text">Export Excel</span>
+        </button>
+      </div>
+      <mat-paginator
+        [length]="pagination.totalCount"
+        [pageSizeOptions]="[10, 20, 30, 40, 50]"
+        [pageSize]="pagination.rowsPerPage"
+        showFirstLastButtons
+      >
+      </mat-paginator>
+    </div>
+  </div>
+</div>

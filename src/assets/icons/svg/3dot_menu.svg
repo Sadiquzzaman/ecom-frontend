@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" viewBox="0 0 48 48">
+  <defs>
+    <clipPath id="clip-_3dot_menu">
+      <rect width="48" height="48"/>
+    </clipPath>
+  </defs>
+  <g id="_3dot_menu" data-name="3dot_menu" clip-path="url(#clip-_3dot_menu)">
+    <g id="menu" transform="translate(-174.722 0)">
+      <path id="Path_2579" data-name="Path 2579" d="M195.091,1.757a6,6,0,1,0,8.485,0,6,6,0,0,0-8.485,0" transform="translate(0)" fill="#f9f9f9"/>
+      <path id="Path_2580" data-name="Path 2580" d="M195.091,195.091a6,6,0,1,0,8.485,0,6,6,0,0,0-8.485,0" transform="translate(0 -175.334)" fill="#f9f9f9"/>
+      <path id="Path_2581" data-name="Path 2581" d="M195.091,388.423a6,6,0,1,0,8.485,0,6,6,0,0,0-8.485,0" transform="translate(0 -350.666)" fill="#f9f9f9"/>
+    </g>
+  </g>
+</svg>

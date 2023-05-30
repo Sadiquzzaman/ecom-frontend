@@ -1,0 +1,15 @@
+.order-section {
+  padding: 3rem 0.5rem 3rem 0.5rem;
+  background-color: rgba(2, 181, 124, 0.65) !important;
+  margin-bottom: 2rem;
+  background-image: url("../../../../../../assets/images/promotion_bg.png");
+  background-position: center;
+  color: white;
+
+  .promotion-card {
+    padding: 2rem 5rem 2rem 5rem;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border: 1px solid white;
+  }
+}

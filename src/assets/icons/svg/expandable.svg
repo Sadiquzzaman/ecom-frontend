@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" viewBox="0 0 48 48">
+  <defs>
+    <clipPath id="clip-expandable">
+      <rect width="48" height="48"/>
+    </clipPath>
+  </defs>
+  <g id="expandable" clip-path="url(#clip-expandable)">
+    <path id="Icon_awesome-chevron-circle-down" data-name="Icon awesome-chevron-circle-down" d="M48.562,24.563a24,24,0,1,1-24-24A24,24,0,0,1,48.562,24.563ZM26.208,35.585,39.321,22.472a2.313,2.313,0,0,0,0-3.281l-1.645-1.645a2.313,2.313,0,0,0-3.281,0l-9.832,9.832L14.73,17.546a2.313,2.313,0,0,0-3.281,0L9.8,19.192a2.313,2.313,0,0,0,0,3.281L22.917,35.585A2.325,2.325,0,0,0,26.208,35.585Z" transform="translate(-0.563 -0.563)" fill="#06b37b"/>
+  </g>
+</svg>

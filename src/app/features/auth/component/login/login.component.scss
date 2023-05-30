@@ -1,0 +1,62 @@
+.background-card {
+  padding: 3rem 0 1.5rem 0 !important;
+  border-radius: 0 !important;
+  background-color: rgba(255, 255, 255, 255);
+  background-image: url("../../../../../assets/images/login_illustration.png");
+  background-repeat: no-repeat;
+
+  .mini-card {
+    background-color: rgba(244, 244, 244, 255);
+    border-radius: 0 !important;
+    min-width: 22rem;
+    transform: scale(0.9);
+
+    .login-top {
+      font-weight: bold;
+      color: #28b37b;
+      font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+      font-size: 1rem;
+    }
+
+    .login-button {
+      height: 2.3rem;
+      background-color: rgb(63, 63, 63);
+      margin-top: 1rem;
+
+      .login-text {
+        color: white;
+        font-size: 0.9rem;
+        font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+      }
+    }
+
+    .forget {
+      color: rgba(179, 77, 77, 255);
+      text-decoration: none;
+    }
+
+    .signup-text {
+      color: #28b37b;
+      text-decoration: none;
+    }
+
+    .facebook-icon {
+      font-size: 2rem;
+      cursor: pointer;
+      color: rgba(67, 167, 255, 255);
+    }
+
+    .gmail-icon {
+      font-size: 2rem;
+      cursor: pointer;
+      width: 24px;
+      padding-top: 5px;
+      // color: rgba(230, 79, 79, 255);
+    }
+  }
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: rgba(6, 179, 123, 255);
+}

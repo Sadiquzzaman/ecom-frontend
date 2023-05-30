@@ -1,0 +1,46 @@
+<div class="order-section" fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="70" fxLayout="column" fxLayoutGap=".5rem">
+    <div
+      fxLayout="row"
+      fxLayout.lt-md="column"
+      fxLayoutAlign="space-between center"
+      fxLayoutAlign.lt-md="space-between center"
+      fxLayoutGap.lt-md="3rem"
+    >
+      <div
+        fxLayout="column"
+        fxLayoutAlign="space-between start"
+        fxLayoutGap="3rem"
+      >
+        <div class="text-white text-bold text-uppercase">
+          Order your product,download our app!!
+        </div>
+
+        <div
+          [ngClass]="'text-center'"
+          class="text-white"
+          ngClass.gt-sm="text-left"
+        >
+          Get your shopping experience into next level through our service.
+        </div>
+      </div>
+      <div>
+        <mat-card
+          class="promotion-card"
+          fxLayout="column"
+          fxLayoutAlign="center center"
+          fxLayoutGap="1rem"
+        >
+          <img
+            alt="image of google play store"
+            src="../../../../../../assets/images/google_play.png"
+          />
+          <img
+            alt="image of iso app store"
+            src="../../../../../../assets/images/app_store.png"
+          />
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

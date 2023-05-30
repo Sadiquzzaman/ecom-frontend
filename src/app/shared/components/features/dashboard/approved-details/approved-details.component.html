@@ -1,0 +1,150 @@
+<!-- <ng-container *ngIf="pagination.isLoading">
+  <mat-progress-bar color="primary" mode="indeterminate"> </mat-progress-bar>
+  <div class="loading-shade"></div>
+</ng-container> -->
+
+<div fxLayout="column" fxLayoutGap=".5rem">
+  <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap=".5rem">
+    <h2
+      style="
+        border-bottom: 1px solid black;
+        padding-left: 100px;
+        padding-right: 100px;
+      "
+    >
+      Request Details
+    </h2>
+    <div
+      style="width: 300px"
+      fxLayout="row"
+      fxLayoutAlign="center center"
+      fxLayoutGap=".5rem"
+    >
+      <span fxFlex="35">Request Date</span>
+      <span fxFlex="5">:</span>
+      <span>{{ refundRequestDate | date: "MMM d, y - h:mm a" }}</span>
+    </div>
+    <div
+      style="width: 300px"
+      fxLayout="row"
+      fxLayoutAlign="center center"
+      fxLayoutGap=".5rem"
+      *ngIf="refundPickedDate"
+    >
+      <span fxFlex="35">Picked Date</span>
+      <span fxFlex="5">:</span>
+      <span>{{ refundPickedDate | date: "MMM d, y - h:mm a" }}</span>
+    </div>
+    <div
+      style="width: 300px"
+      fxLayout="row"
+      fxLayoutAlign="center center"
+      fxLayoutGap=".5rem"
+      *ngIf="refundApprovedDate"
+    >
+      <span fxFlex="35">Approved Date</span>
+      <span fxFlex="5">:</span>
+      <span>{{ refundApprovedDate | date: "MMM d, y - h:mm a" }}</span>
+    </div>
+  </div>
+
+  <ng-container *ngIf="pagination.isLoading">
+    <!-- <div style="height: 400px"></div> -->
+    <div class="custom-loading-shade text-center">
+      <!-- <div fxLayout="row" fxLayoutAlign="center center"> -->
+        <mat-spinner class="matSpinner"></mat-spinner>
+      <!-- </div> -->
+    </div>
+  </ng-container>
+
+  <mat-table [dataSource]="dataSource" matSort *ngIf="!pagination.isLoading">
+    <!-- <ng-container matColumnDef="refundRequestDate">
+      <mat-header-cell *matHeaderCellDef>Request Date </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="refundRequestDate">
+        {{ row?.refundRequestDate | date: "MMM d, y - h:mm a" }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="refundApprovedDate">
+      <mat-header-cell *matHeaderCellDef>Approve Date </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="refundApprovedDate">
+        <div>
+          <span>{{ row?.refundApprovedDate | date: "MMM d, y - h:mm a" }}</span>
+        </div>
+      </mat-cell>
+    </ng-container> -->
+
+    <ng-container matColumnDef="price">
+      <mat-header-cell *matHeaderCellDef>Price </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="price">
+        {{ row?.price | currency: "Tk. " }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="refundRequestQuantity">
+      <mat-header-cell *matHeaderCellDef>Requested</mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="refundRequestQuantity">
+        {{ row?.refundRequestQuantity }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="refundPickedQuantity">
+      <mat-header-cell *matHeaderCellDef>Reviewed</mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="refundPickedQuantity">
+        {{ row?.refundPickedQuantity ? row.refundPickedQuantity : 0 }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="refundApprovedQuantity">
+      <mat-header-cell *matHeaderCellDef>Approved</mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="refundApprovedQuantity">
+        {{ row?.refundApprovedQuantity ? row.refundApprovedQuantity : 0 }}
+        <!-- <span *ngIf="row?.refundApprovedQuantity">{{
+          row?.refundApprovedQuantity
+        }}</span> -->
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="product">
+      <mat-header-cell *matHeaderCellDef>
+        <span style="padding-left: 10px">Product Details</span>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="product">
+        <div fxLayout="row" fxLayoutGap=".5rem">
+          <!-- <img [src]="row?.productAttribute?.image" height="20%" width="20%" /> -->
+          <app-image
+            [imageName]="row.product.image?.cover"
+            [type]="imageType"
+            [width]="'70px'"
+            [height]="'70px'"
+          >
+          </app-image>
+          <div fxLayout="column">
+            {{ row?.product?.name }} <br />
+            {{ productAttributeExtractor(row?.productAttribute?.reference) }}
+          </div>
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="refundReason">
+      <mat-header-cell *matHeaderCellDef>Refund Reason</mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="refundReason">
+        {{ row?.refundReason }}
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+
+  <div class="bottom" fxLayout="row" fxLayoutAlign="end">
+    <!-- <button mat-button class="approve-button" (click)="close()">
+        <span class="text-white">Cancel</span>
+      </button> -->
+
+    <button mat-button (click)="close()" class="close-button mr-10">
+      <span class="btn-text">Close</span>
+    </button>
+  </div>
+</div>

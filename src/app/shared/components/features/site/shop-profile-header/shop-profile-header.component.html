@@ -1,0 +1,146 @@
+<ng-container *ngIf="!isReview; else elseTemplate">
+  <div
+    class="shop-profile-section"
+    fxLayout="row"
+    fxLayoutAlign="center center"
+  >
+    <div fxFlex="100" fxFlex.gt-xs="70">
+      <div
+        fxLayout="row"
+        fxLayout.lt-md="column"
+        fxLayoutAlign="space-between center"
+        fxLayoutAlign.lt-md="center center"
+        fxLayoutGap.lt-md="2rem"
+      >
+        <div fxFlex.lt-md="25">
+          <p class="text">
+            {{ isReview ? "REVIEWS" : "PRODUCTS" }}
+          </p>
+        </div>
+
+        <div
+          fxFlex.lt-md="40"
+          fxLayout="row"
+          fxLayoutAlign="center center"
+          fxLayoutAlign.lt-md="center center"
+        >
+          <div fxLayout="row" fxLayoutAlign.lt-md="center center">
+            <button
+              [class]="!isReview ? 'background-black' : 'background-white'"
+              [routerLink]="['/shop', urlFriendlyShopName(shopData.name)]"
+              mat-button
+            >
+              <span class="button-style">Products</span>
+            </button>
+
+            <button
+              [class]="isReview ? 'background-black' : 'background-white'"
+              [routerLink]="[
+                '/shop',
+                urlFriendlyShopName(shopData.name),
+                'reviews'
+              ]"
+              mat-button
+            >
+              <span class="button-style">Reviews</span>
+            </button>
+          </div>
+        </div>
+
+        <div fxFlex.lt-md="35">
+          <button [matMenuTriggerFor]="filter" class="filter-button" mat-button>
+            Filters
+            <mat-icon>arrow_drop_down</mat-icon>
+          </button>
+          <mat-menu #filter="matMenu">
+            <div class="filter-section" fxLayout="column" fxLayoutGap="1rem">
+              <mat-radio-group fxLayout="column" fxLayoutGap="1rem">
+                <mat-radio-button class="mat-radio-top" value="highToLow">
+                  High to Low Price
+                </mat-radio-button>
+                <mat-radio-button class="mat-radio-bottom" value="lowToHigh">
+                  Low to High Price
+                </mat-radio-button>
+              </mat-radio-group>
+
+              <mat-divider></mat-divider>
+              <mat-radio-group fxLayout="column" fxLayoutGap="1rem">
+                <mat-radio-button value="highToLow">
+                  High to Low Rating
+                </mat-radio-button>
+                <mat-radio-button value="lowToHigh">
+                  Low to High Rating
+                </mat-radio-button>
+              </mat-radio-group>
+              <mat-divider></mat-divider>
+              <mat-radio-group fxLayout="column" fxLayoutGap="1rem">
+                <mat-radio-button value="latest">
+                  Latest Product
+                </mat-radio-button>
+                <mat-radio-button value="popular">
+                  Popular Product
+                </mat-radio-button>
+                <mat-radio-button value="trending">
+                  Trending Now
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </mat-menu>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<ng-template #elseTemplate>
+  <div
+    class="shop-profile-section"
+    fxLayout="row"
+    fxLayoutAlign="center center"
+  >
+    <div fxFlex="100" fxFlex.gt-xs="70">
+      <div
+        fxLayout="row"
+        fxLayout.lt-md="column"
+        fxLayoutAlign="start center"
+        fxLayoutAlign.lt-md="center center"
+        fxLayoutGap="20rem"
+        fxLayoutGap.lt-md="2rem"
+      >
+        <div fxFlex.lt-md="25">
+          <p class="text">
+            {{ isReview ? "REVIEWS" : "PRODUCTS" }}
+          </p>
+        </div>
+
+        <div
+          fxFlex.lt-md="40"
+          fxLayout="row"
+          fxLayoutAlign="center center"
+          fxLayoutAlign.lt-md="center center"
+        >
+          <div fxLayout="row" fxLayoutAlign.lt-md="center center">
+            <button
+              [class]="!isReview ? 'background-black' : 'background-white'"
+              [routerLink]="['/shop', urlFriendlyShopName(shopData.name)]"
+              mat-button
+            >
+              <span class="button-style">Products</span>
+            </button>
+
+            <button
+              [class]="isReview ? 'background-black' : 'background-white'"
+              [routerLink]="[
+                '/shop',
+                urlFriendlyShopName(shopData.name),
+                'reviews'
+              ]"
+              mat-button
+            >
+              <span class="button-style">Reviews</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,154 @@
+<div class="billing-section" fxLayoutAlign="center center">
+  <div fxFlex="60" fxLayout="column" fxLayoutGap="8rem">
+    <div
+      fxLayout="row"
+      fxLayout.lt-md="column"
+      fxLayoutAlign="space-between start"
+      fxLayoutGap="2rem"
+    >
+      <div fxLayout="column" fxLayoutGap="3rem">
+        <div fxLayout="column" fxLayoutGap="1rem">
+          <p>Select Payment Method</p>
+          <ng-container *ngFor="let payment of paymentMethods; let i = index">
+            <mat-checkbox
+              (change)="selectedPaymentMethod = paymentMethods[i]"
+              [checked]="selectedPaymentMethod === paymentMethods[i]"
+              >{{ payment }}</mat-checkbox
+            >
+          </ng-container>
+        </div>
+      </div>
+
+      <div
+        class="billing-total"
+        fxFlex="35"
+        fxLayout="column"
+        fxLayoutAlign="end start"
+        fxLayoutGap="3rem"
+      >
+        <p class="billing-header">Purchase Detail</p>
+        <table style="width: 100%">
+          <tr>
+            <td>{{ unit[index] }}</td>
+            <td class="right">{{ calculatedCart.items }}</td>
+          </tr>
+          <tr>
+            <td>Sub Total</td>
+            <td class="right">
+              {{
+                calculatedCart.totalAmount | currency: "Tk ":"symbol":"1.2-2"
+              }}
+            </td>
+          </tr>
+          <tr>
+            <td>Discount</td>
+            <td class="right">
+              {{ calculatedCart.discount | currency: "Tk ":"symbol":"1.2-2" }}
+            </td>
+          </tr>
+          <tr>
+            <td>Shipping Charge</td>
+            <td class="right">
+              {{
+                calculatedCart.shippingCharge | currency: "Tk ":"symbol":"1.2-2"
+              }}
+            </td>
+          </tr>
+          <tr>
+            <td>Additional Shipping Charge</td>
+            <td class="right">
+              {{
+                calculatedCart.additionalShippingCharge
+                  | currency: "Tk ":"symbol":"1.2-2"
+              }}
+            </td>
+          </tr>
+          <tr>
+            <td>Total</td>
+            <td class="right">
+              {{ totalAmountTaka | currency: "Tk ":"symbol":"1.2-2" }}
+            </td>
+          </tr>
+          <tr *ngIf="cuponValue">
+            <td>Cupon</td>
+            <td class="right">{{ cuponValueStr }}</td>
+          </tr>
+          <tr>
+            <td>VAT</td>
+            <td class="right">
+              {{ calculatedCart.vat | currency: "Tk ":"symbol":"1.2-2" }}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <hr />
+            </td>
+            <td>
+              <hr />
+            </td>
+          </tr>
+          <tr class="total">
+            <td>Grand Total</td>
+            <td class="right">
+              {{ totalPriceincludeVat | currency: "Tk ":"symbol":"1.2-2" }}
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div
+      fxLayout="row"
+      fxLayout.lt-md="column"
+      fxLayoutAlign="space-between center"
+      fxLayoutGap.lt-md="10px"
+    >
+      <div fxLayout="column">
+        <mat-radio-button value="1" (change)="submit($event)" class="cartOrder">
+          <a class="link" [routerLink]="['/terms-and-conditions']">
+            <span class="terms">Terms and Conditions, </span>
+          </a>
+          <a class="link" [routerLink]="['/privacy-policies']">
+            <span class="terms">Privacy Policy, </span>
+          </a>
+          <a class="link" [routerLink]="['/return-policies']">
+            <span class="terms">Return & Refund Policy</span>
+          </a>
+        </mat-radio-button>
+      </div>
+
+      <div
+        fxLayout="row"
+        fxLayout.lt-md="column"
+        fxLayoutAlign="end center"
+        fxLayoutGap="10px"
+      >
+        <button class="cancel-button" mat-button [routerLink]="['/product']">
+          <span class="btn-text">Cancel</span>
+        </button>
+
+        <button
+          [fxShow]="selectedPaymentMethod === 'Online Payment'"
+          color="primary"
+          endpoint=""
+          id="sslczPayBtn"
+          mat-raised-button
+          order=""
+          postdata=""
+          token=""
+          type="button"
+        >
+          <span class="text-white">PAY WITH SSLCOMMERZ </span>
+        </button>
+
+        <button
+          [fxShow]="selectedPaymentMethod === 'Cash on Delivery'"
+          class="pay-button"
+          mat-button
+        >
+          <span class="btn-text" (click)="changeStatus(2)">Confirm Order</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

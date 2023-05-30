@@ -1,0 +1,181 @@
+<div class="padding-top-20">
+  <div class="mat-elevation-z8">
+    <ng-container *ngIf="pagination.isLoading">
+      <mat-progress-bar color="primary" mode="indeterminate">
+      </mat-progress-bar>
+      <div class="loading-shade"></div>
+    </ng-container>
+
+    <app-sales-search
+      *ngIf="paginator !== undefined"
+      [entity]="entity"
+      [from_date]="true"
+      [to_date]="true"
+      [limit]="paginator.pageSize"
+      (submitSearch)="submittedSearch($event)"
+    ></app-sales-search>
+
+    <mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="sl">
+        <mat-header-cell *matHeaderCellDef> Sl. </mat-header-cell>
+        <mat-cell *matCellDef="let row; let i = index" data-label="sl">
+          {{ paginator.pageIndex * paginator.pageSize + (i + 1) }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="updatedAt">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Delivered Date
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="updatedAt">
+          {{ row?.updatedAt | date: "MMM d, y, h:mm a" }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- <ng-container matColumnDef="expectedShipmentDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Picked Date
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="date">
+          {{ row?.expectedShipmentDate | date: "MMM d, y, h:mm a" }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="expectedDeliveryDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Delivered Date
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="date">
+          {{ row?.expectedDeliveryDate | date: "MMM d, y, h:mm a" }}
+        </mat-cell>
+      </ng-container> -->
+
+      <ng-container matColumnDef="shop">
+        <mat-header-cell *matHeaderCellDef>Shop </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="shop">
+          {{ row?.shop?.name }} <br />
+          Address: {{ row?.shop?.location }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="transporter">
+        <mat-header-cell *matHeaderCellDef>Transporter </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="transporter">
+          <div>
+            {{ row?.transporter?.user?.firstName }}
+            {{ row?.transporter?.user?.lastName }}
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="payment">
+        <mat-header-cell *matHeaderCellDef>Payment </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="payment"
+          >{{ row?.shopInvoice?.invoiceTotal | currency: "Tk ":"symbol":"1.2-2"
+          }}<br />
+          {{ paymentMethodEnum[row?.shopInvoice?.paymentMethod] }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="invoiceTotal">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Amount
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="amount"
+          >{{ row?.shopInvoice?.invoiceTotal }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="customer">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Customer
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="customer">
+          <div fxLayout="column" fxLayoutAlign="space-between start">
+            <div>
+              {{ row?.shippingAddress?.firstname }}
+              {{ row?.shippingAddress?.lastname }}
+            </div>
+            <div>
+              {{ row?.shippingAddress?.phone }}
+            </div>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="deliveryAddress">
+        <mat-header-cell *matHeaderCellDef> Delivery Address </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="deliveryAddress">
+          {{ row?.shippingAddress?.firstname }}
+          {{ row?.shippingAddress?.lastname }} <br />
+          Phone: {{ row?.shippingAddress?.phone }} <br />
+          Address: {{ row?.shippingAddress?.address }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- <ng-container matColumnDef="orderId">
+          <mat-header-cell *matHeaderCellDef>Orders </mat-header-cell>
+          <mat-cell *matCellDef="let row" data-label="orderId">
+            <a
+              class="order-id"
+              [routerLink]="['/dashboard/order/details/' + row.order.id]"
+            >
+              <button mat-button class="order-btn">
+                <span class="btn-text">Order Details</span>
+              </button></a
+            >
+          </mat-cell>
+        </ng-container> -->
+
+      <!-- <ng-container matColumnDef="InvoiceId">
+          <mat-header-cell *matHeaderCellDef>Invoices </mat-header-cell>
+          <mat-cell *matCellDef="let row" data-label="InvoiceId">
+            <a [routerLink]="['/dashboard/accounting/shop-invoices/details/' + row.id]">
+              <button mat-button class="order-btn">
+                <span class="btn-text">Invoice Details</span>
+              </button>
+            </a>
+          </mat-cell>
+        </ng-container> -->
+
+      <!-- <ng-container matColumnDef="picked">
+        <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="picked">
+          <a>
+            <button mat-button class="assign-btn">
+              <span class="btn-text">Picked</span>
+            </button>
+          </a>
+        </mat-cell>
+      </ng-container> -->
+
+      <ng-container matColumnDef="invoice">
+        <mat-header-cell *matHeaderCellDef>
+          <span class="button-header">Invoices</span>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="invoice">
+          <a
+            [routerLink]="[
+              '/dashboard/accounting/shop-invoices/details/' + row.shopInvoice.id
+            ]"
+          >
+            <button mat-button class="order-btn">
+              <span class="btn-text">Invoice</span>
+            </button>
+          </a>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+
+    <mat-paginator
+      [length]="pagination.totalCount"
+      [pageSizeOptions]="[10, 20, 30, 40, 50]"
+      [pageSize]="pagination.rowsPerPage"
+      showFirstLastButtons
+    >
+    </mat-paginator>
+  </div>
+</div>

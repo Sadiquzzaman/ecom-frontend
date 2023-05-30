@@ -1,0 +1,89 @@
+@media screen and (max-width: 960px) {
+  .mat-table {
+    border: 0;
+    vertical-align: middle;
+  }
+
+  .mat-table caption {
+    font-size: 1em;
+  }
+
+  .mat-table .mat-header-cell {
+    border: 10px solid;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+
+  .mat-table .mat-row {
+    border-bottom: 5px solid #ddd;
+    display: block;
+  }
+  .mat-table .mat-cell:first-child {
+    padding-left: 0;
+  }
+
+  .mat-table .mat-cell {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: 1em;
+    text-align: right;
+    font-weight: bold;
+    height: 30px;
+    line-height: 46px;
+    padding-right: 16px;
+  }
+  .mat-table .mat-cell:before {
+    content: attr(data-label);
+    float: left;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-size: 0.85em;
+    padding-left: 16px;
+  }
+  .mat-table .mat-cell:last-child {
+    border-bottom: -1px;
+  }
+}
+
+.ticket-list {
+  padding: 0 0 12rem 0;
+}
+
+.btn-text {
+  color: white;
+}
+.Pending {
+  background-color: #f5c330;
+  border-radius: 0px;
+  width: 10rem;
+}
+
+.Resolved {
+  background-color: #008000;
+  border-radius: 0px;
+  width: 10rem;
+}
+
+.Rejected {
+  background-color: #ff0000;
+  border-radius: 0px;
+  width: 10rem;
+}
+
+.issueDetails {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin: 2px;
+  width: 100rem;
+}
+
+.see-more {
+  text-align: center;
+  cursor: pointer;
+  border-radius: 3px;
+}

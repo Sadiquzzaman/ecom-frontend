@@ -1,0 +1,102 @@
+<div fxLayout="column" fxLayoutGap="2%">
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <span class="mat-h2">Promotion Slot</span>
+    <button mat-button (click)="onNoClick()" class="orange">
+      <span class="text-white">Close</span>
+    </button>
+  </div>
+
+  <form fxLayout="column" [formGroup]="requestForm">
+    <div fxLayout="column" fxLayoutGap="1%">
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Promotion Type</mat-label>
+        <mat-select
+          formControlName="promotionType"
+          placeholder="Select Promotion Type"
+          required
+        >
+          <mat-option
+            *ngFor="let promotion of promotionTypes"
+            [value]="promotion.id"
+          >
+            {{ promotion.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error>Promotion Type is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="column" fxLayoutGap="1%">
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Daily Charge (Tk.)</mat-label>
+        <input
+          formControlName="dailyCharge"
+          matInput
+          autocomplete="off"
+          type="number"
+          required
+        />
+        <mat-error *ngIf="requestForm.controls.dailyCharge?.errors?.required"
+          >Daily Charge is required!</mat-error
+        >
+        <mat-error *ngIf="requestForm.controls.dailyCharge?.errors?.pattern"
+          >Daily Charge Must be integer only</mat-error
+        >
+        <mat-error *ngIf="requestForm.controls.dailyCharge?.errors?.min"
+          >Daily Charge Must be greater than 0</mat-error
+        >
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="column" fxLayoutGap="1%">
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Number of Promotion</mat-label>
+        <input
+          formControlName="limit"
+          matInput
+          autocomplete="off"
+          type="number"
+          required
+        />
+        <mat-error *ngIf="requestForm.controls.limit?.errors?.required"
+          >Number of Promotion is required!</mat-error
+        >
+        <mat-error *ngIf="requestForm.controls.limit?.errors?.pattern"
+          >Number of Promotion Must be integer only</mat-error
+        >
+        <mat-error *ngIf="requestForm.controls.limit?.errors?.min"
+          >Number of Promotion Must be greater than 1</mat-error
+        >
+        <mat-error *ngIf="requestForm.controls.limit?.errors?.max"
+          >Number of Promotion Must be smaller than 10</mat-error
+        >
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+
+<div
+  mat-dialog-actions
+  fxLayout="row"
+  fxLayoutAlign="center center"
+  style="padding-bottom: 2em"
+>
+  <ng-container *ngIf="requestForm.valid">
+    <button
+      mat-button
+      [mat-dialog-close]="requestForm.value"
+      cdkFocusInitial
+      class="mat-success"
+    >
+      <span class="text-white">Submit</span>
+    </button>
+  </ng-container>
+
+  <!-- {{ requestForm.value | json }} -->
+
+  <ng-container *ngIf="!requestForm.valid">
+    <button mat-raised-button cdkFocusInitial disabled class="grey">
+      Submit
+    </button>
+  </ng-container>
+</div>

@@ -1,0 +1,76 @@
+<div class="product-add-section" fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="70" fxLayout="column" fxLayoutGap="1rem">
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <p class="header">Instant Product Upload</p>
+    </div>
+
+    <form (ngSubmit)="save()" [formGroup]="shopAssignForm">
+      <div fxLayout="column">
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Shop Manager</mat-label>
+          <mat-select
+            class="test"
+            formControlName="shopManager"
+            placeholder="Select Shop Manager"
+            required
+          >
+            <mat-option>
+              <ngx-mat-select-search
+                [formControl]="shopManagerFiltering"
+                [searching]="isShopManagerSearching"
+                noEntriesFoundLabel="No such shop manager"
+                placeholderLabel="Search"
+              >
+              </ngx-mat-select-search>
+            </mat-option>
+            <mat-option
+              *ngFor="let shopManager of filteredShopManagerOptions | async"
+              [value]="shopManager.id"
+            >
+              {{ shopManager.name }}
+            </mat-option>
+          </mat-select>
+          <mat-error>Shop Manager is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Shop</mat-label>
+          <mat-select
+            class="test"
+            formControlName="shop"
+            placeholder="Select Shop"
+            required
+          >
+            <mat-option>
+              <ngx-mat-select-search
+                [formControl]="shopFiltering"
+                [searching]="isShopSearching"
+                noEntriesFoundLabel="No such shop"
+                placeholderLabel="Search"
+              >
+              </ngx-mat-select-search>
+            </mat-option>
+            <mat-option
+              *ngFor="let shop of filteredShopOptions | async"
+              [value]="shop.id"
+            >
+              {{ shop.name }}
+            </mat-option>
+          </mat-select>
+          <mat-error>Shop is required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <button
+          [disabled]="isLoading"
+          class="submit-button"
+          mat-raised-button
+          type="submit"
+        >
+          <span class="button-text">{{ btnLabel }}</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,124 @@
+<div
+  *ngIf="!showMap"
+  class="business-account-section"
+  [ngClass.xs]="'xs-ban'"
+  [ngClass.sm]="'sm-ban'"
+  [ngClass.md]="'md-ban'"
+  [ngClass.lg]="'lg-ban'"
+  [ngClass.xl]="'xl-ban'"
+  fxLayoutAlign="center center"
+>
+  <div
+    [@promo_fade]="transition[0]"
+    class="banner-image"
+    [style.z-index]="zindex[0]"
+  >
+    <div>
+      <mat-card class="mat-elevation-z0">
+        <div mat-card-image>
+          <app-image
+            [imageName]="'assets/images/slider.png'"
+            [type]="imageType"
+          >
+          </app-image>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+  <div
+    [@promo_fade]="transition[0]"
+    class="banner-content"
+    [style.z-index]="zindex[0]"
+  >
+    <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap=".5rem">
+      <div>
+        <b class="heading-section">DECORATE YOUR DESK WITH US</b>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <div class="account-description" fxFlex="50" fxHide fxShow.gt-sm>
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the indutry's standard dummy text ever
+          scince the 1500s
+        </div>
+      </div>
+
+      <div>
+        <button
+          [routerLink]="['/auth/registration', { type: 'merchant' }]"
+          class="button-section"
+          mat-stroked-button
+        >
+          <span class="button-paragraph-section">Create Business Account</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  
+  <ng-container *ngFor="let promotion of promotionData; let k = index">
+    <div
+      [@promo_fade]="transition[k + 1]"
+      @fade
+      class="banner-image"
+      [style.z-index]="zindex[k + 1]"
+    >
+      <div>
+        <mat-card class="mat-elevation-z0">
+          <div mat-card-image>
+            <app-image
+              *ngIf="promotion.promotionCoverImage"
+              [imageName]="promotion.promotionCoverImage"
+              [type]="imageType"
+            >
+            </app-image>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+    <div @fade class="banner-content" [style.z-index]="zindex[k + 1]">
+      <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap=".5rem">
+        <div [@promo_fade]="transition[k + 1]">
+          <b class="heading-section">{{ promotion.title }}</b>
+        </div>
+
+        <div
+          [@promo_fade]="transition[k + 1]"
+          fxLayout="row"
+          fxLayoutAlign="center center"
+        >
+          <div class="account-description" fxHide fxShow.gt-sm>
+            {{ promotion.description }}
+          </div>
+        </div>
+
+        <div
+          [@promo_fade]="transition[k + 1]"
+          fxLayout="row"
+          fxLayout.lt-md="column"
+          fxLayoutAlign="center center"
+          fxLayoutGap="1rem"
+        >
+          <button
+            (click)="gotoShop(promotion.shop.name)"
+            class="button-section"
+            mat-stroked-button
+          >
+            <span class="button-paragraph-section">
+              Visit {{ promotion.shop.name }}
+            </span>
+          </button>
+          <button
+            [routerLink]="['/product/profile/' + promotion.product.id]"
+            class="button-section"
+            mat-stroked-button
+          >
+            <span class="button-paragraph-section">
+              Buy {{ promotion.product.name }}
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

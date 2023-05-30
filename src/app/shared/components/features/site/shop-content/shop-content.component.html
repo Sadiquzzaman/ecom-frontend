@@ -1,0 +1,161 @@
+<div class="shop-feed-section" fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="100" fxFlex.gt-xs="70">
+    <div
+      fxLayout="row wrap"
+      fxLayoutAlign="center center"
+      fxLayoutGap="1rem grid"
+    >
+      <div
+        *ngIf="promotions"
+        fxFlex="25"
+        fxFlex.lt-lg="33.33"
+        fxFlex.lt-md="50"
+        fxFlex.lt-sm="90"
+      >
+        <div class="cursor-pointer">
+          <div>
+            <mat-card class="feed-card-section promotion">
+              <div class="slider-image-container" mat-card-image>
+                <div
+                  class="slide-image"
+                  [ngClass.xs]="'xs-slide-image'"
+                  [style.z-index]="slideZIndex[i]"
+                  [@promo_cat_fade]="slideAnim[i]"
+                  *ngFor="let promotion of promotions; let i = index"
+                >
+                  <app-image
+                    [imageName]="promotion.promotionCoverImage"
+                    [type]="promotionImageType"
+                    mat-card-image
+                  >
+                  </app-image>
+                </div>
+              </div>
+              <div class="slider-content-container">
+                <div
+                  [style.z-index]="slideZIndex[i]"
+                  [@promo_cat_fade]="slideAnim[i]"
+                  class="slide-content"
+                  *ngFor="let promotion of promotions; let i = index"
+                >
+                  <div class="promotion-title">
+                    {{ promotion.title }}
+                  </div>
+                  <div class="promotion-description">
+                    {{ promotion.description }}
+                  </div>
+                </div>
+              </div>
+            </mat-card>
+          </div>
+        </div>
+        <div class="button-slider-container">
+          <button
+            (click)="gotoShop(promotion?.shop?.name)"
+            [style.z-index]="slideZIndex[i]"
+            class="visit-shop"
+            mat-button
+            *ngFor="let promotion of promotions; let i = index"
+          >
+            <div
+              fxLayout="row"
+              fxLayoutAlign="center center"
+              fxLayoutGap="1rem"
+            >
+              <div class="button-style">
+                {{ promotion?.shop?.name }}
+              </div>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <div
+        *ngFor="let feed of feeds; let key = index"
+        fxFlex="25"
+        fxFlex.lt-lg="33.33"
+        fxFlex.lt-md="50"
+        fxFlex.lt-sm="90"
+      >
+        <div
+          [@zoom]="feed?.hover ? 'zoomIn' : 'zoomOut'"
+          (mouseout)="onHoverOut(key)"
+          (mouseover)="onHoverIn(key)"
+          class="cursor-pointer"
+        >
+          <!-- <div> -->
+          <mat-card class="feed-card-section" (click)="gotoShop(feed.name)">
+            <div
+              class="shop-image"
+              [ngClass.xs]="'xs-shop-image'"
+              mat-card-image
+              [ngClass]="{ 'shop-hover': feed?.hover }"
+            >
+              <!-- <img [src]="feed.shopProfileImage" height="85%" width="90%" /> -->
+              <app-image
+                [imageName]="feed.shopProfileImage"
+                [type]="shopImageType"
+                mat-card-image
+              >
+              </app-image>
+            </div>
+            <div class="shop-details">
+              <div class="shop-name-section">
+                {{ feed.name }}
+              </div>
+              <div class="company-name">
+                {{ feed.domain }}
+              </div>
+
+              <div class="location" fxLayout="row" fxLayoutGap=".4rem">
+                <mat-icon class="location-icon">room</mat-icon>
+                <span class="location-name">{{ feed.location }}</span>
+              </div>
+
+              <div
+                class="rating-icon-section"
+                fxLayout="row"
+                fxLayoutAlign="space-between center"
+                fxLayoutGap=".5rem"
+              >
+                <div>
+                  <app-rating [rating]="feed.rating" [starCount]="5">
+                  </app-rating>
+                </div>
+              </div>
+            </div>
+          </mat-card>
+          <!-- </div> -->
+        </div>
+
+        <div>
+          <button
+            (click)="
+              isFollowing(feed.id) === true
+                ? unFollowShops(feed.id)
+                : followingShop(feed.id)
+            "
+            (mouseout)="onHoverOut(key)"
+            (mouseover)="onHoverIn(key)"
+            [class]="
+              isFollowing(feed.id) === true
+                ? 'unfollow-button-section'
+                : 'follow-button-section'
+            "
+            mat-button
+          >
+            <span
+              fxLayout="row"
+              fxLayoutAlign="center center"
+              fxLayoutGap="1rem"
+            >
+              <span class="button-style">
+                {{ isFollowing(feed.id) === true ? "Unfollow" : "Follow" }}
+              </span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<ng-container *ngIf="productData?.products.length; else noProduct">
+  <div
+    class="product-feed-section"
+    fxLayout="row"
+    fxLayoutAlign="center center"
+  >
+    <div fxFlex="100" fxFlex.gt-xs="70">
+      <div
+        class="popular-shop-header"
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+      >
+        <p class="shop-header">{{ productData?.name }}</p>
+        <div>
+          <button
+            class="header-button-section"
+            mat-button
+            [routerLink]="['/product/category', productData.id]"
+          >
+            See All
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-product-content
+    [products]="productData?.products"
+    [promotions]="productData?.promotions"
+  >
+  </app-product-content>
+</ng-container>
+
+<ng-template #noProduct>
+  <div fxLayout="row" fxLayoutAlign="center center">
+    &nbsp;
+    <!-- <h4 class="text-bold">NO PRODUCT FOUND</h4> -->
+  </div>
+</ng-template>

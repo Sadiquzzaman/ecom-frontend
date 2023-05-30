@@ -1,0 +1,57 @@
+<!-- <button mat-mini-fab color="warn" class="close-icon" (click)="snackBarRef.dismissWithAction()">
+  <mat-icon>close</mat-icon>
+</button> -->
+
+<div
+  *ngIf="!data.error"
+  class="top-index"
+  fxLayout="row"
+  fxLayoutAlign="space-between start"
+>
+  <div fxflex="95">{{ data.message }}</div>
+
+  <div fxflex="5" class="dismiss">
+    <button mat-icon-button (click)="snackBarRef.dismissWithAction()">X</button>
+  </div>
+
+  <!-- <mat-icon>close</mat-icon> -->
+</div>
+
+<div *ngIf="data.error" fxLayout="row" fxLayoutAlign="space-between start">
+  <div *ngIf="data.error.fields" fxflex="97">
+    <p>
+      <strong>{{ data.message }}</strong>
+    </p>
+    <div *ngFor="let error of data.error.fields">
+      Field: {{ error.field }} <br />
+      <ng-container *ngIf="isValidArray(error.message)">
+        Message: <br />
+        <!-- <p *ngFor="let msg of error.message; let i = index">
+          {{ i }} - {{ msg }}
+        </p> -->
+        <p *ngFor="let msg of error.message; let i = index">
+          {{ msg }}
+        </p>
+      </ng-container>
+
+      <ng-container *ngIf="isValidString(error.message)">
+        <p>Message: {{ error.message }}</p>
+      </ng-container>
+    </div>
+  </div>
+
+  <div *ngIf="data.error.system" class="top-index" fxflex="97">
+    <p>
+      <strong>{{ data.message }}</strong>
+    </p>
+    <p>
+      Domain: {{ data.error.system.domain }} <br />
+      Value: {{ data.error.system.value }} <br />
+      Message: {{ data.error.system.message }}
+    </p>
+  </div>
+
+  <div fxflex="3" class="dismiss">
+    <button mat-icon-button (click)="snackBarRef.dismissWithAction()">X</button>
+  </div>
+</div>

@@ -1,0 +1,105 @@
+<div class="ticket-list">
+  <!-- <div *ngIf="pagination.isLoading" fxLayout="row" fxLayoutAlign="center center" style="height: 400px">
+    <mat-spinner color="primary"></mat-spinner>
+  </div> -->
+
+  <ng-container *ngIf="pagination.isLoading">
+    <mat-progress-bar color="primary" mode="indeterminate"> </mat-progress-bar>
+    <div class="loading-shade"></div>
+  </ng-container>
+
+  <app-sales-search
+      *ngIf="paginator !== undefined"
+      [entity]="entity"
+      [entityFlex]="32"
+      [secondEntity]="secondEntity"
+      [secondEntityFlex]="32"
+      [thirdEntity]="thirdEntity"
+      [thirdEntityFlex]="32"
+      [dropdown]="dropdownName"
+      [dropdownFlex]="30"
+      [secondDropdown]="secondDropdownName"
+      [secondDropdownFlex]="26"
+      [first_text]="first_text"
+      [first_textFlex]="30"
+      [second_text]="second_text"
+      [second_textFlex]="25"
+      [third_text]="third_text"
+      [third_textFlex]="20"
+      [from_date]="true"
+      [from_dateFlex]="22"
+      [to_date]="true"
+      [to_dateFlex]="22"
+      [gap]="gap"
+      [multipleRow]="multipleRow"
+      [limit]="paginator.pageSize"
+      (submitSearch)="submittedSearch($event)"
+    ></app-sales-search>
+
+  <mat-table #table [dataSource]="dataSource" matSort>
+    <div>
+      <ng-container matColumnDef="seriall no.">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Sl.</mat-header-cell>
+        <mat-cell *matCellDef="let row; let i = index" data-label="seriall no.">
+          {{ paginator.pageIndex * paginator.pageSize + (i + 1) }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="startDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Start Date</mat-header-cell
+        >
+        <mat-cell *matCellDef="let row" data-label="Start Date">
+          <span fxFlex="50">{{ row.startDate | date }}</span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="endDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >End Date</mat-header-cell
+        >
+        <mat-cell *matCellDef="let row" data-label="End Date">
+          <span fxFlex="50">{{ row.endDate | date }}</span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Description</mat-header-cell
+        >
+        <mat-cell *matCellDef="let row" data-label="Description">
+          {{ row.description }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="quantity">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Quantity</mat-header-cell
+        >
+        <mat-cell *matCellDef="let row" data-label="Quantity">
+          <span fxFlex="50">{{ row.quantity }}</span>
+        </mat-cell>
+      </ng-container>
+    </div>
+
+    <ng-container matColumnDef="couponCode">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Coupon Code</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row" data-label="Coupon Code">
+        {{ row.couponCode }}
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+
+  <mat-paginator
+    [length]="pagination.totalCount"
+    [pageSizeOptions]="[10, 20, 30, 40, 50, pagination.totalCount]"
+    [pageSize]="pagination.rowsPerPage"
+    showFirstLastButtons
+  >
+  </mat-paginator>
+</div>

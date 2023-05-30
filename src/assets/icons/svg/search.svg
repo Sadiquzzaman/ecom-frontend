@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" viewBox="0 0 48 48">
+  <defs>
+    <clipPath id="clip-search">
+      <rect width="48" height="48"/>
+    </clipPath>
+  </defs>
+  <g id="search" clip-path="url(#clip-search)">
+    <path id="Icon_ionic-md-search" data-name="Icon ionic-md-search" d="M38.689,34.672H36.5l-.821-.686a18.155,18.155,0,0,0,4.24-11.657A17.71,17.71,0,1,0,22.278,40.157,18.328,18.328,0,0,0,33.9,35.906l.82.686v2.194L48.4,52.5l4.1-4.114Zm-16.411,0A12.343,12.343,0,1,1,34.586,22.329,12.274,12.274,0,0,1,22.278,34.672Z" transform="translate(-4.5 -4.501)" fill="#06b37b"/>
+  </g>
+</svg>

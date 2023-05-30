@@ -1,0 +1,422 @@
+<mat-card class="background-card">
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <mat-card class="mini-card" fxLayout="column" fxLayoutGap="3rem">
+      <!--SignUp page top description-->
+      <div
+        fxLayout="column"
+        fxLayoutAlign="space-between center"
+        fxLayoutGap="2rem"
+      >
+        <a routerLink="/">
+          <img
+            alt="Logo of Ebonear"
+            height="100%"
+            src="../../../../../assets/icons/png/Ebonear_logo_green.png"
+          />
+        </a>
+        <p class="sign-up-top">
+          Create Your Ebonear Account as {{ registrationType }} !
+        </p>
+      </div>
+
+      <form
+        [formGroup]="registrationForm"
+        fxLayout="row"
+        fxLayout.lt-md="column"
+        fxLayoutAlign="space-around start"
+        fxLayoutGap="6rem"
+        fxLayoutGap.lt-md=".5rem"
+      >
+        <!--Left side forms-->
+
+        <div class="signUpForm">
+          <div fxLayout="row" fxLayoutAlign="start center">
+            <button class="change-btn" (click)="onChangeText()">
+              <span class="text">{{ stateText }}</span>
+            </button>
+          </div>
+
+          <div
+            *ngIf="stateTextBool === false"
+            fxLayout="column"
+            fxLayoutGap="1%"
+          >
+            <mat-form-field appearance="outline" floatLabel="always">
+              <mat-label>Email</mat-label>
+              <input
+                formControlName="email"
+                matInput
+                name="email"
+                placeholder="Input email here"
+                type="text"
+              />
+              <mat-error>Valid email required!</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div *ngIf="stateTextBool === true">
+            <div fxLayout="row" fxLayoutGap="3%">
+              <div fxFlex="35%" fxLayout="column" fxLayoutGap="1%">
+                <mat-form-field appearance="outline">
+                  <mat-label>Country Code</mat-label>
+                  <mat-select
+                    formControlName="countryCode"
+                    placeholder="Select"
+                    floatLabel="always"
+                  >
+                    <mat-option
+                      *ngFor="let countryCode of countryCodes"
+                      [value]="countryCode.value"
+                    >
+                      {{ countryCode.label }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div fxFlex fxLayout="column" fxLayoutGap="1%">
+                <mat-form-field appearance="outline" floatLabel="always">
+                  <mat-label>Phone</mat-label>
+                  <input
+                    formControlName="phone"
+                    matInput
+                    name="phone"
+                    pattern="01[0-9]{9}"
+                    placeholder="Write your phone number here"
+                  />
+                  <mat-error>Valid phone number required!</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+          <div fxLayout="column">
+            <div fxFlex fxLayout="column" fxLayoutGap="1%">
+              <mat-form-field
+                appearance="outline"
+                floatLabel="always"
+                [style.width.%]="100"
+              >
+                <mat-label>Password</mat-label>
+                <input
+                  [type]="passwordVisibility ? 'text' : 'password'"
+                  formControlName="password"
+                  matInput
+                  placeholder="Input password here"
+                  required
+                />
+                <mat-icon
+                  (click)="passwordVisibility = !passwordVisibility"
+                  class="cursor-pointer"
+                  matSuffix
+                >
+                  {{ passwordVisibility ? "visibility" : "visibility_off" }}
+                </mat-icon>
+                <mat-error *ngIf="hasError('password', 'required')"
+                  >Password is required
+                </mat-error>
+                <mat-error *ngIf="hasError('password', 'pattern')">
+                  Password must be at least 8 characters.
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex fxLayout="column" fxLayoutGap="1%">
+              <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Confirm Password</mat-label>
+                <input
+                  [type]="confirmPasswordVisibility ? 'text' : 'password'"
+                  formControlName="confirmPassword"
+                  matInput
+                  placeholder="Confirm password here"
+                  required
+                />
+                <mat-icon
+                  (click)="
+                    confirmPasswordVisibility = !confirmPasswordVisibility
+                  "
+                  class="cursor-pointer"
+                  matSuffix
+                >
+                  {{
+                    confirmPasswordVisibility ? "visibility" : "visibility_off"
+                  }}
+                </mat-icon>
+                <mat-error> Password Doesn't match!</mat-error>
+              </mat-form-field>
+            </div>
+
+            <!-- <div fxLayout="row" fxLayoutGap="3%">
+              <div fxFlex fxLayout="column" fxLayoutGap="3%">
+                <mat-form-field appearance="outline" floatLabel="always">
+                  <mat-label>District</mat-label>
+                  <mat-select
+                    (selectionChange)="onDistrictSelect()"
+                    formControlName="district"
+                    placeholder="Select District"
+                    required
+                  >
+                    <mat-option>
+                      <ngx-mat-select-search
+                        [formControl]="districtFiltering"
+                        [searching]="isSearching"
+                        noEntriesFoundLabel="No such Districts"
+                        placeholderLabel="Search"
+                      >
+                      </ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option
+                      *ngFor="let district of filteredDistrictOptions | async"
+                      [value]="district.id"
+                    >
+                      {{ district.name }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error>District is required!</mat-error>
+                </mat-form-field>
+              </div>
+
+              <div fxFlex fxLayout="column" fxLayoutGap="3%">
+                <mat-form-field appearance="outline" floatLabel="always">
+                  <mat-label>Thana</mat-label>
+                  <mat-select
+                    formControlName="thana"
+                    placeholder="Select Thana"
+                    required
+                  >
+                    <mat-option>
+                      <ngx-mat-select-search
+                        [formControl]="thanaFiltering"
+                        [searching]="isSearching"
+                        noEntriesFoundLabel="No such Thanas"
+                        placeholderLabel="Search"
+                      >
+                      </ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option
+                      *ngFor="let thana of filteredThanaOptions | async"
+                      [value]="thana.id"
+                    >
+                      {{ thana.name }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error>Thana is required!</mat-error>
+                </mat-form-field>
+              </div>
+            </div> -->
+          </div>
+        </div>
+        <!-- <div>
+          <mat-divider class="divider-line" fxHide.lt-md vertical></mat-divider>
+        </div> -->
+        <!--Right side forms-->
+        <div fxLayout="column" fxLayoutAlign="space-between start">
+          <div fxLayout="row" fxLayoutGap="3%">
+            <div fxFlex="35%" fxLayout="column" fxLayoutGap="1%">
+              <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Gender</mat-label>
+                <mat-select formControlName="gender" placeholder="Select">
+                  <mat-option
+                    *ngFor="let gender of genders"
+                    [value]="gender.value"
+                  >
+                    {{ gender.label }}
+                  </mat-option>
+                </mat-select>
+                <mat-error>Gender is required!</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex fxLayout="column" fxLayoutGap="1%">
+              <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Date of birth</mat-label>
+                <input
+                  [matDatepicker]="datePicker"
+                  [max]="maxDate"
+                  formControlName="dateOfBirth"
+                  matInput
+                  readonly
+                  placeholder="MM/DD/YYYY"
+                />
+                <mat-datepicker-toggle
+                  [for]="datePicker"
+                  matSuffix
+                ></mat-datepicker-toggle>
+                <mat-datepicker #datePicker></mat-datepicker>
+                <mat-error>Date of Birth is required!</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutGap="8%">
+            <div fxFlex fxLayout="column" fxLayoutGap="1%">
+              <mat-form-field appearance="outline" fxFlex floatLabel="always">
+                <mat-label fxFlex>First Name</mat-label>
+                <input
+                  class="firstName-input"
+                  formControlName="firstName"
+                  matInput
+                  name="firstName"
+                  placeholder="Write your first name"
+                  required
+                />
+                <mat-error>First name is required!</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex fxLayout="column" fxLayoutGap="4%">
+              <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Last Name</mat-label>
+                <input
+                  class="firstName-input"
+                  formControlName="lastName"
+                  matInput
+                  name="lastName"
+                  placeholder="Write your last name"
+                  required
+                />
+                <mat-error>Last name is required!</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div fxLayout="column" fxLayoutGap="2rem">
+            <button
+              (click)="register()"
+              [disabled]="isLoading"
+              class="signup-button"
+              mat-raised-button
+            >
+              <span class="signup-text">SIGN UP</span>
+            </button>
+
+            <div
+              fxLayout="row"
+              fxLayoutAlign="space-between center"
+              fxLayoutGap="1rem"
+            >
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <span>Or, Access using &nbsp;</span>
+                <div fxLayout="row" fxLayoutGap="1rem">
+                  <mat-icon
+                    (click)="signInWithFacebook()"
+                    class="facebook-icon"
+                    matTooltip="Login using Facebook"
+                    >facebook
+                  </mat-icon>
+                  <!-- <mat-icon (click)="signInWithGoogle()" class="gmail-icon" matTooltip="Login using Gmail"
+                >mail
+              </mat-icon> -->
+                  <img
+                    src="./../../../../../assets/icons/png/gmail_colorful.png"
+                    (click)="signInWithGoogle()"
+                    class="gmail-icon"
+                    matTooltip="Login using Gmail"
+                  />
+                </div>
+              </div>
+
+              <a
+                *ngIf="stateTextTypeBool === true; else other_content"
+                (click)="onChangeTextType()"
+                [routerLink]="['/auth/registration', { type: 'merchant' }]"
+                >{{ stateTextType }}</a
+              >
+              <ng-template #other_content>
+                <a
+                  (click)="onChangeTextType()"
+                  [routerLink]="['/auth/registration']"
+                  >{{ stateTextType }}</a
+                >
+              </ng-template>
+            </div>
+          </div>
+          <!-- <div>
+            <div fxLayout="column">
+              <div fxFlex fxLayout="column" fxLayoutGap="1%">
+                <mat-form-field appearance="outline" floatLabel="always">
+                  <mat-label>Location</mat-label>
+                  <input
+                    #search
+                    (keydown.enter)="$event.preventDefault()"
+                    formControlName="location"
+                    matInput
+                    placeholder="Enter Location"
+                    required
+                  />
+                  <mat-error> >Location is required</mat-error>
+                </mat-form-field>
+              </div>
+
+              <div fxFlex fxLayout="column" fxLayoutGap="1%">
+                <div appearance="outline" floatLabel="always">
+                  <agm-map
+                    (mapClick)="addMarker($event.coords.lat, $event.coords.lng)"
+                    [latitude]="location.x"
+                    [longitude]="location.y"
+                    [zoom]="zoom"
+                    class="agm-map"
+                  >
+                    <agm-marker
+                      [latitude]="location.x"
+                      [longitude]="location.y"
+                    ></agm-marker>
+                  </agm-map>
+                </div>
+              </div>
+
+              <div fxFlex fxLayout="column" fxLayoutGap="1%">
+                <mat-form-field appearance="outline" floatLabel="always">
+                  <mat-label>Address</mat-label>
+                  <textarea
+                    class="address-bar"
+                    formControlName="addressPlain"
+                    matInput
+                    name="address"
+                    type="text"
+                  ></textarea>
+
+                  <mat-error>Address is required!</mat-error>
+                </mat-form-field>
+              </div>
+
+              <div>
+                <ngx-recaptcha2
+                  [useGlobalDomain]="true"
+                  formControlName="captcha"
+                >
+                </ngx-recaptcha2>
+              </div>
+
+              <button
+                (click)="register()"
+                [disabled]="isLoading"
+                class="signup-button"
+                mat-raised-button
+              >
+                <span class="signup-text">SIGN UP</span>
+              </button>
+            </div>
+          </div>
+
+          <div
+            fxLayout="row"
+            fxLayoutAlign="space-around center"
+            fxLayoutGap="1rem"
+          >
+            <span>Already have an account?</span>
+            <span>
+              <a [routerLink]="['/auth/login']" class="login-text"> Login </a>
+            </span>
+          </div> -->
+        </div>
+      </form>
+      <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+        <span>Already have an account?</span>
+        <span>
+          <a [routerLink]="['/auth/login']" class="login-text"> Login </a>
+        </span>
+      </div>
+    </mat-card>
+  </div>
+</mat-card>
+<app-footer></app-footer>

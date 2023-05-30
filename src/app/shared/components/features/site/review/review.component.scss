@@ -1,0 +1,26 @@
+.review-section {
+  padding: 3rem 0 2rem 0;
+  .top-text {
+    font-size: large;
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    color: #28b37b;
+  }
+  .rating-button {
+    border-radius: 2px;
+    border: 1px solid #28b37b;
+  }
+  .icon {
+    color: #ffbc1e;
+  }
+  .review-bar{
+    height: 4rem;
+  }
+}
+.submit-button {
+  background-color: #28b37b;
+  border-radius: 2px;
+  width: 10rem;
+  .btn-text {
+    color: white;
+  }
+}

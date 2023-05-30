@@ -1,0 +1,22 @@
+<div *ngIf="cartPage" class="iframe-drag-bounds" #dragBounds>
+  <mat-card
+    ngDraggable
+    [bounds]="dragBounds"
+    [inBounds]="true"
+    (click)="displayCart()"
+    class="min-cart-div"
+    fxLayout="column"
+    fxLayoutAlign="space-between center"
+    fxLayoutGap="5px"
+  >
+    <div>{{ calculatedCart.items }} {{ unit[index] }}</div>
+    <div>
+      <mat-icon class="cart-icon">shopping_cart</mat-icon>
+    </div>
+    <div>
+      {{
+        calculatedCart.grandTotal.toFixed(2) | currency: "Tk ":"symbol":"1.2-2"
+      }}
+    </div>
+  </mat-card>
+</div>

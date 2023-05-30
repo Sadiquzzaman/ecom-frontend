@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" viewBox="0 0 48 48">
+  <defs>
+    <clipPath id="clip-camera">
+      <rect width="48" height="48"/>
+    </clipPath>
+  </defs>
+  <g id="camera" clip-path="url(#clip-camera)">
+    <g id="Icon_ionic-md-camera" data-name="Icon ionic-md-camera" transform="translate(-2.25 -0.737)">
+      <path id="Path_1196" data-name="Path 1196" d="M27.07,22.008a6.75,6.75,0,1,1-6.75-6.75,6.75,6.75,0,0,1,6.75,6.75Z" transform="translate(5.93 5.635)" fill="#c9c9c9"/>
+      <path id="Path_1197" data-name="Path 1197" d="M45.964,7.929H36.536L33.107,4.5H19.393L15.964,7.929H6.536A4.286,4.286,0,0,0,2.25,12.214V41.357a4.286,4.286,0,0,0,4.286,4.286H45.964a4.286,4.286,0,0,0,4.286-4.286V12.214A4.286,4.286,0,0,0,45.964,7.929ZM26.25,39.643a12,12,0,1,1,12-12A12,12,0,0,1,26.25,39.643Z" fill="#c9c9c9"/>
+    </g>
+  </g>
+</svg>

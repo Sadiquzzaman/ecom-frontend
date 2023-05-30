@@ -1,0 +1,21 @@
+<div class="site-layout" fxLayout="column">
+  <div class="header">
+    <app-header></app-header>
+    <app-top-search [categories]="categories"></app-top-search>
+    <!-- <app-top-search></app-top-search> -->
+  </div>
+
+  <mat-card class="less-padding">
+    <router-outlet fxHide.lt-md></router-outlet>
+    <div class="footer">
+      <app-footer></app-footer>
+    </div>
+  </mat-card>
+  <app-min-cart (showCart)="showCart()"></app-min-cart>
+  <app-cart (closeCart)="isShow = false" [fxShow]="isShow"></app-cart>
+
+  <!-- <ng-template *ngIf="lazyCom" [ngComponentOutlet]="lazyCom | async">
+  </ng-template> -->
+
+  <app-facebook-chat></app-facebook-chat>
+</div>

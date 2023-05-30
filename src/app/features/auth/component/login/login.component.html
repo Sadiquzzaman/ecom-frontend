@@ -1,0 +1,109 @@
+<mat-card class="background-card">
+  <div fxLayoutAlign="center center">
+    <mat-card class="mini-card">
+      <!--Login page top description-->
+      <div fxLayout="column" fxLayoutGap="1rem">
+        <div
+          fxLayout="column"
+          fxLayoutAlign="space-between start"
+          fxLayoutAlign.lt-md="center center"
+          fxLayoutGap="1.5rem"
+        >
+          <a routerLink="/">
+            <img
+              alt="Logo of Ebonear"
+              height="100%"
+              src="../../../../../assets/icons/png/Ebonear_logo_green.png"
+            />
+          </a>
+
+          <p class="login-top">Enter Credentials to login !</p>
+        </div>
+
+        <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+          <div fxLayout="column">
+            <div fxFlex fxLayout="column" fxLayoutGap="1%">
+              <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Phone Number or Email</mat-label>
+                <input
+                  formControlName="phoneOrEmail"
+                  matInput
+                  name="phoneOrEmail"
+                  placeholder="Write your Email or Phone number"
+                  required
+                  type="text"
+                />
+                <mat-error>Valid email or phone required!</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex fxLayout="column" fxLayoutGap="1%">
+              <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Password</mat-label>
+                <input
+                  [type]="passwordVisibility ? 'text' : 'password'"
+                  formControlName="password"
+                  matInput
+                  placeholder="Insert your password here"
+                  required
+                />
+                <mat-icon
+                  (click)="passwordVisibility = !passwordVisibility"
+                  class="cursor-pointer"
+                  matSuffix
+                >
+                  {{ passwordVisibility ? "visibility" : "visibility_off" }}
+                </mat-icon>
+                <mat-error>Password is required!</mat-error>
+              </mat-form-field>
+            </div>
+
+            <button class="login-button" mat-raised-button>
+              <span class="login-text">LOGIN</span>
+            </button>
+          </div>
+        </form>
+
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <mat-checkbox (change)="changeCheckBox($event.checked)">
+            Keep me active
+          </mat-checkbox>
+          <div>
+            <a [routerLink]="['/auth/forget-password']" class="forget">
+              Forget password
+            </a>
+          </div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1rem">
+          <span>Don't have an account?</span>
+          <span>
+            <a [routerLink]="['/auth/registration']" class="signup-text">
+              Sign Up
+            </a>
+          </span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2rem">
+          <span>Or, Access using</span>
+          <div fxLayout="row" fxLayoutGap="2rem">
+            <mat-icon
+              (click)="signInWithFacebook()"
+              class="facebook-icon"
+              matTooltip="Login using Facebook"
+              >facebook
+            </mat-icon>
+            <!-- <mat-icon (click)="signInWithGoogle()" class="gmail-icon" matTooltip="Login using Gmail"
+              >mail
+            </mat-icon> -->
+            <img
+              src="./../../../../../assets/icons/png/gmail_colorful.png"
+              (click)="signInWithGoogle()"
+              class="gmail-icon"
+              matTooltip="Login using Gmail"
+            />
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</mat-card>
+<app-footer></app-footer>

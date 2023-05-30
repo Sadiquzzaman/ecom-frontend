@@ -1,0 +1,128 @@
+agm-map.xs-ban {
+  height: 6rem;
+}
+agm-map.sm-ban {
+  height: 8rem;
+}
+agm-map.md-ban {
+  height: 10rem;
+}
+agm-map.lg-ban {
+  height: 12rem;
+}
+agm-map.xl-ban {
+  height: 15rem;
+}
+div.locationMap {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 3.3rem;
+  z-index: 1;
+}
+
+.cancel-button {
+  color: white;
+  background-color: red;
+  position: absolute;
+  z-index: 1;
+  cursor: pointer;
+  margin-top: 1rem;
+  margin-left: 1rem;
+}
+
+.top-search-section {
+  background-color: #28b37b;
+  // margin-bottom: 1rem;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 10000;
+
+  .top-search-category-section {
+    button {
+      background-color: rgba(255, 188, 30, 255) !important;
+      border-radius: 2px;
+      font-size: 1.1rem !important;
+      width: 15rem;
+      height: 3.5rem;
+    }
+  }
+
+  .top-search-location-section {
+    .location {
+      background-color: white;
+      border-radius: 2px;
+
+      ::ng-deep input,
+      input:focus {
+        padding: 0.5rem;
+        border: unset;
+        outline: none;
+      }
+    }
+
+    mat-icon {
+      margin-right: 0.5rem;
+    }
+  }
+
+  .top-search-filter-section {
+    .filter {
+      background-color: white;
+      height: 2.12rem;
+      border-radius: 2px;
+
+      ::ng-deep input,
+      input:focus {
+        border: unset;
+        outline: none;
+      }
+    }
+
+    mat-icon {
+      margin-right: 0.5rem;
+    }
+  }
+
+  .notification-button {
+    color: white;
+    cursor: pointer;
+    border-radius: 2px;
+  }
+
+  .mat-icon {
+    cursor: pointer;
+  }
+}
+
+.checkbox-margin {
+  margin: 0 0.5rem;
+}
+
+::ng-deep button.mat-menu-item {
+  width: 15rem !important;
+}
+
+.filter-section {
+  margin: 1rem;
+}
+
+::ng-deep
+  .mat-radio-button.mat-accent.mat-radio-checked
+  .mat-radio-outer-circle {
+  border-color: #28b37b;
+}
+
+::ng-deep.mat-radio-button.mat-accent .mat-radio-inner-circle {
+  color: #28b37b;
+  background-color: #28b37b;
+}
+
+::ng-deep.mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+  background-color: #28b37b;
+}
+
+.mat-menu-item {
+  line-height: 37px;
+  height: 35px;
+}

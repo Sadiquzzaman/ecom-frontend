@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" viewBox="0 0 48 48">
+  <defs>
+    <clipPath id="clip-send">
+      <rect width="48" height="48"/>
+    </clipPath>
+  </defs>
+  <g id="send" clip-path="url(#clip-send)">
+    <path id="Icon_material-send" data-name="Icon material-send" d="M3.022,44.573l46.73-20.037L3.022,4.5,3,20.084l33.394,4.453L3,28.989Z" transform="translate(-1.752 0.413)" fill="#c9c9c9"/>
+  </g>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" viewBox="0 0 48 48">
+  <defs>
+    <clipPath id="clip-following_shop">
+      <rect width="48" height="48"/>
+    </clipPath>
+  </defs>
+  <g id="following_shop" data-name="following shop" clip-path="url(#clip-following_shop)">
+    <g id="Group_1128" data-name="Group 1128" transform="translate(-1551.277 -302.501)">
+      <path id="Icon_open-account-logout" data-name="Icon open-account-logout" d="M3.838,0H29.781V36.321Z" transform="translate(1568.319 308.5)" fill="#fff" stroke="#c9c9c9" stroke-width="2"/>
+      <path id="Icon_feather-check" data-name="Icon feather-check" d="M44.868,9,18.146,37.086,6,24.32" transform="translate(1546.503 307.923)" fill="none" stroke="#c9c9c9" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+    </g>
+  </g>
+</svg>

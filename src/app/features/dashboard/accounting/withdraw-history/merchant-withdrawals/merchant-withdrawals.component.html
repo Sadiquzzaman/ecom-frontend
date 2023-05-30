@@ -1,0 +1,269 @@
+<div class="admin-sales">
+  <div class="mat-elevation-z8">
+    <ng-container *ngIf="pagination.isLoading">
+      <mat-progress-bar color="primary" mode="indeterminate">
+      </mat-progress-bar>
+      <div class="loading-shade"></div>
+    </ng-container>
+
+    <div
+      fxLayout="row wrap"
+      fxLayout.xs="column"
+      fxLayoutAlign="space-evenly center"
+      *ngIf="token.isMerchant()"
+    >
+      <div class="mb10" fxFlex="19">
+        <app-stat
+          [bgClass]="'info'"
+          [icon]="'view_list'"
+          [count]="totalSale"
+          [label]="'Total Sale!'"
+        ></app-stat>
+      </div>
+      <div class="mb10" fxFlex="19">
+        <app-stat
+          [bgClass]="'warn'"
+          [icon]="'view_list'"
+          [count]="totalRefund"
+          [label]="'Total Refund!'"
+        ></app-stat>
+      </div>
+      <div class="mb10" fxFlex="19">
+        <app-stat
+          [bgClass]="'indigo'"
+          [icon]="'bookmarks'"
+          [count]="availableBalance"
+          [label]="'Available Balance!'"
+        ></app-stat>
+      </div>
+
+      <div class="mb10" fxFlex="20">
+        <app-stat
+          [bgClass]="'success'"
+          [icon]="'shopping_cart'"
+          [count]="totalWithdrawal"
+          [label]="'Approved Withdraw!'"
+        ></app-stat>
+      </div>
+      <div class="mb10" fxFlex="20">
+        <app-stat
+          [bgClass]="'danger'"
+          [icon]="'contact_support'"
+          [count]="totalPendingWithdrawal"
+          [label]="'Pending Withdraw!'"
+        ></app-stat>
+      </div>
+    </div>
+
+    <app-sales-search
+      *ngIf="paginator !== undefined"
+      [gap]="gap"
+      [entity]="entity"
+      [entityFlex]="entityFlex"
+      [secondEntity]="secondEntity"
+      [secondEntityFlex]="secondEntityFlex"
+      [dropdown]="dropdownName"
+      [dropdownFlex]="dropdownFlex"
+      [secondDropdown]="secondDropdownName"
+      [secondDropdownFlex]="secondDropdownFlex"
+      [from_date]="true"
+      [from_dateFlex]="from_dateFlex"
+      [to_date]="true"
+      [to_dateFlex]="to_dateFlex"
+      [searchFlex]="18"
+      [multipleRow]="multipleRow"
+      [limit]="paginator.pageSize"
+      (submitSearch)="submittedSearch($event)"
+    ></app-sales-search>
+
+    <mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="updatedAt">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Sl.
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row; let i = index" data-label="serialno">
+          {{ paginator.pageIndex * paginator.pageSize + (i + 1) }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="createAt">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Request Date
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="date">
+          {{ row.createAt | date: "MMM d, y, h:mm a" }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="merchant">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Merchant
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="merchant">
+          {{
+            row?.requestedBy?.user?.firstName +
+              " " +
+              row?.requestedBy?.user?.lastName
+          }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Status
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="status">
+          {{ row.status }}
+
+          <mat-chip-list>
+            <mat-chip
+              class="history-content-button w-100"
+              [ngClass]="{
+                PENDING: row?.withdrawalStatus == 0,
+                APPROVED: row?.withdrawalStatus == 1,
+                REJECTED: row?.withdrawalStatus == 2,
+                CANCELED: row?.withdrawalStatus == 3
+              }"
+            >
+              <span class="text-white">
+                <ng-container *ngIf="row?.withdrawalStatus == 0"
+                  >PENDING</ng-container
+                >
+                <ng-container *ngIf="row?.withdrawalStatus == 1"
+                  >APPROVED</ng-container
+                >
+                <ng-container *ngIf="row?.withdrawalStatus == 2"
+                  >REJECTED</ng-container
+                >
+                <ng-container *ngIf="row?.withdrawalStatus == 3"
+                  >CANCELED</ng-container
+                >
+              </span>
+            </mat-chip>
+          </mat-chip-list>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="requestedAmount">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Requested Amount
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="amount">
+          {{ row.amount }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="approvedAmount">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Approved Amount
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="amount">
+          {{ row.paidAmount }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="orderId">
+        <mat-header-cell *matHeaderCellDef>Orders</mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="orderId">
+          <a
+            class="order-id"
+            [routerLink]="['/dashboard/order/details/' + row.order.id]"
+          >
+            <button
+              mat-raised-button
+              class="history-content-button"
+              color="primary"
+            >
+              Order
+            </button></a
+          >
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="InvoiceId">
+        <mat-header-cell *matHeaderCellDef>Invoices</mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="InvoiceId">
+          <a
+            [routerLink]="[
+              '/dashboard/accounting/merchant-invoices/details/' + row.id
+            ]"
+          >
+            <button
+              mat-raised-button
+              class="history-content-button"
+              color="mediumpurple"
+            >
+              Invoice
+            </button>
+          </a>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="details">
+        <mat-header-cell *matHeaderCellDef>
+          <button
+            *ngIf="token.isMerchant(); else notMerchant"
+            mat-raised-button
+            color="primary"
+            (click)="withdrawRequestForm()"
+          >
+            <span class="material-icons text-white mr-2"
+              >add_circle_outline</span
+            >
+            <span class="text-white">Request</span>
+          </button>
+
+          <ng-template #notMerchant>Details</ng-template>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="details">
+          <button
+            *ngIf="
+              token.isMerchant();
+              else notMerchant
+            "
+            mat-raised-button
+            class="history-content-button"
+            color="mediumpurple"
+            (click)="withdrawRequestDetails(row)"
+          >
+            Details
+          </button>
+
+          <ng-template #notMerchant>
+            <button
+              mat-raised-button
+              class="history-content-button"
+              color="mediumpurple"
+              (click)="withdrawRequestApproval(row)"
+            >
+              Details
+            </button>
+          </ng-template>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <div>
+        <!-- <button
+          mat-button
+          class="excell-button"
+          (click)="exportFile('xlsx')"
+          *ngIf="dataSource.length"
+        >
+          <span class="btn-text">Export Excel</span>
+        </button> -->
+      </div>
+      <mat-paginator
+        [length]="pagination.totalCount"
+        [pageSizeOptions]="[10, 20, 30, 40, 50]"
+        [pageSize]="pagination.rowsPerPage"
+        showFirstLastButtons
+      >
+      </mat-paginator>
+    </div>
+  </div>
+</div>

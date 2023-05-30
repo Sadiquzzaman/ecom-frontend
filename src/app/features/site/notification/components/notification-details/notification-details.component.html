@@ -1,0 +1,69 @@
+<div class="notification-section" fxLayout="row" fxLayoutAlign="center center">
+  <div
+    fxFlex="70"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxLayoutGap=".5rem"
+  >
+    <mat-card class="background-card">
+      <mat-card-content
+        [style.overflow]="'auto'"
+        [style.height.rem]="'45'"
+        [style.width.rem]="'45'"
+      >
+        <div *ngFor="let notification of notifications">
+          <br />
+          <h3
+            class="notification-date-section"
+            fxLayout="row"
+            fxLayoutAlign="center center"
+          >
+            <span class="date">{{ notification?.date }}</span>
+          </h3>
+
+          <div>
+            <div
+              fxLayout="column"
+              fxLayoutAlign="space-between start"
+              fxLayoutGap="10px"
+            >
+              <div
+                *ngFor="
+                  let notificationContent of notification?.notificationContents
+                "
+              >
+                <button
+                  mat-button
+                  [class]="
+                    checkStatus === true
+                      ? 'message-unchecked'
+                      : 'message-checked'
+                  "
+                >
+                  <div fxLayout="row">
+                    <p>
+                      {{ notificationContent?.description }}
+                    </p>
+
+                    <button
+                      mat-button
+                      class="action-button"
+                      [matMenuTriggerFor]="menu"
+                    >
+                      <mat-icon class="btn-text">more_horiz</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                      <button mat-menu-item (click)="changeCheckStatus()">
+                        {{ menuText }}
+                      </button>
+                    </mat-menu>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

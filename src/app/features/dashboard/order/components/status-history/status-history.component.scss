@@ -1,0 +1,177 @@
+@media screen and (max-width: 960px) {
+  .mat-table {
+    border: 0;
+    vertical-align: middle;
+  }
+
+  .mat-table caption {
+    font-size: 1em;
+  }
+
+  .mat-table .mat-header-cell {
+    border: 10px solid;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+
+  .mat-table .mat-row {
+    border-bottom: 5px solid #ddd;
+    display: block;
+  }
+  .mat-table .mat-cell:first-child {
+    padding-left: 0;
+  }
+
+  .mat-table .mat-cell {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: 1em;
+    text-align: right;
+    font-weight: bold;
+    height: 30px;
+    line-height: 46px;
+    padding-right: 16px;
+  }
+  .mat-table .mat-cell:before {
+    content: attr(data-label);
+    float: left;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-size: 0.85em;
+    padding-left: 16px;
+  }
+  .mat-table .mat-cell:last-child {
+    border-bottom: -1px;
+  }
+}
+
+.status-section {
+  .card-section {
+    font-family: Arial, Helvetica, sans-serif;
+    overflow: hidden;
+  }
+  .biller-details {
+    font-size: small;
+    color: #a2a2a2;
+  }
+  .status {
+    color: #4ead8e;
+  }
+  .header {
+    font-weight: bold;
+  }
+  .table-section {
+    padding: 2rem 0 0 0;
+    width: 100%;
+    mat-cell {
+      padding: 0.2rem 0 1rem 0;
+    }
+    .mat-header-cell {
+      font-size: 0.9rem;
+      // color: #cbcbcb;
+      color: #555;
+      // margin-right: 0.5rem;
+    }
+    .product {
+      font-size: small;
+      color: #555;
+    }
+    .return-button {
+      border: 1px solid #ff7979;
+      border-radius: 4rem;
+      min-width: 7rem;
+      max-height: 2.5rem;
+      .btn-text {
+        color: #ff7979;
+      }
+    }
+  }
+  .footer {
+    padding: 2rem 0 0 0;
+    .star {
+      color: #ff7979;
+      font-weight: bold;
+      font-size: 20px;
+    }
+    .footer-return {
+      color: #ff7979;
+      font-weight: bold;
+      text-decoration: none;
+    }
+  }
+}
+
+// .mat-column-productDescription {
+//   flex: none;
+//   width: 30%;
+//   justify-content: left !important;
+//   text-align: left !important;
+// }
+
+// .mat-column-unitPrice {
+//   flex: none;
+//   width: 10%;
+//   justify-content: center !important;
+//   text-align: center !important;
+// }
+
+// .mat-column-quantity {
+//   flex: none;
+//   width: 10%;
+//   justify-content: center !important;
+//   text-align: center !important;
+// }
+
+// .mat-column-discount {
+//   flex: none;
+//   width: 10%;
+//   justify-content: center !important;
+//   text-align: center !important;
+// }
+
+// .mat-column-shippingCharge {
+//   flex: none;
+//   width: 15%;
+//   justify-content: center !important;
+//   text-align: center !important;
+// }
+
+// .mat-column-subTotal {
+//   flex: none;
+//   width: 15%;
+//   justify-content: center !important;
+//   text-align: center !important;
+// }
+
+// .mat-column-image {
+//   flex: none;
+//   width: 10%;
+//   justify-content: center !important;
+//   text-align: center !important;
+// }
+
+// mat-cell:first-of-type,
+// mat-header-cell:first-of-type,
+// mat-footer-cell:first-of-type {
+//   padding-left: 0 !important;
+// }
+
+// mat-cell,
+// mat-header-cell {
+//   padding: 0px !important;
+// }
+
+::ng-deep .return-button > .mat-button-wrapper {
+  color: white !important;
+}
+
+.invoice-title {
+  margin-bottom: 5px;
+  letter-spacing: normal;
+  font-size: 18px;
+  font-weight: 500;
+}

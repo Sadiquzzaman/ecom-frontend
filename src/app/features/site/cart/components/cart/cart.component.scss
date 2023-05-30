@@ -1,0 +1,142 @@
+.order-details-section {
+  padding: 2rem 0 2rem 0;
+
+  .table-section {
+    width: 100%;
+
+    th,
+    td {
+      padding: 10px;
+    }
+
+    // th {
+    //   color: #cccccc;
+    //   font-weight: normal;
+    // }
+
+    th {
+      color: #555;
+      font-weight: bold;
+    }
+
+    .description-header {
+      text-align: left;
+    }
+
+    .sub-text {
+      font-size: small;
+    }
+
+    .remove-icon {
+      font-size: 1.2rem;
+      color: #cccccc;
+      cursor: pointer;
+    }
+
+    .add-icon {
+      font-size: 1.2rem;
+      color: #80c3ff;
+      cursor: pointer;
+    }
+
+    .delete-icon {
+      color: #cccccc;
+      font-size: 1.3rem;
+      cursor: pointer;
+    }
+  }
+
+  mat-divider {
+    color: #cccccc;
+  }
+
+  .footer {
+    padding: 1rem 0;
+
+    .cont-btn {
+      width: 12rem;
+      background-color: #80c3ff;
+      .continue-text {
+        color: white;
+      }
+    }
+
+    .edit {
+      width: 12rem;
+      background-color: #28b37b;
+      .proceed-text {
+        color: white;
+      }
+    }
+  }
+
+  .remove-icon {
+    font-size: 1.2rem;
+    color: #cccccc;
+    cursor: pointer;
+  }
+
+  .add-icon {
+    font-size: 1.2rem;
+    color: #80c3ff;
+    cursor: pointer;
+  }
+}
+
+.mat-divider {
+  width: 100%;
+}
+
+.card-section {
+  overflow: hidden;
+}
+
+.coupon-box {
+  input::placeholder {
+    text-align: center;
+  }
+}
+
+.coupon-input {
+  height: 2rem;
+  width: 90%;
+  border: 1px solid grey;
+}
+
+.apply-button {
+  width: 100%;
+  background-color: #444444;
+  cursor: pointer;
+  .text {
+    color: white;
+  }
+}
+
+.promo {
+  text-align: center;
+}
+
+.promo-text {
+  margin-top: 6px;
+}
+
+.add-new-btn {
+  background-color: #6b6b6b;
+  .btn-text {
+    color: white;
+  }
+}
+
+.add-shipping {
+  color: #28b37b;
+  cursor: pointer;
+}
+@media (max-width: 560px) {
+  .order-details-section .cartTableSec {
+    max-width: 100% !important;
+  }
+  .order-details-section .table-responsive {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+}

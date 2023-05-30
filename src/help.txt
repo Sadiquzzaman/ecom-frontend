@@ -1,0 +1,483 @@
+EBONEAR--EBONEAR--EBONEAR--EBONEAR--EBONEAR--EBONEAR--EBONEAR--EBONEAR--EBONEAR--EBONEAR--
+
+********************************************************************
+which one will be selected in home - product or shop ? configure this in the LoaderService
+src\app\core\services\loader.service.ts
+change the variables -
+static selectedComponent: string = 'product'; // product or shop
+static unselectedComponent: string = 'shop'; // shop or product
+********************************************************************
+
+
+API Docs
+-----------------------------------------------
+http://10.11.105.124:3102/ecom-user
+http://10.11.105.124:3103/ecom-catelog
+http://10.11.105.124:3104/ecom-core
+http://10.11.105.124:3105/ecom-image
+http://10.11.105.124:3106/ecom-payment
+http://10.11.105.124:3107/ecom-search
+http://10.11.105.124:3108/ecom-order
+http://10.11.105.124:3109/ecom-notification
+http://10.11.105.124:3110/ecom-cron-job
+http://10.11.105.124:3111/ecom-export/
+
+
+
+
+http://localhost:3102/ecom-user/
+http://localhost:3103/ecom-catelog/
+http://localhost:3104/ecom-core/
+http://localhost:3105/ecom-image/
+http://localhost:3106/ecom-payment/
+http://localhost:3107/ecom-search/
+http://localhost:3108/ecom-order/
+http://localhost:3109/ecom-notification/
+http://localhost:3110/ecom-cron-job/
+http://localhost:3111/ecom-export/
+
+
+
+https://ebonear.simecsystem.com/
+
+Credentials:
+
+Admin & Super-Admin:
+user:01957206205
+pass:s1234
+
+Merchant:
+user:merchant@simec.com
+pass:s1234
+
+Customer :
+user:customer@simec.com
+pass:s1234
+
+Transporter :
+user:01957206213
+pass:s1234
+
+sabbir.cste@gmail.com
+Pa$$w0rd!
+
+
+shovon@simecsystem.com
+darazbd006M!
+
+
+fb app id:1117080625774759
+
+
+***Checking User Role
+-----------------------
+private readonly token: TokenStorageService
+
+if (this.token.isAdmin()) {}
+if (this.token.isMerchant()) {}
+if (this.token.isCustomer()) {}
+
+
+if (!(this.token.isAdmin() || this.token.isTransporter())) {
+  this.router.navigate([this.token.DASHBOARD]);
+}
+
+
+***integer/numeric validation added in dashboard/coupon
+
+Permission Guard
+------------------
+data: { title: 'Merchant Withdrawals', permissions: ['admin','merchant', 'customer', 'transporter', 'shop-manager'] },
+canActivate: [PermissionGuard],
+
+
+
+import api configuration in service
+-----------------------------------
+import { ApiConfigService } from 'src/app/core/services/api-config.service';
+import { MicroserviceURL } from 'src/app/core/enum/microservices.enum';
+
+
+
+adds new items to specific index of an array javascript
+-----------------------------------------------------------
+//array.splice(index, deleteCount, itemToBePushed);
+this.displayedColumns.splice(4, 0, 'merchant');
+
+
+list loading state
+-----------------------------------------------------------
+<ng-container *ngIf="pagination.isLoading">
+  <mat-progress-bar color="primary" mode="indeterminate">
+  </mat-progress-bar>
+  <div class="loading-shade"></div>
+</ng-container>
+
+
+
+<ng-container *ngIf="isLoading">
+  <div style="height: 200px"></div>
+  <div class="loading-shade">
+    <mat-spinner class="matSpinner"></mat-spinner>
+  </div>
+  <!-- <mat-progress-bar color="primary" mode="indeterminate"> </mat-progress-bar>
+  <div class="loading-shade"></div> -->
+</ng-container>
+
+
+
+
+
+Serial number update accoring to pagination and limit per page
+----------------------------------------------------------------
+<ng-container matColumnDef="updatedAt">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header>Sl</th>
+  <td mat-cell *matCellDef="let row; let i = index" data-label="serialno">
+    {{ paginator.pageIndex * paginator.pageSize + (i + 1) }}
+  </td>
+</ng-container>
+
+class="mat-elevation-z8"
+
+sidenav
+------------------------------------------------
+[expanded]="isExpanded(['coupon/'])"
+
+[routerLinkActive]="['is-active']"
+[routerLinkActiveOptions]="{ exact: true }"
+
+[class]="activeChecker(['coupon/add', 'coupon/shop-list'])"
+
+upto - order.
+
+
+
+access specific formControlName value
+-----------------------------------------
+this.searchForm.controls.dropdownId.value
+or,
+this.searchForm.get('dropdownId).value
+
+
+
+searchForm=FormGroup
+dropdownId=FormControlName
+
+
+
+
+export enum ShippingStatus {
+  ASSIGNED = 1,
+  PICKED = 2,
+  DELIVERED = 3,
+  RETUREND = 4,
+  RECEIVED = 5,
+}
+
+export enum AssignStatus {
+UnAssigned = 0,
+Reviewed = 2,
+Assigned = 1,
+Approved = 3,
+Closed = 4,
+Rejected = 5,
+}
+
+export enum RefundRequestStatus {
+REFUND_REQUEST = 0,
+REFUND_PICKED = 1, // Reviewed
+REFUND_APPROVED = 2,
+REFUND_REJECTED = 3,
+}
+
+Pipes
+------------------
+| currency: "Tk ":"symbol":"1.2-2"
+| date: "MMM d, y, h:mm a"
+
+
+Error
+------------------
+
+"ERROR Error: Uncaught (in promise): NullInjectorError: R3InjectorError(e)[e -> e -> e -> e -> e]: 
+  NullInjectorError: No provider for e!"
+
+
+Solution: add service to providers of module.
+
+
+image
+===============
+ts file 
+---------------
+ImageType.PRODUCT_SMALL will be dynamic.
+
+getImage = (imageName: string) => {
+    if (!imageName) return;
+    return this.systemService.getImageSource(imageName, ImageType.PRODUCT_SMALL);
+  };
+
+
+template(html)
+--------------
+[src]="getImage(imageName)"
+
+--------------------------------
+or,
+
+<app-image
+    [imageName]="row.product.image?.cover"
+    [type]="imageType"
+    [width]="'70px'"
+    [height]="'70px'"
+  >
+</app-image>
+
+
+if image Trembles, map the src first, then give the source link in image instead of using app-image
+see cart component.
+
+Angular2 Draggable
+https://www.npmjs.com/package/angular2-draggable
+
+
+DOCKER
+=========
+# PRODUCTION
+#stage 1
+FROM node:14.15.4 as node
+WORKDIR /usr/src/app
+COPY package.json package-lock.json ./
+RUN npm install
+COPY . .
+RUN npm run build-serve
+
+
+#stage 2
+FROM nginx:alpine
+COPY --from=node /usr/src/app/ecom-frontend /usr/share/nginx/html
+
+docker run -d -p 80:80 sabbir006/ebon-front-dev:v1
+
+=========================================================
+# DEVELOPEMENT WITH NPM INSTALL
+FROM node:14.15.3-alpine3.10
+
+WORKDIR /app
+
+ENV PATH /app/node_modules/.bin:$PATH
+
+COPY package.json /app/package.json
+RUN npm install
+RUN npm install -g @angular/cli@12.0.5 --unsafe
+
+
+COPY . /app
+
+CMD npm run build-serve-local
+
+# run command
+# docker run -v ${PWD}:/app -v /app/node_modules -p 3201:3200 --rm sabbir006/ebon:v3
+
+
+====================================================================================
+# DEVELOPEMENT WITHOUT NPM INSTALL
+
+FROM node:14.15.3-alpine3.10
+
+WORKDIR /app
+
+# ENV PATH /app/node_modules/.bin:$PATH
+
+RUN npm install -g @angular/cli@12.0.5 --unsafe
+
+# COPY package.json /app/package.json
+# RUN npm install
+
+# START NG SERVE
+# COPY . /app
+# CMD npm run build-serve-local
+
+# run command
+# docker run -v ${PWD}:/app -v /app/node_modules -p 3201:3200 --rm sabbir006/ebon:v3
+
+
+
+https://www.arundhaj.com/blog/how-to-run-angular-using-docker-without-installing-node-host-machine.html
+https://www.youtube.com/watch?v=UJCpzOeMDBA&ab_channel=BlackBoxTech
+
+
+
+
+EBONEAR--EBONEAR--EBONEAR--EBONEAR--EBONEAR--EBONEAR--EBONEAR--EBONEAR--EBONEAR--EBONEAR--
+DSS-DSS-DSS-DSS--DSS-DSS-DSS-DSS--DSS-DSS-DSS-DSS--DSS-DSS-DSS-DSS--DSS-DSS-DSS-DSS--DSS
+/***************** language switch code help start here ***********************************/
+
+
+//// controller code start ////
+
+import { SystemService } from 'src/app/shared/services/system.service';
+
+public systemService: SystemService;
+public moduleName = 'postingtype';
+
+
+
+//// constructor ////
+public system: SystemService,
+this.systemService = system;
+
+//// controller code end ////
+
+
+
+//// html code start ////
+
+{{systemService.getLang('module_title','Blood Group',moduleName)}}
+
+{{systemService.getLang('btn_create','Create',moduleName)}}
+
+{{systemService.getLang('btn_update','Update',moduleName)}}
+
+{{systemService.getLang('btn_view','View',moduleName)}}
+
+{{systemService.getLang('btn_reset','Reset',moduleName)}}
+
+{{systemService.getLang('list_name','Name',moduleName)}}
+
+
+{{systemService.getLang('welcome_to_department_of_social_services_dashboard','Dashboard Welcome Message',moduleName)}}
+
+
+{{systemService.getLang('payroll','Payroll','configdata')}}
+
+{{systemService.getLang('clear','Clear','configdata')}}
+{{systemService.getLang('si','SI','configdata')}}
+{{systemService.getLang('action','Action','configdata')}}
+
+
+{{systemService.transNumber(pagination.from+i)}}
+
+
+{{systemService.translateEn2Others('name',item)}}
+
+!systemService.isObjectEmpty(objectVariable)
+
+datepicker field Position
+------------------------------------
+bsDatepicker [bsConfig]="{ adaptivePosition: true }"
+
+
+To get the data in sameorder as it is in the json
+Disable the default keyvalue pipe sort in angular
+--------------------------------------------------
+<div *ngFor="let item of object | keyvalue: returnZero">
+  {{item.key}} : {{item.value}}
+</div>
+
+
+ts file
+-------
+returnZero() {
+    return 0
+  }
+
+
+//// html code end ////
+
+
+/***************** language switch code help end here ***********************************/
+
+
+
+
+
+
+
+
+  pr(data: any) {
+    console.table(data);
+  }
+
+
+  /********* key value order start here *************/
+  ascKeyOrder = (a: KeyValue<number, string>, b: KeyValue<number, string>): number => {
+    return a.key < b.key ? -1 : (b.key < a.key ? 1 : 0);
+  }
+
+  originalOrder = (a: KeyValue<number,string>, b: KeyValue<number,string>): number => {
+    return 0;
+  }
+
+  reverseKeyOrder = (a: KeyValue<number,string>, b: KeyValue<number,string>): number => {
+    return a.key > b.key ? -1 : (b.key > a.key ? 1 : 0);
+  }
+
+  valueOrder = (a: KeyValue<number,string>, b: KeyValue<number,string>): number => {
+    return a.value.localeCompare(b.value);
+  }
+
+/********* key value order end here *************/
+
+
+/****** CSV and Excel Download Option code start here ***********/
+  <button class="btn btn-success btn-sm m-1 "
+      (click)="systemService.tableToExport('csv','printArea',systemService.getLang('module_title','Employee list',moduleName))"><i
+          class="fas fa-file-csv"></i>
+      {{systemService.getLang('export_to_csv','Export to CSV','configdata')}}
+  </button>
+
+
+  <button class="btn btn-success btn-sm m-1 "
+      (click)="systemService.tableToExport('excel','printArea',systemService.getLang('module_title','Employee list',moduleName))"><i
+          class="fas fa-file-csv"></i>
+      {{systemService.getLang('export_to_excel','Export to Excel','configdata')}}
+  </button>
+
+  /****** CSV and Excel Download Option code end here ***********/
+
+
+  One module CRUD all Functionality Help Here:
+  https://bitbucket.org/simec-web/dss-frontend/commits/36f185fe066c84bc889aed62608d490ed0db0c8f
+
+
+  /************** CLI ******************/
+
+  Module create command: ng g m /modules/office-management/office-lead-category
+
+  Module component create command:
+  for list: ng g c /modules/office-management/office-lead-category/office-lead-category-list
+  for add: ng g c /modules/office-management/office-lead-category/office-lead-category-add
+  for update: ng g c /modules/office-management/office-lead-category/office-lead-category-update
+  for view: ng g c /modules/office-management/office-lead-category/office-lead-category-view
+
+ng g m /modules/leave-management --routing
+
+ng g m /modules/leave-management/leave-policy
+
+ng g s /modules/leave-management/leave-policy/services/leave-management
+
+ng g c /modules/leave-management/leave-policy/list
+
+ng g c /modules/leave-management/leave-application/create
+
+ng g m /modules/loan-management/loan-application/gpf-loan-application
+
+ng g c /modules/loan-management/loan-application/gpf-loan-application/create
+
+ng g s /modules/loan-management/loan-application/gpf-loan-application/services/gpf-loan
+
+ng g m /modules/loan-management/loan-application/medical-loan
+
+ng g c /modules/loan-management/loan-application/medical-loan/create
+
+ng g s /modules/loan-management/loan-application/medical-loan/services/medical-loan
+
+ng g c /shared/helper/dssfileuploader
+
+ng g c /shared/helper/dssforwardedwidget
+
+
+
+
+

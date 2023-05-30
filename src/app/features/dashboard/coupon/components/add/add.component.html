@@ -1,0 +1,290 @@
+<div fxLayout="column" fxLayoutGap="5rem">
+  <div class="mtb16" fxLayout="row" fxLayoutAlign="center center">
+    <div fxFlex="70" fxFlex.lt-md="100">
+      <div class="padding-top-20">
+        <mat-card>
+          <mat-toolbar class="theme-background-color">
+            <mat-toolbar-row class="margin-left text-white">
+              Add Your coupon
+            </mat-toolbar-row>
+          </mat-toolbar>
+
+          <mat-card-content class="padding-out">
+            <form fxLayout="column" fxLayoutGap="2rem" [formGroup]="couponForm">
+              <div fxLayout="column">
+                <mat-form-field appearance="outline" floatLabel="always">
+                  <mat-label>Coupon Code</mat-label>
+                  <input
+                    formControlName="couponCode"
+                    matInput
+                    placeholder="write the coupon code here"
+                    name="couponCode"
+                    type="text"
+                  />
+                  <mat-error>Coupon Code is required</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" floatLabel="always">
+                  <mat-label>Quantity</mat-label>
+                  <div
+                    class="hide-input-arrows"
+                    fxLayout="row"
+                    fxLayoutAlign="center center"
+                  >
+                    <input
+                      formControlName="quantity"
+                      matInput
+                      placeholder="Write the Coupon Quantity (integer only)"
+                      required
+                      type="text"
+                    />
+                    <div
+                      fxLayout="row"
+                      fxLayoutAlign="center center"
+                      fxLayoutGap="5px"
+                    >
+                      <div (click)="dec('quantity')" class="add-button">
+                        <mat-icon>remove</mat-icon>
+                      </div>
+                      <div (click)="inc('quantity')" class="add-button">
+                        <mat-icon>add</mat-icon>
+                      </div>
+                    </div>
+                  </div>
+                  <mat-error *ngIf="hasError('quantity', 'required')"
+                    >Quantity is required</mat-error
+                  >
+                  <mat-error *ngIf="hasError('quantity', 'pattern')">{{
+                    integerPatternError
+                  }}</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" floatLabel="always">
+                  <mat-label>Quantity Per User</mat-label>
+                  <div
+                    class="hide-input-arrows"
+                    fxLayout="row"
+                    fxLayoutAlign="center center"
+                  >
+                    <input
+                      formControlName="quantityPerUser"
+                      matInput
+                      placeholder="Write the qunatity per user (integer only)"
+                      required
+                      type="text"
+                    />
+                    <div
+                      fxLayout="row"
+                      fxLayoutAlign="center center"
+                      fxLayoutGap="5px"
+                    >
+                      <div (click)="dec('quantityPerUser')" class="add-button">
+                        <mat-icon>remove</mat-icon>
+                      </div>
+                      <div (click)="inc('quantityPerUser')" class="add-button">
+                        <mat-icon>add</mat-icon>
+                      </div>
+                    </div>
+                  </div>
+                  <mat-error *ngIf="hasError('quantityPerUser', 'required')"
+                    >Quantity Per User is required</mat-error
+                  >
+                  <mat-error *ngIf="hasError('quantityPerUser', 'pattern')">{{
+                    integerPatternError
+                  }}</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" floatLabel="always">
+                  <mat-label>Minimum Amount</mat-label>
+                  <div
+                    class="hide-input-arrows"
+                    fxLayout="row"
+                    fxLayoutAlign="center center"
+                  >
+                    <input
+                      formControlName="minimumAmount"
+                      matInput
+                      placeholder="Write the Minimum Amount"
+                      required
+                      type="text"
+                    />
+                    <div
+                      fxLayout="row"
+                      fxLayoutAlign="center center"
+                      fxLayoutGap="5px"
+                    >
+                      <div (click)="dec('minimumAmount')" class="add-button">
+                        <mat-icon>remove</mat-icon>
+                      </div>
+                      <div (click)="inc('minimumAmount')" class="add-button">
+                        <mat-icon>add</mat-icon>
+                      </div>
+                    </div>
+                  </div>
+                  <mat-error *ngIf="hasError('minimumAmount', 'required')"
+                    >Minimum Amount is required</mat-error
+                  >
+                  <mat-error *ngIf="hasError('minimumAmount', 'pattern')">{{
+                    numericPatternError
+                  }}</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" floatLabel="always">
+                  <mat-label>Reduction Percent</mat-label>
+                  <div
+                    class="hide-input-arrows"
+                    fxLayout="row"
+                    fxLayoutAlign="center center"
+                  >
+                    <input
+                      formControlName="reductionPercent"
+                      matInput
+                      placeholder="Write the Qunatity per User"
+                      required
+                      type="text"
+                    />
+                    <div
+                      fxLayout="row"
+                      fxLayoutAlign="center center"
+                      fxLayoutGap="5px"
+                    >
+                      <div (click)="dec('reductionPercent')" class="add-button">
+                        <mat-icon>remove</mat-icon>
+                      </div>
+                      <div (click)="inc('reductionPercent')" class="add-button">
+                        <mat-icon>add</mat-icon>
+                      </div>
+                    </div>
+                  </div>
+                  <mat-error *ngIf="hasError('reductionPercent', 'required')"
+                    >Reduction Percent is required</mat-error
+                  >
+                  <mat-error *ngIf="hasError('reductionPercent', 'pattern')">{{
+                    numericPatternError
+                  }}</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" floatLabel="always">
+                  <mat-label>Reduction Amount</mat-label>
+                  <div
+                    class="hide-input-arrows"
+                    fxLayout="row"
+                    fxLayoutAlign="center center"
+                  >
+                    <input
+                      formControlName="reductionAmount"
+                      matInput
+                      placeholder="Write the Qunatity per User"
+                      required
+                      type="text"
+                    />
+                    <div
+                      fxLayout="row"
+                      fxLayoutAlign="center center"
+                      fxLayoutGap="5px"
+                    >
+                      <div (click)="dec('reductionAmount')" class="add-button">
+                        <mat-icon>remove</mat-icon>
+                      </div>
+                      <div (click)="inc('reductionAmount')" class="add-button">
+                        <mat-icon>add</mat-icon>
+                      </div>
+                    </div>
+                  </div>
+                  <mat-error *ngIf="hasError('reductionAmount', 'required')"
+                    >Reduction Amount is required</mat-error
+                  >
+                  <mat-error *ngIf="hasError('reductionAmount', 'pattern')">{{
+                    numericPatternError
+                  }}</mat-error>
+                </mat-form-field>
+
+                <div fxLayout="row" fxLayoutGap="3%">
+                  <div fxFlex="50%" fxLayout="column" fxLayoutGap="1%">
+                    <mat-form-field appearance="outline" floatLabel="always">
+                      <mat-label>Start Date</mat-label>
+                      <input
+                        [matDatepicker]="startDatePicker"
+                        [min]="minDate"
+                        formControlName="startDate"
+                        matInput
+                        readonly
+                        required
+                        placeholder="Select Start Date"
+                        (dateChange)="onStartDateChange($event)"
+                      />
+                      <mat-datepicker-toggle
+                        [for]="startDatePicker"
+                        matSuffix
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker #startDatePicker></mat-datepicker>
+                      <mat-error>Start Date is required!</mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div fxFlex="50%" fxLayout="column" fxLayoutGap="1%">
+                    <mat-form-field appearance="outline" floatLabel="always">
+                      <mat-label>End Date</mat-label>
+                      <input
+                        [matDatepicker]="endDatePicker"
+                        [min]="minStartDate"
+                        formControlName="endDate"
+                        matInput
+                        required
+                        readonly
+                        placeholder="Select End Date"
+                      />
+                      <mat-datepicker-toggle
+                        [for]="endDatePicker"
+                        matSuffix
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker #endDatePicker></mat-datepicker>
+                      <mat-error>End Date is required!</mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div fxFlex fxLayout="column" fxLayoutGap="1%">
+                  <mat-form-field appearance="outline" floatLabel="always">
+                    <mat-label>Description</mat-label>
+                    <textarea
+                      formControlName="description"
+                      matInput
+                      placeholder="write the Coupon description"
+                      name="description"
+                      type="text"
+                    ></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div
+                class="padding-top-20"
+                fxLayout="row"
+                fxLayout.lt-sm="column"
+                fxLayoutAlign="space-between center"
+                fxLayoutGap="15px"
+                fxLayoutGap.lt-md="10px"
+              >
+                <button
+                  class="reset-button"
+                  mat-raised-button
+                  (click)="resetForm()"
+                >
+                  <span class="btn-text">Reset</span>
+                </button>
+                <button
+                  class="submit-button"
+                  mat-raised-button
+                  (click)="save()"
+                >
+                  <span class="btn-text">Submit</span>
+                </button>
+              </div>
+            </form>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

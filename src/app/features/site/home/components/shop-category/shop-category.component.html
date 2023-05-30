@@ -1,0 +1,33 @@
+<div class="home-feed-section" fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="100" fxFlex.gt-xs="70">
+    <div
+      class="popular-shop-header"
+      fxLayout="row wrap"
+      fxLayoutAlign="space-between center"
+    >
+      <p class="shop-header">{{ shopPromotionData?.name }}</p>
+      <div>
+        <button
+          class="header-button-section"
+          mat-button
+          [routerLink]="['/shop-type', shopPromotionData.id]"
+        >
+          See All
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-shop-content
+  *ngIf="shopPromotionData?.shops.length; else noShop"
+  [feeds]="shopPromotionData?.shops"
+  [promotions]="shopPromotionData?.promotions"
+>
+</app-shop-content>
+
+<ng-template #noShop>
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <h4 class="text-bold">NO SHOP FOUND</h4>
+  </div>
+</ng-template>

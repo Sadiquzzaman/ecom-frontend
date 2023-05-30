@@ -1,0 +1,364 @@
+<form class="filter-box" [formGroup]="searchForm">
+  <div
+    fxLayout="row"
+    fxLayout.lt-md="column"
+    fxLayout.lt-lg="column"
+    fxFlexFill
+  >
+    <div
+      fxLayout="row {{ multipleRow ? 'wrap' : '' }}"
+      fxLayout.lt-md="column"
+      fxLayoutAlign="center center"
+      fxLayoutGap="{{ gap }} {{ multipleRow ? ' grid' : '' }}"
+      [fxFlex]="multipleRow ? 100 : searchFormFlex"
+    >
+      <ng-container *ngFor="let item of entityArray">
+        <mat-form-field
+          [fxFlex]="item.flex"
+          class="searchFormField entity"
+          appearance="outline"
+          floatLabel="always"
+        >
+          <mat-label>{{ item.value.toUpperCase() }}</mat-label>
+          <input
+            autocomplete="off"
+            type="text"
+            matInput
+            placeholder="Select {{ item.value }} name"
+            formControlName="{{ item.text }}"
+            [matAutocomplete]="auto"
+          />
+          <button
+            *ngIf="
+              searchForm.controls[item.id].value && !entityObject[item.loading]
+            "
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="emptyEntity(item.name)"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+
+          <mat-spinner
+            matSuffix
+            diameter="25"
+            class="matSpinner"
+            *ngIf="entityObject[item.loading]"
+          ></mat-spinner>
+
+          <mat-autocomplete
+            #auto="matAutocomplete"
+            (optionSelected)="entitySelected($event, item.name)"
+          >
+            <ng-container
+              *ngIf="entityObject[item.list] && entityObject[item.list].length"
+            >
+              <mat-option
+                *ngFor="let option of entityObject[item.list]"
+                [value]="option"
+                style="height: 50px"
+              >
+                <p class="paraOption">
+                  <span>{{ option?.name }}</span>
+                  <ng-container *ngIf="option?.extra">
+                    <br />
+                    <span class="small">{{ option?.extra }}</span>
+                  </ng-container>
+                </p>
+              </mat-option>
+            </ng-container>
+          </mat-autocomplete>
+          <input type="hidden" matInput formControlName="{{ item.id }}" />
+
+          <mat-error
+            style="min-height: 30px"
+            *ngIf="
+              showError && searchForm.controls[item.text].errors?.no_result
+            "
+          >
+            No Result Found
+          </mat-error>
+        </mat-form-field>
+      </ng-container>
+
+      <mat-form-field
+        class="searchFormField"
+        [fxFlex]="dropdownFlex"
+        appearance="outline"
+        floatLabel="always"
+        *ngIf="dropdown"
+      >
+        <mat-label>{{ dropdown.toUpperCase() }}</mat-label>
+
+        <mat-select
+          formControlName="dropdownId"
+          placeholder="Select {{ dropdown }}"
+        >
+          <mat-option>
+            <ngx-mat-select-search
+              [formControl]="dropdownFiltering"
+              [searching]="isDropdownSearching"
+              noEntriesFoundLabel="No such {{ dropdown }} found"
+              placeholderLabel="Find {{ dropdown }}"
+            >
+            </ngx-mat-select-search>
+          </mat-option>
+          <!-- <mat-option [value]="" (click)="dropdownSelected('dropdown', '')">
+            Select
+          </mat-option> -->
+          <mat-option
+            *ngFor="let _dropdown of filteredDropdownOptions | async"
+            [value]="_dropdown.id"
+            (click)="dropdownSelected('dropdown', _dropdown.name)"
+          >
+            {{ _dropdown.name }}
+          </mat-option>
+        </mat-select>
+
+        <mat-icon
+          *ngIf="searchForm.controls.dropdownId.value !== ''"
+          matSuffix
+          (click)="dropdownSelected('dropdown', '', $event)"
+          >close</mat-icon
+        >
+      </mat-form-field>
+
+      <mat-form-field
+        class="searchFormField"
+        [fxFlex]="secondDropdownFlex"
+        appearance="outline"
+        floatLabel="always"
+        *ngIf="secondDropdown"
+      >
+        <mat-label>{{ secondDropdown.toUpperCase() }}</mat-label>
+        <mat-select
+          formControlName="secondDropdownId"
+          placeholder="Select {{ secondDropdown }}"
+        >
+          <mat-option>
+            <ngx-mat-select-search
+              [formControl]="secondDropdownFiltering"
+              [searching]="isSecondDropdownSearching"
+              noEntriesFoundLabel="No such {{ secondDropdown }} found"
+              placeholderLabel="Find {{ secondDropdown }}"
+            >
+            </ngx-mat-select-search>
+          </mat-option>
+          <mat-option
+            *ngFor="
+              let second_dropdown of filteredSecondDropdownOptions | async
+            "
+            [value]="second_dropdown.id"
+            (click)="dropdownSelected('secondDropdown', second_dropdown.name)"
+          >
+            {{ second_dropdown.name }}
+          </mat-option>
+        </mat-select>
+
+        <mat-icon
+          *ngIf="searchForm.controls.secondDropdownId.value !== ''"
+          matSuffix
+          (click)="dropdownSelected('secondDropdown', '', $event)"
+          >close</mat-icon
+        >
+      </mat-form-field>
+
+      <mat-form-field
+        class="searchFormField"
+        [fxFlex]="first_textFlex"
+        appearance="outline"
+        floatLabel="always"
+        *ngIf="first_text"
+      >
+        <mat-label>{{ first_text.toUpperCase() }}</mat-label>
+        <input
+          autocomplete="off"
+          formControlName="firstText"
+          matInput
+          placeholder="{{ first_text }}"
+        />
+      </mat-form-field>
+
+      <mat-form-field
+        class="searchFormField"
+        [fxFlex]="second_textFlex"
+        appearance="outline"
+        floatLabel="always"
+        *ngIf="second_text"
+      >
+        <mat-label>{{ second_text.toUpperCase() }}</mat-label>
+        <input
+          autocomplete="off"
+          formControlName="secondText"
+          matInput
+          placeholder="{{ second_text }}"
+        />
+      </mat-form-field>
+
+      <mat-form-field
+        class="searchFormField"
+        [fxFlex]="third_textFlex"
+        appearance="outline"
+        floatLabel="always"
+        *ngIf="third_text"
+      >
+        <mat-label>{{ third_text.toUpperCase() }}</mat-label>
+        <input
+          autocomplete="off"
+          formControlName="thirdText"
+          matInput
+          placeholder="{{ third_text }}"
+        />
+      </mat-form-field>
+
+      <mat-form-field
+        class="searchFormField"
+        [fxFlex]="from_dateFlex"
+        appearance="outline"
+        floatLabel="always"
+        *ngIf="from_date"
+      >
+        <mat-label>FROM DATE</mat-label>
+        <input
+          [matDatepicker]="fromDatePicker"
+          formControlName="fromDate"
+          matInput
+          readonly
+          placeholder="Select Date"
+          (dateChange)="onfromDateChange($event)"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          (click)="clearDate('fromDate')"
+          *ngIf="searchForm.controls.fromDate.value"
+        >
+          <mat-icon matDatepickerToggleIcon>clear</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="fromDatePicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #fromDatePicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field
+        class="searchFormField"
+        [fxFlex]="to_dateFlex"
+        appearance="outline"
+        floatLabel="always"
+        *ngIf="to_date"
+      >
+        <mat-label>TO DATE</mat-label>
+        <input
+          [matDatepicker]="toDatePicker"
+          [min]="minfromDate"
+          formControlName="toDate"
+          matInput
+          readonly
+          placeholder="Select Date"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          (click)="clearDate('toDate')"
+          *ngIf="searchForm.controls.toDate.value"
+        >
+          <mat-icon matDatepickerToggleIcon>clear</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-datepicker-toggle
+          [for]="toDatePicker"
+          matSuffix
+        ></mat-datepicker-toggle>
+        <mat-datepicker #toDatePicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div
+      fxLayout="row"
+      fxLayoutAlign="center center"
+      [fxFlex]="searchFlex"
+      fxLayoutGap="5px"
+      *ngIf="!multipleRow"
+    >
+      <button class="submit-button" mat-raised-button (click)="search()">
+        <span class="btn-text">Search</span>
+      </button>
+
+      <button class="reset-button" mat-raised-button (click)="reset()">
+        <span class="btn-text">Reset</span>
+      </button>
+    </div>
+  </div>
+
+  <div
+    fxLayout="row"
+    *ngIf="multipleRow"
+    fxLayoutAlign="center center"
+    [fxLayoutGap]="gap"
+  >
+    <button class="submit-button" mat-raised-button (click)="search()">
+      <span class="btn-text">Search</span>
+    </button>
+
+    <button class="reset-button" mat-raised-button (click)="reset()">
+      <span class="btn-text">Reset</span>
+    </button>
+  </div>
+</form>
+
+<div fxLayout="row" fxLayout.lt-md="column" fxLayout.lt-lg="column">
+  <div
+    fxLayout="row {{ multipleRow ? 'wrap' : '' }}"
+    fxLayout.lt-md="column"
+    fxLayoutAlign="center center"
+    [fxLayoutGap]="gap"
+    fxFlex="{{ multipleRow ? 100 : 82 }}"
+  >
+    <div fxFlex="5" *ngIf="!multipleRow">&nbsp;</div>
+    <div
+      class="result-container italic"
+      fxLayout="row wrap"
+      fxLayout.lt-md="column"
+      fxLayoutAlign="center center"
+      fxLayoutGap="15px"
+      fxFlex="{{ multipleRow ? 100 : 90 }}"
+      *ngIf="hasSearchParameter()"
+    >
+      <ng-container *ngFor="let item of entityArray">
+        <div *ngIf="entityObject[item.info]">
+          <b>{{ item.value.toUpperCase() }} - </b>
+          {{ entityObject[item.info] }}
+        </div>
+      </ng-container>
+
+      <div *ngIf="fromDate">
+        <b>FROM DATE - </b> {{ fromDate | date: "mediumDate" }}
+      </div>
+
+      <div *ngIf="toDate">
+        <b>TO DATE - </b> {{ toDate | date: "mediumDate" }}
+      </div>
+
+      <div *ngIf="firstText">
+        <b>{{ first_text.toUpperCase() }} - </b> {{ firstText }}
+      </div>
+
+      <div *ngIf="secondText">
+        <b>{{ second_text.toUpperCase() }} - </b> {{ secondText }}
+      </div>
+
+      <div *ngIf="thirdText">
+        <b>{{ third_text.toUpperCase() }} - </b> {{ thirdText }}
+      </div>
+
+      <div *ngIf="dropdownInfo">
+        <b>{{ dropdown.toUpperCase() }} - </b> {{ dropdownInfo }}
+      </div>
+
+      <div *ngIf="secondDropdownInfo">
+        <b>{{ secondDropdown.toUpperCase() }} - </b> {{ secondDropdownInfo }}
+      </div>
+    </div>
+    <div fxFlex="5" *ngIf="!multipleRow">&nbsp;</div>
+  </div>
+</div>

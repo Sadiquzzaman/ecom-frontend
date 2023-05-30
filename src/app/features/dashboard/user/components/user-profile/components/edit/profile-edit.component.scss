@@ -1,0 +1,77 @@
+.background-card {
+  border-radius: 0;
+  background-color: #ffffff;
+  padding: 0;
+
+  .mini-card {
+    background-color: #f4f4f4;
+    border-radius: 2px;
+    transform: scale(0.9);
+    .profile-image {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+    }
+    .sign-up-top {
+      font-weight: bold;
+      color: #28b37b;
+      font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+      font-size: 1rem;
+    }
+
+    .divider-line {
+      height: 24rem;
+      background-color: #919191;
+    }
+
+    .address-bar {
+      height: 8.5rem;
+    }
+
+    .signup-button {
+      height: 2.5rem;
+      background-color: #3f3f3f;
+      margin-top: 1rem;
+      width: 27rem;
+
+      .signup-text {
+        color: #ffffff;
+        font-size: 1.1rem;
+        font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+      }
+    }
+
+    .agm-map {
+      height: 300px;
+      padding-bottom: 1rem;
+    }
+  }
+  .change-btn {
+    background-color: rgb(52, 133, 74);
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+  }
+}
+@media (max-width: 560px) {
+  .mini-card {
+    width: 100%;
+  }
+  .mobileUserEdit {
+    width: 100%;
+  }
+  .signup-button {
+    width: 100% !important;
+  }
+  mat-form-field {
+    width: 100% !important;
+  }
+  .mat-form-field-appearance-outline .mat-form-field-infix {
+    width: 100% !important;
+  }
+}
+::ng-deep.mat-form-field-infix {
+  @media (max-width: 570px) {
+    width: 100% !important;
+  }
+}

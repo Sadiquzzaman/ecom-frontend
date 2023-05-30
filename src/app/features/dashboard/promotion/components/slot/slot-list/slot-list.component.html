@@ -1,0 +1,80 @@
+<div fxLayout="column" fxLayoutAlign="center end">
+  <mat-table [dataSource]="dataSource" class="table-section" matSort>
+    <!-- Cover Image Column -->
+    <ng-container matColumnDef="updatedAt">
+      <mat-header-cell *matHeaderCellDef>Sl.</mat-header-cell>
+      <mat-cell *matCellDef="let row; let i = index" data-label="sl">
+        {{ paginator.pageIndex * paginator.pageSize + (i + 1) }}
+      </mat-cell>
+    </ng-container>
+
+    <!-- Slot Title Column -->
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef>Slot Title</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.title }}</mat-cell>
+    </ng-container>
+
+    <!-- Daily Charge Column -->
+    <ng-container matColumnDef="dailyCharge">
+      <mat-header-cell *matHeaderCellDef>Daily Charge</mat-header-cell>
+      <mat-cell *matCellDef="let element"
+        >{{ element.dailyCharge }} Tk.</mat-cell
+      >
+    </ng-container>
+
+    <!-- Maximum Number of Promotions Column -->
+    <ng-container matColumnDef="limit">
+      <mat-header-cell *matHeaderCellDef>Number of Promotions</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.limit }}</mat-cell>
+    </ng-container>
+
+    <!-- Promotion Type Column -->
+    <ng-container matColumnDef="promotionType">
+      <mat-header-cell *matHeaderCellDef>Promotion Type</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{
+        PromotionType[element.promotionType]
+      }}</mat-cell>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <div
+          fxLayout="row"
+          fxLayoutGap="0.5rem"
+          style="padding: 0 0.5rem 0 0.5rem"
+        >
+          <button
+            color="primary"
+            mat-raised-button
+            title="Update"
+            (click)="edit(element)"
+          >
+            <span style="color: white"> Update </span>
+          </button>
+
+          <!-- <button
+            (click)="delete(element.id)"
+            color="warn"
+            mat-raised-button
+            title="Remove"
+          >
+            <span style="color: white"> Delete </span>
+          </button> -->
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+
+  <mat-paginator
+    [length]="pagination.totalCount"
+    [pageSizeOptions]="[10, 20, 30, 40, 50, pagination.totalCount]"
+    [pageSize]="pagination.rowsPerPage"
+    showFirstLastButtons
+  >
+  </mat-paginator>
+</div>

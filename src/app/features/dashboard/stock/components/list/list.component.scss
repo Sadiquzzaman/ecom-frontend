@@ -1,0 +1,147 @@
+.stock-section {
+  padding: 0.5rem 1rem;
+  .product {
+    line-height: 26px;
+    vertical-align: center;
+  }
+  .head {
+    padding-bottom: 1rem;
+  }
+  .head div {
+    font-weight: bold;
+  }
+  .status-btn {
+    background-color: #43a7ff;
+    border-radius: 3px;
+    text-align: center;
+    width: 10rem;
+    height: 1.6rem;
+    line-height: 1.6rem;
+  }
+}
+@media screen and (max-width: 960px) {
+  .mat-table {
+    border: 0;
+    vertical-align: middle;
+  }
+
+  .mat-table caption {
+    font-size: 1em;
+  }
+
+  .mat-table .mat-header-cell {
+    border: 10px solid;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+
+  .mat-table .mat-row {
+    border-bottom: 5px solid #ddd;
+    display: block;
+  }
+  .mat-table .mat-cell:first-child {
+    padding-left: 0;
+  }
+
+  .mat-table .mat-cell {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: 1em;
+    text-align: right;
+    font-weight: bold;
+    height: 30px;
+    line-height: 46px;
+    padding-right: 16px;
+  }
+  .mat-table .mat-cell:before {
+    content: attr(data-label);
+    float: left;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-size: 0.85em;
+    padding-left: 16px;
+  }
+  .mat-table .mat-cell:last-child {
+    border-bottom: -1px;
+  }
+}
+
+.mat-row {
+  align-items: flex-start !important;
+}
+
+.mat-cell {
+  align-items: flex-start !important;
+}
+
+.mat-column-price {
+  // flex: none;
+  width: 8%;
+  text-align: center;
+  justify-content: center;
+}
+
+.mat-column-quantity {
+  // flex: none;
+  width: 8%;
+  text-align: center;
+  justify-content: center;
+}
+
+.mat-column-sold {
+  // flex: none;
+  width: 8%;
+  text-align: center;
+  justify-content: center;
+}
+
+.mat-column-reference {
+  flex: none;
+  width: 18%;
+  text-align: left;
+  justify-content: start;
+}
+
+.mat-column-name {
+  flex: none;
+  width: 12%;
+  text-align: left;
+  justify-content: start;
+}
+
+.mat-column-shop {
+  flex: none;
+  width: 10%;
+  text-align: left;
+  justify-content: start;
+}
+
+.mat-column-category {
+  flex: none;
+  width: 8%;
+  text-align: left;
+  justify-content: start;
+}
+
+.mat-column-merchant {
+  flex: none;
+  width: 8%;
+  text-align: left;
+  justify-content: start;
+}
+
+.mat-cell:first-of-type,
+.mat-header-cell:first-of-type,
+.mat-footer-cell:first-of-type {
+  padding-left: 10px;
+}
+
+mat-cell:last-of-type,
+mat-header-cell:last-of-type,
+mat-footer-cell:last-of-type {
+  padding-right: 10px;
+}

@@ -1,0 +1,106 @@
+<div class="profile-section" fxLayout="row" fxLayoutAlign="center center">
+  <div
+    fxFlex="55"
+    class="userProfileMobile"
+    fxLayout="column"
+    fxLayoutGap=".5rem"
+  >
+    <!--profile top-->
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="3rem">
+        <app-image
+          *ngIf="userProfileImageName"
+          [imageName]="userProfileImageName"
+          [type]="profileImageType"
+          width="100px"
+          height="100px"
+        ></app-image>
+        <div fxLayout="column" fxLayoutAlign="end start" fxLayoutGap="1rem">
+          <span class="user-name"
+            >{{ user?.firstName }} {{ user?.lastName }}</span
+          >
+        </div>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="end end">
+        <a [routerLink]="['/dashboard/user/edit/profile']" class="green-text"
+          >Edit Personal Detail</a
+        >
+      </div>
+    </div>
+    <!--card-->
+    <mat-card class="card-section">
+      <div fxLayout="column" fxLayoutGap="2.5rem">
+        <div
+          fxLayout="column"
+          fxLayoutAlign="center start"
+          fxLayoutGap=".5rem"
+          class="userMobileDiv"
+        >
+          <span class="head">First Name</span>
+          <span class="description">{{ user?.firstName }}</span>
+        </div>
+
+        <div
+          fxLayout="column"
+          fxLayoutAlign="center start"
+          fxLayoutGap=".5rem"
+          class="userMobileDiv"
+        >
+          <span class="head">Last Name</span>
+          <span class="description">{{ user?.lastName }}</span>
+        </div>
+
+        <div
+          fxLayout="row"
+          fxLayoutAlign="space-between center"
+          fxLayoutGap=".5rem"
+          class="userMobileDiv"
+        >
+          <div fxLayout="column">
+            <span class="head">Phone No.</span>
+            <span class="description">{{ user?.phone }}</span>
+          </div>
+
+          <div fxLayout="column" fxFlex="50">
+            <span class="head">Email</span>
+            <span class="description">{{ user?.email }}</span>
+          </div>
+        </div>
+
+        <div
+          fxLayout="column"
+          fxLayoutAlign="center start"
+          fxLayoutGap=".5rem"
+          class="userMobileDiv"
+        >
+          <span class="head">Country</span>
+          <span class="description">{{ user?.address?.country?.name }}</span>
+        </div>
+
+        <div
+          fxLayout="row"
+          fxLayoutAlign="space-between center"
+          fxLayoutGap=".5rem"
+          class="userMobileDiv"
+        >
+          <div fxLayout="column">
+            <span class="head">District</span>
+            <span class="description">{{ user?.address?.district?.name }}</span>
+          </div>
+
+          <div fxLayout="column" fxFlex="50">
+            <span class="head">Upazilla</span>
+            <span class="description">{{ user?.address?.thana?.name }}</span>
+          </div>
+        </div>
+
+        <div fxLayout="row" fxLayoutGap="10rem">
+          <div fxLayout="column">
+            <span class="head">Address</span>
+            <span class="description">{{ user?.address?.address }}</span>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

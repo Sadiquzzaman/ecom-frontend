@@ -1,0 +1,274 @@
+<div class="mat-elevation-z8">
+  <ng-container *ngIf="isLoading">
+    <!-- <div class="loading-shade">
+      <mat-spinner class="matSpinner"></mat-spinner>
+    </div> -->
+    <mat-progress-bar color="primary" mode="indeterminate"> </mat-progress-bar>
+    <div class="loading-shade"></div>
+  </ng-container>
+
+  <div class="invoice-section" fxLayout="row" fxLayoutAlign="center center">
+    <div fxFlex="70" fxLayout="column" fxLayoutGap="1.5rem">
+      <div
+        id="contentToConvert"
+        fxLayout="column"
+        fxLayoutGap="2rem"
+        class="pdf-generator"
+      >
+        <div fxLayout="column" fxLayoutGap="1.5rem">
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="heading">Purchase Summary</span>
+          </div>
+          <div>
+            <img
+              src="../../../../../../../assets/icons/png/Ebonear_logo_green.png"
+            />
+          </div>
+
+          <div
+            class="id-header"
+            fxLayout="row"
+            fxLayout.lt-md="column"
+            fxLayoutAlign="space-between center"
+          >
+            <span class="id">ID: {{ invoiceDetails?.id }} </span>
+            <span class="date">
+              {{ invoiceDetails?.createAt | date: "MMM d, y, h:mm a" }}
+            </span>
+          </div>
+          <div
+            fxLayout="column"
+            fxLayoutAlign="space-between start"
+            fxLayoutGap="1.2rem"
+          >
+            <div fxLayout="row" fxLayoutGap="1rem" fxFill>
+              <span class="puchase-text" fxFlex="25">Purchase Summery Id</span>
+              <span fxFlex="1">:</span>
+              <span class="value-text">{{ invoiceDetails?.order?.id }}</span>
+            </div>
+            <div fxLayout="row" fxLayoutGap="1rem" fxFill>
+              <span class="puchase-text" fxFlex="25">Payment Method</span>
+              <span fxFlex="1">:</span>
+              <span class="value-text">{{
+                paymentMethod[invoiceDetails?.paymentMethod]
+              }}</span>
+            </div>
+            <div fxLayout="row" fxLayoutGap="1rem" fxFill>
+              <span class="puchase-text" fxFlex="25">Payment Status</span>
+              <span fxFlex="1">:</span>
+              <span class="value-text">{{ invoiceDetails?.status }}</span>
+            </div>
+            <div fxLayout="row" fxLayoutGap="1rem" fxFill>
+              <span class="puchase-text" fxFlex="25">Purchase Date & Time</span>
+              <span fxFlex="1">:</span>
+              <span class="value-text">{{
+                invoiceDetails?.order?.createAt | date: "MMM d,y,h:mm a"
+              }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div
+          fxFill
+          fxLayout="row"
+          fxLayoutAlign="start center"
+          class="address-section"
+          fxLayoutGap=".5rem"
+        >
+          <div class="id" fxFlex="45">
+            <table class="customer-table">
+              <tr>
+                <td class="billing">Billing To</td>
+                <td>
+                  {{ invoiceDetails?.billingAddress?.firstname }}
+                  {{ invoiceDetails?.billingAddress?.lastname }}
+                </td>
+              </tr>
+              <tr>
+                <td class="address">Address</td>
+                <td>
+                  {{ invoiceDetails?.billingAddress?.address }}
+                </td>
+              </tr>
+              <tr>
+                <td class="billing">Mobile No</td>
+                <td>
+                  {{ invoiceDetails?.billingAddress?.phone }}
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div class="date" fxflex>
+            <table class="customer-table">
+              <tr>
+                <td class="billing">Shipping To</td>
+                <td>
+                  {{ invoiceDetails?.shippingAddress?.firstname }}
+                  {{ invoiceDetails?.shippingAddress?.lastname }}
+                </td>
+              </tr>
+              <tr>
+                <td class="address">Address</td>
+                <td>
+                  {{ invoiceDetails?.shippingAddress?.address }}
+                </td>
+              </tr>
+              <tr>
+                <td class="billing">Mobile No</td>
+                <td>
+                  {{ invoiceDetails?.shippingAddress?.phone }}
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="table-section">
+          <table style="width: 100%">
+            <tr style="min-height: 2rem">
+              <th style="width: 10%">Image</th>
+              <th style="text-align: left">Product Description</th>
+              <th style="width: 10%">Quantity</th>
+              <th style="width: 15%">Price</th>
+              <th style="width: 15%">Total</th>
+            </tr>
+
+            <tr *ngFor="let invoiceDetail of invoiceDetails?.invoiceDetails">
+              <td>
+                <img
+                  [src]="invoiceDetail.productAttribute.image"
+                  height="30%"
+                  width="30%"
+                />
+              </td>
+              <td style="vertical-align: top">
+                <div fxLayout="column" fxLayoutAlign="start start">
+                  <span>{{ invoiceDetail.product.name }} </span>
+                  <!-- {{invoiceDetail.productAttribute.reference}} -->
+                  <span
+                    *ngIf="invoiceDetail.productAttribute.reference != 'string'"
+                  >
+                    {{
+                      productAttributeExtractor(
+                        invoiceDetail.productAttribute.reference
+                      )
+                    }}</span
+                  >
+                </div>
+              </td>
+              <td>{{ invoiceDetail.quantity }}</td>
+              <td>{{ invoiceDetail.price }}</td>
+              <td>{{ invoiceDetail.quantity * invoiceDetail.price }}</td>
+            </tr>
+
+            <tr>
+              <td class="table-cell" colspan="4">Sub-Total :</td>
+              <td class="table-cell-final">{{ subTotal }}</td>
+            </tr>
+
+            <tr>
+              <td class="table-cell" colspan="4">Discount:</td>
+              <td class="table-cell-final">
+                {{ invoiceDetails?.totalDiscount }}
+              </td>
+            </tr>
+            <tr>
+              <td class="table-cell" colspan="4">Shipping Charge:</td>
+              <td class="table-cell-final">
+                {{ invoiceDetails?.totalShippingCost }}
+              </td>
+            </tr>
+            <tr>
+              <td class="table-cell" colspan="4">
+                Additional Shipping Charge:
+              </td>
+              <td class="table-cell-final">
+                {{ invoiceDetails?.totalAdditionalShippingCost }}
+              </td>
+            </tr>
+
+            <tr>
+              <td class="table-cell" colspan="4">Total:</td>
+              <td class="table-cell-final">
+                {{ invoiceDetails?.invoiceTotal }}
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+        <div [fxHide]="ifOrdered()">
+          <button
+            color="primary"
+            endpoint=""
+            id="sslczPayBtn"
+            mat-raised-button
+            order=""
+            postdata=""
+            token=""
+            type="button"
+          >
+            <span class="text-white">PAY WITH SSLCOMMERZ </span>
+          </button>
+        </div>
+        <button (click)="convertToPDF()" mat-button class="download-btn">
+          <span class="btn-txt">Download PDF</span>
+        </button>
+      </div> -->
+
+      <mat-card>
+        <mat-card-content
+          class="bottom-options"
+          fxLayout="column"
+          fxLayout.gt-sm="row"
+          fxLayoutAlign="space-around center"
+          fxLayoutGap="20px"
+        >
+          <div
+            [fxHide]="ifOrdered()"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+          >
+            <h2>Pay online</h2>
+            <div>
+              <button
+                color="primary"
+                endpoint=""
+                id="sslczPayBtn"
+                mat-raised-button
+                order=""
+                postdata=""
+                token=""
+                type="button"
+              >
+                <span class="text-white">PAY WITH SSLCOMMERZ </span>
+              </button>
+            </div>
+          </div>
+
+          <div fxLayout="column" fxLayoutAlign="center center">
+            <h2>DOWNLOAD INVOICE</h2>
+            <div>
+              <button (click)="convertToPDF()" mat-button class="download-btn">
+                <span class="btn-txt">Download PDF</span>
+              </button>
+            </div>
+          </div>
+
+          <div [fxHide]="ifOrdered()">
+            <h2>Cash on delivery</h2>
+            <button class="pay-button" mat-button>
+              <span
+                class="text-white"
+                (click)="changeStatus(2)"
+                [routerLink]="['/dashboard/order']"
+                >Confirm Order</span
+              >
+            </button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

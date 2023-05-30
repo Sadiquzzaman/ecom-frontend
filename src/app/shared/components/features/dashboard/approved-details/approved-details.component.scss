@@ -1,0 +1,215 @@
+@media screen and (max-width: 960px) {
+  .mat-table {
+    border: 0;
+    vertical-align: middle;
+  }
+
+  .mat-table caption {
+    font-size: 1em;
+  }
+
+  .mat-table .mat-header-cell {
+    border: 10px solid;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+
+  .mat-table .mat-row {
+    border-bottom: 5px solid #ddd;
+    display: block;
+  }
+  .mat-table .mat-cell:first-child {
+    padding-left: 0;
+  }
+
+  .mat-table .mat-cell {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: 1em;
+    text-align: right;
+    font-weight: bold;
+    height: 30px;
+    line-height: 46px;
+    padding-right: 16px;
+  }
+  .mat-table .mat-cell:before {
+    content: attr(data-label);
+    float: left;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-size: 0.85em;
+    padding-left: 16px;
+  }
+  .mat-table .mat-cell:last-child {
+    border-bottom: -1px;
+  }
+}
+.button {
+  background-color: #28b37b;
+  border-radius: 2px;
+  width: 6rem;
+  height: 2.5rem;
+}
+
+.quantity {
+  width: 3rem;
+  margin-top: 1.5rem;
+}
+
+.bottom {
+  padding: 10px 0 10px 0;
+}
+.approve-button {
+  background-color: #28b37b;
+  border-radius: 2px;
+  width: 15rem;
+  height: 2.5rem;
+  margin-right: 10px;
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: #06b37b;
+}
+
+.close-button {
+  background-color: #fd8485;
+  // width: 5rem;
+  // border-radius: 2px;
+  .btn-text {
+    color: #ffffff;
+  }
+}
+
+.save-button {
+  background-color: #28b37b;
+  // width: 5rem;
+  // border-radius: 2px;
+  .btn-text {
+    color: #ffffff;
+  }
+}
+
+.mr-10 {
+  margin-right: 10px;
+}
+
+.mat-header-cell:last-of-type {
+  color: #0000008a !important;
+}
+
+mat-cell:last-of-type,
+mat-header-cell:last-of-type,
+mat-footer-cell:last-of-type {
+  padding-right: 10px;
+}
+mat-cell:last-of-type,
+mat-footer-cell:last-of-type,
+mat-header-cell:last-of-type {
+  display: flex;
+  justify-content: flex-start !important;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+::ng-deep .justify-center {
+  .mat-sort-header-container {
+    justify-content: center;
+  }
+}
+
+// .mat-column-sl {
+//   flex: none;
+//   width: 2%;
+//   text-align: center;
+//   justify-content: center;
+// }
+
+// .mat-column-refundRequestDate {
+//   flex: none;
+//   width: 17%;
+//   // text-align: center;
+//   // justify-content: center;
+// }
+
+// .mat-column-refundApprovedDate {
+//   flex: none;
+//   width: 17%;
+//   // text-align: center;
+//   // justify-content: center;
+// }
+
+.mat-column-refundRequestQuantity {
+  flex: none;
+  width: 7%;
+  text-align: center;
+  justify-content: center;
+}
+
+.mat-column-refundPickedQuantity {
+  flex: none;
+  width: 7%;
+  text-align: center;
+  justify-content: center;
+}
+
+.mat-column-refundApprovedQuantity {
+  flex: none;
+  width: 7%;
+  text-align: center;
+  justify-content: center;
+}
+
+.mat-column-refundReason {
+  flex: none;
+  width: 20%;
+  // text-align: center;
+  // justify-content: center;
+}
+
+.mat-column-product {
+  // width: 30%;
+  text-align: left;
+  justify-content: start;
+}
+
+.mat-column-price {
+  flex: none;
+  width: 10%;
+  text-align: left;
+  justify-content: start;
+}
+
+// .mat-column-details {
+//   flex: none;
+//   width: 10%;
+//   text-align: center;
+//   justify-content: center;
+// }
+
+.mat-cell:first-of-type,
+mat-header-cell:first-of-type,
+mat-footer-cell:first-of-type {
+  padding-left: 10px;
+}
+
+.mat-cell:last-of-type,
+mat-header-cell:last-of-type,
+mat-footer-cell:last-of-type {
+  padding-right: 10px;
+  justify-content: center !important;
+}
+
+.custom-loading-shade {
+  // background: rgba(0, 0, 0, 0.15);
+  // z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,0 +1,141 @@
+<div class="footer-section" fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="70" fxFlex.md="80" fxLayout="column" fxLayoutGap=".5rem">
+    <!-- Footer Top Part-->
+    <div style="margin-bottom: 0 !important">
+      <img
+        src="../../../../../../assets/images/SSLCOMMERZ Pay With logo web Size.png"
+        width="100%"
+        class="image1"
+      />
+      <img
+        src="../../../../../../assets/images/SSLCOMMERZ-PayWithlogomobileSize.png"
+        width="100%"
+        class="image2"
+      />
+
+      <hr />
+      <div
+        class="footer-inner-top-section"
+        fxLayout="column"
+        fxLayout.gt-sm="row"
+        fxLayoutAlign="center center"
+        fxLayoutAlign.gt-sm="space-between center"
+        fxLayoutGap="1rem grid"
+      >
+        <img
+          class="image"
+          [routerLink]="['/']"
+          alt="Logo of E-Com"
+          src="../../../../../../assets/icons/png/Ebonear_logo_green.png"
+          width="100"
+        />
+        <div>
+          <mat-icon class="footer-pointer-section" matTooltip="Facebook"
+            >facebook
+          </mat-icon>
+          <mat-icon class="footer-pointer-section" matTooltip="E-Mail"
+            >gmail
+          </mat-icon>
+        </div>
+      </div>
+      <hr />
+    </div>
+
+    <!-- Footer Button Part-->
+    <div
+      fxLayout="column"
+      fxLayout.gt-sm="row"
+      fxLayoutAlign="end center"
+      fxLayoutGap=".1px"
+    >
+      <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
+        <button mat-button [routerLink]="['/']">
+          <span class="footer-button-section">Home</span>
+        </button>
+        <button mat-button [routerLink]="['/about-us']">
+          <span class="footer-button-section">About Us</span>
+        </button>
+        <button mat-button [routerLink]="['/product']">
+          <span class="footer-button-section">Products</span>
+        </button>
+        <button mat-button [routerLink]="['/contacts-us']">
+          <span class="footer-button-section">Contact Us</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Footer Address and About Part-->
+    <div
+      fxLayout="column"
+      fxLayout.gt-sm="row"
+      fxLayoutAlign="space-between center"
+      fxLayoutGap=".5rem"
+    >
+      <div>
+        <div fxLayout="row" fxLayoutGap="1rem">
+          <mat-icon class="footer-text-section">near_me</mat-icon>
+          <span class="footer-text-section">
+            105, Sukrabad, Mirpur Road, Dhanmondi<br />Dhaka-1207, Bangladesh
+          </span>
+        </div>
+
+        <div fxLayout="row" fxLayoutGap="1rem">
+          <mat-icon class="footer-text-section">call</mat-icon>
+          <span class="footer-text-section"> {{ companyInfo.phone }} </span>
+        </div>
+
+        <div fxLayout="row" fxLayoutGap="1rem">
+          <mat-icon class="footer-text-section">email</mat-icon>
+          <span class="footer-text-section">{{ companyInfo.email }}</span>
+        </div>
+      </div>
+
+      <div fxFlex="40" fxLayout="row" fxLayoutAlign="end start">
+        <span class="footer-paragraph-section">
+          Ebonear.com is working to minimize the gap between offline & online by
+          digitizing the social chain. Its company vision is to help millions of
+          people by providing them the opportunity to trade online, help them
+          grow with each other. Thus, helping the society to make people’s life
+          an easy, better & equal place for everyone.
+        </span>
+      </div>
+    </div>
+
+    <!-- Footer Copyright Part-->
+    <div>
+      <hr />
+      <div
+        fxLayout="column"
+        fxLayout.gt-sm="row"
+        fxLayoutAlign="center center"
+        fxLayoutAlign.gt-sm="space-between center"
+      >
+        <div fxLayout="row" fxLayoutGap="10px">
+          <span class="footer-text-section">All Right Reserved By</span>
+          <span class="footer-copyright-section">Ebonear web services</span>
+        </div>
+
+        <div
+          fxLayout="row wrap"
+          fxFlex="50%"
+          fxLayoutAlign="end center"
+          fxLayoutGap="10px"
+        >
+          <button [routerLink]="['/FAQs']" mat-button>
+            <span class="footer-button-section">FAQs</span>
+          </button>
+          <button mat-button [routerLink]="['/terms-and-conditions']">
+            <span class="footer-button-section">Terms & Conditions</span>
+          </button>
+          <button mat-button [routerLink]="['/privacy-policies']">
+            <span class="footer-button-section">Privacy Policies</span>
+          </button>
+          <button mat-button [routerLink]="['/return-policies']">
+            <span class="footer-button-section">Return Policy</span>
+          </button>
+        </div>
+      </div>
+      <hr />
+    </div>
+  </div>
+</div>

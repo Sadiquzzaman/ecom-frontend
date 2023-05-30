@@ -1,0 +1,372 @@
+<div fxFlex="1 0 110%" fxLayout="column" fxLayoutAlign="start stretch">
+  <mat-sidenav-container fxFlex="0 1 auto">
+    <mat-sidenav
+      #sidenav
+      position="start"
+      mode="side"
+      opened="false"
+      class="width-30 p-6"
+    >
+      SIDENAV CONTENT HERE
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <div class="mat-elevation-z8 m-12">
+        <!-- <div
+          *ngIf="pagination.isLoading"
+          fxLayout="row"
+          fxLayoutAlign="center center"
+          style="height: 400px"
+        >
+          <mat-spinner color="primary"></mat-spinner>
+        </div> -->
+
+        <ng-container *ngIf="pagination.isLoading">
+          <mat-progress-bar color="primary" mode="indeterminate">
+          </mat-progress-bar>
+          <div class="loading-shade"></div>
+        </ng-container>
+
+        <div class="table-container">
+          <mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="Sl.no" sticky>
+              <mat-header-cell *matHeaderCellDef class="table-column-100">
+                Sl.
+              </mat-header-cell>
+              <mat-cell
+                *matCellDef="let row; let i = index"
+                class="table-column-100"
+              >
+                {{ paginator.pageIndex * paginator.pageSize + (i + 1) }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="createdBy">
+              <mat-header-cell *matHeaderCellDef class="table-column-100">
+                Created By
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row" class="table-column-100">
+                <div>
+                  <span>{{ row?.created_by }}</span>
+                </div>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="updatedBy">
+              <mat-header-cell *matHeaderCellDef class="table-column-100">
+                Updated By
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row" class="table-column-100">
+                <div>
+                  <span>{{ row?.updated_by }}</span>
+                </div>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="createdAt">
+              <mat-header-cell *matHeaderCellDef class="table-column-100">
+                Created At
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row" class="table-column-100">
+                <div>
+                  <span>{{ row?.createAt | date }}</span>
+                </div>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="updatedAt">
+              <mat-header-cell *matHeaderCellDef class="table-column-100">
+                Updated At
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row" class="table-column-100">
+                <div>
+                  <span>{{ row?.updateAt | date }}</span>
+                </div>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+              <mat-header-cell *matHeaderCellDef class="table-column-100">
+                Status
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row" class="table-column-100">
+                <div>
+                  <span>{{ row?.status }}</span>
+                </div>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="tran_date">
+              <mat-header-cell *matHeaderCellDef class="table-column-100">
+                Trans Date
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row" class="table-column-100">
+                <div>
+                  <span>{{ row?.tran_date }}</span>
+                </div>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="trans_id">
+              <mat-header-cell *matHeaderCellDef class="table-column-100">
+                Trans Id
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row" class="table-column-100">
+                <div>
+                  <span>{{ row?.tran_id }}</span>
+                </div>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="val_id">
+              <mat-header-cell *matHeaderCellDef class="table-column-100">
+                Val Id
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row" class="table-column-100">
+                <div>
+                  <span>{{ row?.val_id }}</span>
+                </div>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="amount">
+              <mat-header-cell *matHeaderCellDef class="table-column-100">
+                Amount
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row" class="table-column-100">
+                <div>
+                  <span>{{ row?.amount }}</span>
+                </div>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="store_amount">
+              <mat-header-cell *matHeaderCellDef class="table-column-100">
+                Store Amount
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row" class="table-column-100">
+                <div>
+                  <span>{{ row?.store_amount }}</span>
+                </div>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="card_type">
+              <mat-header-cell *matHeaderCellDef class="table-column-100">
+                Card Type
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row" class="table-column-100">
+                <div>
+                  <span>{{ row?.card_type }}</span>
+                </div>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="card_no">
+              <mat-header-cell *matHeaderCellDef class="table-column-100">
+                Card No
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row" class="table-column-100">
+                <div>
+                  <span>{{ row?.card_no }}</span>
+                </div>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="bank_tarn_id">
+              <mat-header-cell *matHeaderCellDef class="table-column-100">
+                Band Trans Id
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row" class="table-column-100">
+                <div>
+                  <span>{{ row?.bank_tarn_id }}</span>
+                </div>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="card_issuer">
+              <mat-header-cell *matHeaderCellDef class="table-column-100">
+                Card Issuer
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row" class="table-column-100">
+                <div>
+                  <span>{{ row?.card_issuer }}</span>
+                </div>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="card_brand">
+              <mat-header-cell *matHeaderCellDef class="table-column-100">
+                Card Brand
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row" class="table-column-100">
+                <div>
+                  <span>{{ row?.card_brand }}</span>
+                </div>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="card_issuer_country">
+              <mat-header-cell *matHeaderCellDef class="table-column-100">
+                Card Issuer Country
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row" class="table-column-100">
+                <div>
+                  <span>{{ row?.card_issuer_country }}</span>
+                </div>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="card_issuer_country_code">
+              <mat-header-cell *matHeaderCellDef class="table-column-100">
+                Card Issuer Country Code
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row" class="table-column-100">
+                <div>
+                  <span>{{ row?.card_issuer_country_code }}</span>
+                </div>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="currency_type">
+              <mat-header-cell *matHeaderCellDef class="table-column-100">
+                Currency Type
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row" class="table-column-100">
+                <div>
+                  <span>{{ row?.currency_type }}</span>
+                </div>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="currency_amount">
+              <mat-header-cell *matHeaderCellDef class="table-column-100">
+                Currency Amount
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row" class="table-column-100">
+                <div>
+                  <span>{{ row?.currency_amount }}</span>
+                </div>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="verify_sign">
+              <mat-header-cell *matHeaderCellDef class="table-column-100">
+                Verify Sign
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row" class="table-column-100">
+                <div>
+                  <span>{{ row?.verify_sign }}</span>
+                </div>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="verify_key">
+              <mat-header-cell *matHeaderCellDef class="table-column-100">
+                Verify Key
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row" class="table-column-100">
+                <div>
+                  <span>{{ row?.verify_key }}</span>
+                </div>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="risk_level">
+              <mat-header-cell *matHeaderCellDef class="table-column-100">
+                Risk Level
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row" class="table-column-100">
+                <div>
+                  <span>{{ row?.risk_level }}</span>
+                </div>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="risk_title">
+              <mat-header-cell *matHeaderCellDef class="table-column-100">
+                Risk Title
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row" class="table-column-100">
+                <div>
+                  <span>{{ row?.risk_title }}</span>
+                </div>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="value_a">
+              <mat-header-cell *matHeaderCellDef class="table-column-100">
+                Value A
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row" class="table-column-100">
+                <div>
+                  <span>{{ row?.value_a }}</span>
+                </div>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="value_b">
+              <mat-header-cell *matHeaderCellDef class="table-column-100">
+                Value B
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row" class="table-column-100">
+                <div>
+                  <span>{{ row?.value_b }}</span>
+                </div>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="value_c">
+              <mat-header-cell *matHeaderCellDef class="table-column-100">
+                Value C
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row" class="table-column-100">
+                <div>
+                  <span>{{ row?.value_c }}</span>
+                </div>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="value_d">
+              <mat-header-cell *matHeaderCellDef class="table-column-100">
+                Value D
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row" class="table-column-100">
+                <div>
+                  <span>{{ row?.value_d }}</span>
+                </div>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="online_payment_activity_log">
+              <mat-header-cell *matHeaderCellDef class="table-column-100">
+                Online Payment Activity Log
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row" class="table-column-100">
+                <div>
+                  <span>{{ row?.online_payment_activity_log }}</span>
+                </div>
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row
+              *matHeaderRowDef="displayedColumns"
+            ></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+          </mat-table>
+
+          <div>
+            <mat-paginator
+              [length]="pagination.totalCount"
+              [pageSizeOptions]="[10, 20, 30, 40, 50, pagination.totalCount]"
+              [pageSize]="pagination.rowsPerPage"
+              [showFirstLastButtons]="true"
+            >
+            </mat-paginator>
+          </div>
+        </div>
+        <!-- end table container -->
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

@@ -1,0 +1,10 @@
+<div>
+  <img
+    (load)="loading = false"
+    [alt]="'Image of ' + type + ' - ' + image"
+    [hidden]="loading"
+    [ngStyle]="size()"
+    [src]="showSrc"
+    class="round-image"
+  />
+</div>

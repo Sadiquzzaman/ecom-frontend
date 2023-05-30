@@ -1,0 +1,165 @@
+<div class="padding-top-20">
+  <div class="mat-elevation-z8">
+    <ng-container *ngIf="pagination.isLoading">
+      <mat-progress-bar color="primary" mode="indeterminate">
+      </mat-progress-bar>
+      <div class="loading-shade"></div>
+    </ng-container>
+
+    <app-sales-search
+      *ngIf="paginator !== undefined"
+      [entity]="entity"
+      [first_text]="textBoxName"
+      [dropdown]="dropdownName"
+      [limit]="paginator.pageSize"
+      (submitSearch)="submittedSearch($event)"
+    ></app-sales-search>
+
+    <mat-table [dataSource]="dataSource" matSort>
+      <!-- Serial Column -->
+      <ng-container matColumnDef="sl">
+        <mat-header-cell *matHeaderCellDef> Sl. </mat-header-cell>
+        <mat-cell *matCellDef="let row; let i = index" data-label="sl">
+          {{ paginator.pageIndex * paginator.pageSize + (i + 1) }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Product Image Column -->
+      <ng-container matColumnDef="image">
+        <mat-header-cell *matHeaderCellDef> Product Image </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="image">
+          <div class="image-dim">
+            <app-image
+              *ngIf="row.image"
+              [imageName]="row.image.cover"
+              [type]="imageType"
+            ></app-image>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Product Name
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="name">
+          {{ row.name }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Shop Column -->
+      <ng-container matColumnDef="shop">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Product Shop
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="shop">
+          {{ row.shop.name }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Category Column -->
+      <ng-container matColumnDef="category">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Product Category
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="category">
+          {{ row.category.name }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- price Column -->
+      <ng-container matColumnDef="price">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Product price
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="price">
+          {{ row.price }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Refundable Column -->
+      <ng-container matColumnDef="isRefundable">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Is Refundable?
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="isRefundable">
+          {{ bool[row.isRefundable] }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Action Column -->
+      <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+        <mat-cell *matCellDef="let row" mat-cell>
+          <button (click)="productView(row.id)" mat-button title="view" edit>
+            <mat-icon>remove_red_eye</mat-icon>
+          </button>
+          <button (click)="edit(row.id)" mat-button title="edit" edit>
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button (click)="delete(row.id)" mat-button title="delete">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Approval Column -->
+      <ng-container matColumnDef="isApproved">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Approval Status
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="isApproved">
+          <!-- <ng-container *ngIf="row.isApproved === 0">
+            <button
+              [disabled]="row.isApproved === 0"
+              mat-button
+              class="unapproved-status"
+            >
+              <span class="btn-text">Unapproved</span>
+            </button>
+          </ng-container>
+          <ng-container *ngIf="row.isApproved === 1">
+            <button
+              [disabled]="row.isApproved === 1"
+              mat-button
+              class="approved-status"
+            >
+              <span class="btn-text">Approved</span>
+            </button>
+          </ng-container> -->
+
+          <ng-container>
+            <mat-chip-list>
+              <mat-chip
+                color="success"
+                class="w-100"
+                selected
+                *ngIf="row.isApproved === 1"
+                >Approved</mat-chip
+              >
+              <mat-chip
+                color="accent"
+                class="w-100"
+                selected
+                *ngIf="row.isApproved === 0"
+                >Unapproved</mat-chip
+              >
+            </mat-chip-list>
+          </ng-container>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+
+    <mat-paginator
+      [length]="pagination.totalCount"
+      [pageSizeOptions]="[10, 20, 30, 40, 50, pagination.totalCount]"
+      [pageSize]="pagination.rowsPerPage"
+      showFirstLastButtons
+    >
+    </mat-paginator>
+  </div>
+</div>

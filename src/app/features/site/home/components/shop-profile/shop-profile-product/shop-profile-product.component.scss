@@ -1,0 +1,142 @@
+.shop-profile-section {
+  margin-top: 1.3rem;
+  .r-cover {
+    position: relative;
+    .a-profile {
+      position: absolute;
+      left: -moz-calc(50% - 200px);
+      left: -webkit-calc(50% - 200px);
+      left: -o-calc(50% - 200px);
+      left: calc(50% - 200px);
+      bottom: -130px;
+      .shop-desc {
+        width: 400px;
+        .shop-name {
+          font-size: 1.2rem;
+          font-weight: bold;
+          text-align: center;
+        }
+        .shop-details {
+          padding-top: 0.5rem;
+          font-size: 0.9rem;
+          text-align: center;
+        }
+      }
+    }
+  }
+  .logo-section {
+    ::ng-deep img {
+      border-radius: 50%;
+    }
+  }
+
+  .header {
+    padding: 8rem 0 0 0;
+    .button-section {
+      .product-button {
+        height: 2.5rem;
+        width: 20rem;
+        border: 1px solid grey;
+        border-radius: 2px;
+      }
+
+      .filter-button {
+        height: 2.5rem;
+        width: 15rem;
+        border: 1px solid grey;
+        border-radius: 2px;
+      }
+    }
+
+    .text {
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 3rem;
+      color: #eeeeee;
+      font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    }
+
+    .see-all-button-section {
+      background-color: white;
+      border: 1px solid rgb(175, 175, 175);
+      border-radius: 2px;
+    }
+  }
+}
+
+.checkbox-margin {
+  margin: 0 0.5rem;
+}
+
+.product-feed-section {
+  padding: 0.8rem 0 0.8rem 0 !important;
+
+  .feed-card-section {
+    width: 13.5rem;
+    min-height: 13rem;
+    border-radius: 0px;
+
+    .company-name {
+      color: rgb(129, 129, 129);
+      font-size: 0.8rem;
+    }
+
+    .location-icon {
+      color: rgb(146, 145, 145);
+    }
+
+    .location-name {
+      color: rgb(129, 129, 129);
+      font-size: 0.8rem;
+    }
+
+    .price {
+      color: rgb(94, 94, 94);
+    }
+
+    img {
+      cursor: pointer;
+    }
+  }
+
+  .cart-button-section {
+    width: 15.6rem;
+    height: 2.5rem;
+    border: 1px solid rgb(145, 145, 145);
+    border-radius: 0px;
+  }
+
+  .cart-icon {
+    color: rgba(93, 206, 170, 255);
+  }
+
+  .hover-feed-card-section {
+    width: 15.5rem;
+    max-height: 17.1rem;
+    border-radius: 2px;
+  }
+
+  .product-name-section {
+    font-size: 0.9rem;
+    color: rgb(94, 94, 94);
+  }
+
+  .button {
+    width: 15.6rem;
+    height: 2rem;
+    border-radius: 2px;
+    border: 1px solid rgb(255, 255, 255);
+    background-color: white;
+  }
+
+  .hover-card {
+    width: 15.5rem;
+    border-radius: 2px;
+    background-color: #0000000f;
+  }
+
+  .hover-image {
+    opacity: 0.7;
+  }
+}

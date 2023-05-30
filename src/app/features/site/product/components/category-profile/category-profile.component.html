@@ -1,0 +1,106 @@
+<div class="shop-profile-section" fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="100" fxFlex.gt-xs="70">
+    <div class="top-section">
+      <app-breadcrumb [navigation]="navbar"></app-breadcrumb>
+      <app-image
+        [imageName]="category?.image"
+        [loader]="false"
+        [type]="categoryImageType"
+        height="310px"
+      >
+      </app-image>
+      <div
+        class="shop-info"
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+        fxLayoutGap="3rem"
+      >
+        <div class="cat-name" fxFlex="20">{{ category?.name }}</div>
+        <div
+          class="cat-description"
+          fxFlex.xs="70"
+          fxFlex.sm="60"
+          fxFlex.gt-sm="50"
+        >
+          {{ category?.description }}
+        </div>
+      </div>
+    </div>
+    <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="text">products</div>
+      <div class="button-section" fxLayout="row" fxLayoutGap="2rem">
+        <!-- <button [matMenuTriggerFor]="filter" class="filter-button" mat-button>
+          Filters
+          <mat-icon>arrow_drop_down</mat-icon>
+        </button> -->
+
+        <button class="filter-button" mat-button [matMenuTriggerFor]="filter">
+          <mat-icon>tune</mat-icon>
+          Filter
+          <mat-icon>arrow_drop_down</mat-icon>
+        </button>
+
+        <mat-menu #filter="matMenu">
+          <div style="margin: 10px">
+            <mat-radio-group fxLayout="column">
+              <mat-radio-button class="mat-radio-top" value="highToLow">
+                High to Low Price
+              </mat-radio-button>
+              <mat-radio-button class="mat-radio-bottom" value="lowToHigh">
+                Low to High Price
+              </mat-radio-button>
+            </mat-radio-group>
+
+            <mat-divider></mat-divider>
+
+            <mat-radio-group fxLayout="column">
+              <mat-radio-button class="mat-radio-top" value="highToLow">
+                High to Low Rating
+              </mat-radio-button>
+              <mat-radio-button class="mat-radio-bottom" value="lowToHigh">
+                Low to High Rating
+              </mat-radio-button>
+            </mat-radio-group>
+
+            <mat-divider></mat-divider>
+
+            <mat-radio-group fxLayout="column">
+              <mat-radio-button class="mat-radio-top" value="latest">
+                Latest Product
+              </mat-radio-button>
+              <mat-radio-button class="mat-radio-middle" value="popular">
+                Popular Product
+              </mat-radio-button>
+              <mat-radio-button class="mat-radio-last" value="trending">
+                Trending Now
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </mat-menu>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  (scrolled)="onScrollDown($event)"
+  [infiniteScrollDistance]="scrollDistance"
+  [infiniteScrollThrottle]="throttle"
+  infinite-scroll
+>
+  <app-product-content
+    *ngIf="products.length; else noProduct"
+    [products]="products"
+  >
+  </app-product-content>
+
+  <div class="custom-spinner" fxLayout="row" fxLayoutAlign="center center">
+    <mat-spinner *ngIf="isLoading" [diameter]="50"></mat-spinner>
+  </div>
+
+  <ng-template #noProduct>
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <h4 class="text-bold">NO PRODUCT FOUND</h4>
+    </div>
+  </ng-template>
+</div>

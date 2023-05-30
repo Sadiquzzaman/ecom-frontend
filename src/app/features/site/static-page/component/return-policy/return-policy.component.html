@@ -1,0 +1,13 @@
+<div class="terms-section" fxLayout="row" fxLayoutAlign="center center">
+  <div
+    fxFlex="70"
+    class="terms-sectionMobile"
+    fxLayout="column"
+    fxLayoutGap=".5rem"
+  >
+    <div fxLayout="column" fxLayoutGap="2rem">
+      <span class="header">{{ returnPolicy?.name }}</span>
+      <span [innerHTML]="returnPolicy?.value"></span>
+    </div>
+  </div>
+</div>

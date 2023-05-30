@@ -1,0 +1,160 @@
+<div class="padding-top-20">
+  <div class="mat-elevation-z8">
+    <ng-container *ngIf="pagination.isLoading">
+      <mat-progress-bar color="primary" mode="indeterminate">
+      </mat-progress-bar>
+      <div class="loading-shade"></div>
+    </ng-container>
+
+    <mat-table [dataSource]="data" matSort>
+      <ng-container matColumnDef="checkbox">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="checkbox">
+          <mat-checkbox
+            (click)="$event.stopPropagation()"
+            (change)="$event ? selection.toggle(row) : null"
+            [checked]="selection.isSelected(row)"
+          ></mat-checkbox>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="refundRequestDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Created Date
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="refundRequestDate">
+          <div>
+            <span>{{ row?.refundRequestDate }}</span>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="refundRequestQuantity">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Quantity
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="refundRequestQuantity">
+          {{ row?.refundRequestQuantity }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="approve_quantity">
+        <mat-header-cell *matHeaderCellDef>Approve Quantity</mat-header-cell>
+        <mat-cell *matCellDef="let row; let i = index">
+          <div>
+            <mat-form-field
+              appearance="outline"
+              floatLabel="always"
+              required
+              class="quantity"
+            >
+              <mat-select
+                #quantity
+                (selectionChange)="changeQuantity($event, row)"
+              >
+                <mat-option
+                  *ngFor="
+                    let item of [].constructor(row?.refundRequestQuantity);
+                    let i = index
+                  "
+                  [value]="i + 1"
+                >
+                  {{ i + 1 }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="product">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Product
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="product">
+          <div fxLayout="row" fxLayoutGap=".5rem">
+            <img
+              [src]="row?.productAttribute?.image"
+              height="20%"
+              width="20%"
+            />
+            <div fxLayout="column">
+              <p>{{ row?.product?.name }}</p>
+              <p>
+                {{
+                  productAttributeExtractor(row?.productAttribute?.reference)
+                }}
+              </p>
+            </div>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <!-- <ng-container matColumnDef="totalRefundableAmount">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Refund Amount
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="totalRefundableAmount">
+          <div>
+            <span>{{ row?.totalRefundableAmount }}</span>
+          </div>
+        </mat-cell>
+      </ng-container> -->
+
+      <ng-container matColumnDef="refundReason">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Description
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="refundReason">
+          <div>
+            <span>{{ row?.refundReason }}</span>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <!-- <ng-container matColumnDef="customer">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Customer
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="customer">
+          <div>
+            <span>{{ row?.customerRefundRequest?.customer }}</span>
+          </div>
+        </mat-cell>
+      </ng-container> -->
+
+      <!-- <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+        <mat-cell *matCellDef="let row" mat-cell>
+          <button class="button" mat-button>
+            <span class="text-white">Details</span>
+          </button>
+        </mat-cell>
+      </ng-container> -->
+
+      <ng-container matColumnDef="noRecord">
+        <mat-cell mat-footer-cell *matFooterCellDef>No records found.</mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+
+    <div *ngIf="!data || data.length === 0" class="noItemFound">
+      No item remain to approve.
+    </div>
+
+    <!-- <mat-paginator
+      [length]="pagination.totalCount"
+      [pageSizeOptions]="[10, 20, 30, 40, 50, pagination.totalCount]"
+      [pageSize]="pagination.rowsPerPage"
+      showFirstLastButtons
+    >
+    </mat-paginator> -->
+    <div class="bottom" fxLayout="row" fxLayoutAlign="end" *ngIf="data.length">
+      <button mat-button class="approve-button" (click)="logSelection()">
+        <span class="text-white">Approve Request</span>
+      </button>
+    </div>
+  </div>
+</div>

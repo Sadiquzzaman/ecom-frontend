@@ -1,0 +1,235 @@
+<!--Cart Part-->
+<div [fxHide]="isInMaxCartPage" class="cart">
+  <div class="cart-div" fxLayout="column" fxLayoutAlign="space-between strech">
+    <div fxFlex="80">
+      <div class="full-card-section">
+        <mat-card class="inside-card">
+          <div fxLayout="column" fxLayoutAlign="space-between start">
+            <div
+              fxFlexFill
+              fxLayout="row"
+              fxLayoutAlign="space-between start"
+              fxLayoutGap="2rem"
+            >
+              <div fxFlex="60">In Cart:</div>
+              <div fxFlex="30">
+                {{ calculatedCart.items }} {{ unit[index] }}
+              </div>
+              <div
+                class="cancel-box"
+                fxFlex="10"
+                fxLayout="row"
+                fxLayoutAlign="end start"
+              >
+                <mat-icon class="cancel-box" (click)="hideCart()"
+                  >cancel</mat-icon
+                >
+              </div>
+            </div>
+            <div
+              *ngIf="calculatedCart.discount > 0"
+              fxFlexFill
+              fxLayout="row"
+              fxLayoutAlign="space-between start"
+              fxLayoutGap="2rem"
+            >
+              <div fxFlex="60">Discount:</div>
+              <div fxFlex="30">
+                {{ calculatedCart.discount | currency: "Tk ":"symbol":"1.2-2" }}
+              </div>
+              <div fxFlex="10"></div>
+            </div>
+            <div
+              *ngIf="calculatedCart.vat > 0"
+              fxFlexFill
+              fxLayout="row"
+              fxLayoutAlign="space-between start"
+              fxLayoutGap="2rem"
+            >
+              <div fxFlex="60">Vat:</div>
+              <div fxFlex="30">
+                {{ calculatedCart.vat | currency: "Tk ":"symbol":"1.2-2" }}
+              </div>
+              <div fxFlex="10"></div>
+            </div>
+            <div
+              *ngIf="calculatedCart.shippingCharge > 0"
+              fxFlexFill
+              fxLayout="row"
+              fxLayoutAlign="space-between start"
+              fxLayoutGap="2rem"
+            >
+              <div fxFlex="60">Shipping Charge:</div>
+              <div fxFlex="30">
+                {{
+                  calculatedCart.shippingCharge
+                    | currency: "Tk ":"symbol":"1.2-2"
+                }}
+              </div>
+              <div fxFlex="10"></div>
+            </div>
+            <div
+              *ngIf="calculatedCart.additionalShippingCharge > 0"
+              fxFlexFill
+              fxLayout="row"
+              fxLayoutAlign="space-between start"
+              fxLayoutGap="2rem"
+            >
+              <div fxFlex="60">Extra Shipping:</div>
+              <div fxFlex="30">
+                {{
+                  calculatedCart.additionalShippingCharge
+                    | currency: "Tk ":"symbol":"1.2-2"
+                }}
+              </div>
+              <div fxFlex="10"></div>
+            </div>
+          </div>
+        </mat-card>
+
+        <div class="overflow-box">
+          <div class="cart-items-box">
+            <div
+              *ngFor="let item of cart; index as i"
+              fxFlexFill
+              fxLayout="row wrap"
+              fxLayoutAlign="space-between center"
+              fxLayoutGap="0.8rem grid"
+            >
+              <div fxFlex="10">
+                <div
+                  fxLayout="column"
+                  fxLayoutAlign="space-between center"
+                  fxLayoutGap="2px"
+                >
+                  <mat-icon
+                    (click)="
+                      increment(item.product, item?.productAttribute?.id)
+                    "
+                    class="add-icon"
+                    >add
+                  </mat-icon>
+                  <span>{{ item.quantity }}</span>
+                  <mat-icon
+                    (click)="
+                      decrement(
+                        item.product,
+                        item.quantity,
+                        item?.productAttribute?.id
+                      )
+                    "
+                    class="remove-icon"
+                    >remove</mat-icon
+                  >
+                </div>
+              </div>
+              <div fxFlex="10">
+                <app-image
+                  [imageName]="item.product.image?.cover"
+                  [type]="imageType"
+                >
+                </app-image>
+              </div>
+              <div fxFlex="50">
+                <div fxLayout="column">
+                  <span>{{ item.product.name }} </span>
+                  <span class="price-text">
+                    {{
+                      toFixedNumber(getPrice(item))
+                        | currency: "Tk ":"symbol":"1.2-2"
+                    }}/pc
+                  </span>
+                </div>
+              </div>
+              <div fxFlex="20">
+                <span class="price-text">
+                  {{
+                    toFixedNumber(getPrice(item)) * item.quantity
+                      | currency: "Tk ":"symbol":"1.2-2"
+                  }}</span
+                >
+              </div>
+              <div fxFlex="10">
+                <mat-icon
+                  (click)="remove(item.product.id, item?.productAttribute?.id)"
+                  class="price-text"
+                  >delete
+                </mat-icon>
+              </div>
+              <mat-divider class="product-divider" fxFlex="100"></mat-divider>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div fxFlex="20">
+      <div class="divider">
+        <mat-divider></mat-divider>
+      </div>
+
+      <div fxFlexFill fxLayout="column" fxLayoutAlign="space-between strech">
+        <div
+          class="coupon-box"
+          fxFlexAlign="space-between center"
+          fxLayout="row"
+          fxLayoutGap="5px"
+        >
+          <div fxFlex="28">
+            <div class="promo">Promo Code</div>
+          </div>
+
+          <div fxFlex="45">
+            <input
+              (keyup.enter)="couponApply()"
+              [(ngModel)]="coupon"
+              class="coupon-input"
+              placeholder="XCOUPON"
+            />
+          </div>
+
+          <div fxFlex="28">
+            <div class="coupon-button">
+              <button
+                (click)="couponApply()"
+                [disabled]="!coupon"
+                class="apply-button"
+                mat-button
+                matTooltip="Add a coupon"
+              >
+                <span class="text">APPLY</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="order-box" fxFlexAlign="center end" fxLayout="row">
+          <mat-button-toggle-group
+            fxFlex="100"
+            fxLayout="row"
+            fxLayoutAlign="center center"
+            value="order-section"
+          >
+            <mat-button-toggle class="price" fxFlex="40" name="price-section">
+              <span class="text">{{
+                calculatedCart.grandTotal | currency: "Tk ":"symbol":"1.2-2"
+              }}</span>
+            </mat-button-toggle>
+
+            <mat-button-toggle
+              (click)="placeOrder()"
+              class="order-button"
+              fxFlex="60"
+              matTooltip="Order Now"
+              name="order-section"
+            >
+              <span class="text">Place Order</span>
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Order Part-->

@@ -1,0 +1,44 @@
+<div class="otp-section">
+  <mat-card class="background-card">
+    <div fxLayoutAlign="center center">
+      <mat-card class="mini-card">
+        <!--Login page top description-->
+        <div fxLayout="column" fxLayoutAlign="space-between start" fxLayoutAlign.lt-md="center center"
+          fxLayoutGap="3.5rem">
+          <img alt="Logo of Ebonear" height="100%" src="../../../../../assets/icons/png/Ebonear_logo_green.png" />
+          <div>
+            <p>An Otp(One Time Password) sent to {{ phoneNumber }}</p>
+            <p>Please enter the code below</p>
+          </div>
+        </div>
+        <br />
+        <div fxLayout="column" fxLayoutAlign="space-between start" fxLayoutGap="3rem">
+          <div fxLayout="column" fxLayoutGap="1rem">
+            <form>
+              <input #focus (input)="watch(i)" *ngFor="let each of [1, 2, 3, 4, 5]; index as i" maxlength="1"
+                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" type="text" />
+            </form>
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+              <div fxLayout="row" fxLayoutGap="5px">
+                <p class="time">00:{{ timeLeft }}</p>
+                <p>seconds left</p>
+              </div>
+              <div>
+                <button (click)="resendOtp()" mat-button>Resend Code</button>
+              </div>
+            </div>
+          </div>
+          <div fxLayout="column" fxLayoutGap="1rem">
+            <button (click)="submit()" class="verify-button" mat-raised-button>
+              <span class="verify-text">VERIFY</span>
+            </button>
+            <a [routerLink]="['/auth/registration']" class="edit-text">
+              Back
+            </a>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </mat-card>
+  <app-footer></app-footer>
+</div>

@@ -1,0 +1,77 @@
+<ng-container *ngIf="pagination.isLoading">
+  <mat-progress-bar color="primary" mode="indeterminate"> </mat-progress-bar>
+  <div class="loading-shade"></div>
+</ng-container>
+
+<div fxLayout="column" fxLayoutGap=".5rem">
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <span>Details</span>
+  </div>
+
+  <mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="refundRequestDate">
+      <mat-header-cell *matHeaderCellDef> Request Date </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="refundRequestDate">
+        <div>
+          <span>{{ row?.createAt | date: "MMM d, y - h:mm a" }}</span>
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <!-- <ng-container matColumnDef="refundApprovedDate">
+      <mat-header-cell *matHeaderCellDef> Approve Date </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="refundApprovedDate">
+        <div>
+          <span>{{ row?.refundApprovedDate | date: "MMM d, y - h:mm a" }}</span>
+        </div>
+      </mat-cell>
+    </ng-container> -->
+
+    <ng-container matColumnDef="quantity">
+      <mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="quantity">
+        {{ row?.quantity }}
+      </mat-cell>
+    </ng-container>
+
+    <!-- <ng-container matColumnDef="refundApprovedQuantity">
+      <mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="refundApprovedQuantity">
+        {{ row?.refundApprovedQuantity }}
+      </mat-cell>
+    </ng-container> -->
+
+    <ng-container matColumnDef="product">
+      <mat-header-cell *matHeaderCellDef> Product </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="product">
+        <div fxLayout="row" fxLayoutGap=".5rem">
+          <img [src]="row?.productAttributes?.image" height="20%" width="20%" />
+          <div fxLayout="column">
+            {{ row?.product?.name }} <br />
+            {{ productAttributeExtractor(row?.productAttributes?.reference) }}
+          </div>
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="refundReason">
+      <mat-header-cell *matHeaderCellDef> Refund Reason </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="refundReason">
+        {{ row?.refundReason }}
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+
+  <div class="bottom" fxLayout="row" fxLayoutAlign="end">
+    <!-- <button mat-button class="approve-button" (click)="close()">
+          <span class="text-white">Cancel</span>
+        </button> -->
+
+    <button mat-button (click)="close()" class="close-button mr-10">
+      <span class="btn-text">Close</span>
+    </button>
+  </div>
+</div>

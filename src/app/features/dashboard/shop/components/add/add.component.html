@@ -1,0 +1,234 @@
+<div class="mtb16" fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="60" fxFlex.lt-md="100">
+    <div class="padding-top-20">
+      <span class="warningSpan" *ngIf="shopCount >= 5"
+        >You can not create shop. Please extend package.</span
+      >
+      <mat-card>
+        <mat-toolbar class="theme-background-color">
+          <mat-toolbar-row class="margin-left text-white">
+            Add New Shop
+          </mat-toolbar-row>
+        </mat-toolbar>
+
+        <mat-card-content class="padding-out">
+          <form
+            (ngSubmit)="save()"
+            (reset)="addShopForm.reset()"
+            [formGroup]="addShopForm"
+          >
+            <div fxLayout="column">
+              <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Name</mat-label>
+                <input
+                  formControlName="name"
+                  matInput
+                  placeholder="Shop Name"
+                  required
+                />
+                <mat-error>Name is required</mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Description</mat-label>
+                <textarea
+                  class="shop-description"
+                  formControlName="description"
+                  matInput
+                  placeholder="Shop Description"
+                  required
+                ></textarea>
+                <mat-error>Description is required</mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Domain</mat-label>
+                <input
+                  formControlName="domain"
+                  matInput
+                  placeholder="Shop Domain"
+                  required
+                />
+                <mat-error>Domain is required</mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>URL</mat-label>
+                <input
+                  formControlName="url"
+                  matInput
+                  placeholder="Shop URL"
+                  required
+                />
+                <mat-error>A valid URL is required</mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Type</mat-label>
+                <mat-select
+                  formControlName="shopTypeID"
+                  placeholder="Select Type"
+                  required
+                >
+                  <mat-option>
+                    <ngx-mat-select-search
+                      [formControl]="typeFiltering"
+                      [searching]="isTypeSearching"
+                      noEntriesFoundLabel="No such type"
+                      placeholderLabel="Search"
+                    >
+                    </ngx-mat-select-search>
+                  </mat-option>
+                  <mat-option
+                    *ngFor="let type of filteredTypeOptions | async"
+                    [value]="type.id"
+                  >
+                    {{ type.name }}
+                  </mat-option>
+                </mat-select>
+                <mat-error>Type is required</mat-error>
+              </mat-form-field>
+
+              <mat-form-field
+                [fxHide]="token.isMerchant()"
+                appearance="outline"
+                floatLabel="always"
+              >
+                <mat-label>Merchant</mat-label>
+                <mat-select
+                  formControlName="merchantID"
+                  placeholder="Select Merchant"
+                  required
+                >
+                  <mat-option>
+                    <ngx-mat-select-search
+                      [formControl]="merchantFiltering"
+                      [searching]="isMerchantSearching"
+                      noEntriesFoundLabel="No such shop"
+                      placeholderLabel="Search"
+                    >
+                    </ngx-mat-select-search>
+                  </mat-option>
+                  <mat-option
+                    *ngFor="let merchant of filteredMerchantOptions | async"
+                    [value]="merchant.id"
+                  >
+                    {{ merchant.name }}
+                  </mat-option>
+                </mat-select>
+                <mat-error>Merchant is required</mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Location</mat-label>
+                <input
+                  #search
+                  (keydown.enter)="$event.preventDefault()"
+                  formControlName="location"
+                  matInput
+                  placeholder="Enter Location"
+                  required
+                />
+                <mat-error> >Location is required</mat-error>
+              </mat-form-field>
+
+              <agm-map
+                (mapClick)="addMarker($event.coords.lat, $event.coords.lng)"
+                [latitude]="location.x"
+                [longitude]="location.y"
+                [zoom]="zoom"
+                class="agm-map"
+              >
+                <agm-marker
+                  [latitude]="location.x"
+                  [longitude]="location.y"
+                ></agm-marker>
+              </agm-map>
+
+              <div *ngIf="selectedCoverFile" class="image-preview-container">
+                <div class="image-preview" fxFill fxLayoutAlign="center center">
+                  <img
+                    [src]="selectedCoverFile.src"
+                    alt="shop cover image"
+                    height="100px"
+                  />
+                </div>
+              </div>
+              <div
+                class="image-upload-container btn-bwm"
+                fxLayout="column"
+                fxLayoutGap="1rem"
+              >
+                <label>Select Shop Cover Image</label>
+
+                <input
+                  [fxShow]="false"
+                  id="imageCoverInputId"
+                  #imageCoverInput
+                  (change)="waitForCoverImageRes(imageCoverInput)"
+                  accept="image/*"
+                  class="image-input"
+                  type="file"
+                />
+                <label for="imageCoverInputId" class="change-btn"
+                  >Change Cover Image</label
+                >
+              </div>
+
+              <div *ngIf="selectedProfileFile" class="image-preview-container">
+                <div class="image-preview" fxFill fxLayoutAlign="center center">
+                  <img
+                    [src]="selectedProfileFile.src"
+                    alt="shop profile image"
+                    height="100px"
+                  />
+                </div>
+              </div>
+              <div
+                class="image-upload-container btn-bwm"
+                fxLayout="column"
+                fxLayoutGap="1rem"
+              >
+                <label>Select Shop Profile Image</label>
+                <input
+                  #imageProfileInput
+                  [fxShow]="false"
+                  id="imageProfileInputId"
+                  (change)="waitForProfileImageRes(imageProfileInput)"
+                  accept="image/*"
+                  class="image-input"
+                  type="file"
+                />
+                <label for="imageProfileInputId" class="change-btn"
+                  >Change Profile Image</label
+                >
+              </div>
+            </div>
+
+            <div
+              class="padding-top-20"
+              fxLayout="row"
+              fxLayout.lt-sm="column"
+              fxLayoutAlign="end"
+              fxLayoutGap="15px"
+              fxLayoutGap.lt-md="10px"
+            >
+              <button color="warn" fxFlex="10%" mat-raised-button type="reset">
+                <span class="text-white">Reset</span>
+              </button>
+              <button
+                [disabled]="isLoading"
+                class="theme-background-color"
+                fxFlex="10%"
+                mat-raised-button
+                type="submit"
+              >
+                <span class="text-white">{{ btnLabel }}</span>
+              </button>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

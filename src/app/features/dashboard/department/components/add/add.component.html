@@ -1,0 +1,52 @@
+<div class="department-add" fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="60" fxFlex.lt-md="100">
+    <div class="padding-top-20">
+      <mat-card>
+        <mat-toolbar class="theme-background-color">
+          <mat-toolbar-row class="margin-left text-white">
+            Add New Department
+          </mat-toolbar-row>
+        </mat-toolbar>
+
+        <mat-card-content class="padding-out">
+          <form [formGroup]="addDepartmentForm">
+            <div fxLayout="column">
+              <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Department Name</mat-label>
+                <input
+                  formControlName="name"
+                  matInput
+                  placeholder="Department Name"
+                  required
+                />
+                <mat-error>Name is required</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div
+              class="padding-top-20"
+              fxLayout="row"
+              fxLayout.lt-sm="column"
+              fxLayoutAlign="end"
+              fxLayoutGap="15px"
+              fxLayoutGap.lt-md="10px"
+            >
+              <button color="warn" fxFlex="10%" mat-raised-button type="reset">
+                <span class="text-white">Reset</span>
+              </button>
+              <button
+                class="theme-background-color"
+                fxFlex="10%"
+                mat-raised-button
+                type="submit"
+                (click)="submitTicket()"
+              >
+                <span class="text-white">Save</span>
+              </button>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

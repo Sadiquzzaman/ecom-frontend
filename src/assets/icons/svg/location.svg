@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" viewBox="0 0 48 48">
+  <defs>
+    <clipPath id="clip-location">
+      <rect width="48" height="48"/>
+    </clipPath>
+  </defs>
+  <g id="location" clip-path="url(#clip-location)">
+    <path id="Icon_ionic-md-locate" data-name="Icon ionic-md-locate" d="M26.25,17.679a8.571,8.571,0,1,0,8.571,8.571A8.6,8.6,0,0,0,26.25,17.679Zm20.458,6.286A20.649,20.649,0,0,0,28.536,5.793V2.25H23.964V5.793A20.649,20.649,0,0,0,5.792,23.964H2.25v4.571H5.792A20.65,20.65,0,0,0,23.964,46.707V50.25h4.571V46.708A20.65,20.65,0,0,0,46.707,28.536H50.25V23.964ZM26.25,42.25a16,16,0,1,1,16-16A16.047,16.047,0,0,1,26.25,42.25Z" transform="translate(-2.25 -2.249)" fill="#06b37b"/>
+  </g>
+</svg>

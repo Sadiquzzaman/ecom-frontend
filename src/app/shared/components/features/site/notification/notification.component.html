@@ -1,0 +1,28 @@
+<button [matMenuTriggerFor]="notification" mat-button>
+  <mat-icon class="notification-button">notifications</mat-icon>
+  <span *ngIf="checkStatus" class="notification">{{ notificationCount }}</span>
+</button>
+
+<mat-menu style="scroll-behavior: smooth" #notification="matMenu">
+  <div
+    class="notification-expand"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxLayoutGap="15px"
+  >
+    <div class="notification-message" fxLayoutGap="1rem" *ngFor="let notification of notifications;">
+      <div>
+        {{notification.message}}
+      </div>
+    </div>
+    <div>
+      <button
+        class="see-all-button"
+        mat-stroked-button
+        [routerLink]="['/notifications']"
+      >
+        <span class="btn-text">See All</span>
+      </button>
+    </div>
+  </div>
+</mat-menu>

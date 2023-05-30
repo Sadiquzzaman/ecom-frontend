@@ -1,0 +1,201 @@
+<div fxLayout="column" fxLayoutGap="2rem">
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <span class="dialog-header">Shipping Info</span>
+    <button mat-button class="cancel-btn" (click)="closeDialog()">
+      <span class="cancel-text">Cancel</span>
+    </button>
+  </div>
+
+  <div>
+    <form [formGroup]="shippingAddressForm" (ngSubmit)="onSubmit()">
+      <div fxLayout="column">
+        <div fxFlex fxLayout="column" fxLayoutGap="1%">
+          <mat-form-field appearance="outline" floatLabel="always" fxFlex>
+            <mat-label fxFlex>Alias</mat-label>
+            <input
+              formControlName="alias"
+              matInput
+              name="alias"
+              placeholder="Write your alias. Ex: Brother or Myself.."
+              required
+              value=""
+            />
+            <mat-error>Alias is required!</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutGap="2%">
+          <div fxFlex fxLayout="column" fxLayoutGap="1%">
+            <mat-form-field appearance="outline" floatLabel="always" fxFlex>
+              <mat-label fxFlex>First Name</mat-label>
+              <input
+                formControlName="firstname"
+                matInput
+                name="firstname"
+                placeholder="Write your first name"
+                required
+                value=""
+              />
+              <mat-error>First name is required!</mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex fxLayout="column" fxLayoutGap="1%">
+            <mat-form-field appearance="outline" floatLabel="always" fxFlex>
+              <mat-label fxFlex>Last Name</mat-label>
+              <input
+                formControlName="lastname"
+                matInput
+                name="lastname"
+                placeholder="Write your last name"
+                required
+              />
+              <mat-error>Last name is required!</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div fxLayout="row" fxLayoutGap="2%">
+          <div fxFlex="25%" fxLayout="column" fxLayoutGap="1%">
+            <mat-form-field appearance="outline" floatLabel="always">
+              <mat-label>Country Code</mat-label>
+              <mat-select
+                formControlName="countryCode"
+                placeholder="Select"
+                floatLabel="always"
+              >
+                <mat-option
+                  *ngFor="let countryCode of countryCodes"
+                  [value]="countryCode.value"
+                >
+                  {{ countryCode.label }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div fxFlex fxLayout="column" fxLayoutGap="1%">
+            <mat-form-field appearance="outline" floatLabel="always">
+              <mat-label>Phone No.</mat-label>
+              <input
+                formControlName="phone"
+                matInput
+                name="phone"
+                pattern="01[0-9]{9}"
+                placeholder="Write your Phone Number"
+                required
+              />
+              <mat-error>Valid Phone number is required!</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div fxFlex fxLayout="column" fxLayoutGap="3%">
+          <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>District</mat-label>
+            <mat-select
+              (selectionChange)="onDistrictSelect()"
+              formControlName="district"
+              placeholder="Select District"
+              required
+            >
+              <mat-option>
+                <ngx-mat-select-search
+                  [formControl]="districtFiltering"
+                  [searching]="isSearching"
+                  noEntriesFoundLabel="No such Districts"
+                  placeholderLabel="Search"
+                >
+                </ngx-mat-select-search>
+              </mat-option>
+              <mat-option
+                *ngFor="let district of filteredDistrictOptions | async"
+                [value]="district.id"
+              >
+                {{ district.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error>District is required!</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex fxLayout="column" fxLayoutGap="3%" floatLabel="always">
+          <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Thana</mat-label>
+            <mat-select
+              formControlName="thana"
+              placeholder="Select Thana"
+              required
+            >
+              <mat-option>
+                <ngx-mat-select-search
+                  [formControl]="thanaFiltering"
+                  [searching]="isSearching"
+                  noEntriesFoundLabel="No such Thanas"
+                  placeholderLabel="Search"
+                >
+                </ngx-mat-select-search>
+              </mat-option>
+              <mat-option
+                *ngFor="let thana of filteredThanaOptions | async"
+                [value]="thana.id"
+              >
+                {{ thana.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error>Thana is required!</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex fxLayout="column" fxLayoutGap="1%">
+          <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Address</mat-label>
+            <textarea
+              class="address-bar"
+              formControlName="address"
+              matInput
+              type="text"
+              rows="5"
+              placeholder="Write your house no & road no..."
+            ></textarea>
+            <mat-error>Address is required!</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex fxLayout="column" fxLayoutGap="1%">
+          <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Location</mat-label>
+            <input
+              #search
+              (keydown.enter)="$event.preventDefault()"
+              formControlName="location"
+              matInput
+              placeholder="Enter Location"
+              required
+            />
+            <mat-error> >Location is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex fxLayout="column" fxLayoutGap="1%">
+          <div appearance="outline" floatLabel="always">
+            <agm-map
+              (mapClick)="addMarker($event.coords.lat, $event.coords.lng)"
+              [latitude]="location.x"
+              [longitude]="location.y"
+              [zoom]="zoom"
+              class="agm-map"
+            >
+              <agm-marker
+                [latitude]="location.x"
+                [longitude]="location.y"
+              ></agm-marker>
+            </agm-map>
+          </div>
+        </div>
+
+        <button mat-button class="save-btn" type="submit">
+          <span class="save-text">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

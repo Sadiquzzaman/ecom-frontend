@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" viewBox="0 0 48 48">
+  <defs>
+    <clipPath id="clip-back_caret">
+      <rect width="48" height="48"/>
+    </clipPath>
+  </defs>
+  <g id="back_caret" clip-path="url(#clip-back_caret)">
+    <path id="Icon_ionic-ios-arrow-forward" data-name="Icon ionic-ios-arrow-forward" d="M18.376,26.871,34.029,11.23a2.944,2.944,0,0,0,0-4.175,2.981,2.981,0,0,0-4.187,0L12.108,24.778a2.951,2.951,0,0,0-.086,4.076L29.829,46.7a2.956,2.956,0,1,0,4.187-4.175Z" transform="translate(0.753 -2.379)" fill="#c9c9c9"/>
+  </g>
+</svg>

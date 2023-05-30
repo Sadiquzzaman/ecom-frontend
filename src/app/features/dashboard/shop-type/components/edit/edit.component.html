@@ -1,0 +1,61 @@
+<div class="mtb16" fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="60" fxFlex.lt-md="100">
+    <div class="padding-top-20">
+      <mat-card>
+        <mat-toolbar class="theme-background-color">
+          <mat-toolbar-row class="margin-left text-white">
+            Update Shop Type
+          </mat-toolbar-row>
+        </mat-toolbar>
+
+        <mat-card-content class="padding-out">
+          <form (ngSubmit)="save()" (reset)="editShopTypeForm.reset()" [formGroup]="editShopTypeForm">
+            <div fxLayout="column">
+              <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Name</mat-label>
+                <input formControlName="name" matInput placeholder="Shop Type" required />
+                <mat-error>Name is required</mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Commission</mat-label>
+                <input formControlName="commission" matInput placeholder="Commission" required type="number" />
+                <mat-error>Commission is required and only number</mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Description</mat-label>
+                <textarea formControlName="description" matInput required rows="5"></textarea>
+                <mat-error>Description is required</mat-error>
+              </mat-form-field>
+
+              <div *ngIf="selectedFile?.src" class="image-preview-container">
+                <div class="image-preview" fxFill fxLayoutAlign="center center">
+                  <img [src]="selectedFile.src" alt="shop type image" height="100px" />
+                </div>
+              </div>
+
+              <div class="image-upload-container btn-bwm" fxLayout="column" fxLayoutGap="1rem">
+                <label for="imageInputId" class="change-btn">Upload Shop Type Image</label>
+
+                <input [fxShow]="false" id="imageInputId" #imageInput (change)="waitForImageRes(imageInput)"
+                  accept="image/*" class="image-input" type="file" />
+              </div>
+            </div>
+
+            <div class="padding-top-20" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="end" fxLayoutGap="15px"
+              fxLayoutGap.lt-md="10px">
+              <button color="warn" fxFlex="10%" mat-raised-button type="reset" (click)="fileReset()">
+                <span class="text-white">Reset</span>
+              </button>
+              <button [disabled]="isLoading" class="theme-background-color" fxFlex="10%" mat-raised-button
+                type="submit">
+                <span class="text-white">{{ btnLabel }}</span>
+              </button>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

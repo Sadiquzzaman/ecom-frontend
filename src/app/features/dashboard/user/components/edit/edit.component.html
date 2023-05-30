@@ -1,0 +1,65 @@
+<div class="mtb16" fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="60" fxFlex.lt-md="100">
+    <div class="padding-top-20">
+      <mat-card>
+        <mat-toolbar class="theme-background-color">
+          <mat-toolbar-row class="margin-left"> Edit user</mat-toolbar-row>
+        </mat-toolbar>
+        <mat-card-content *ngIf="isFetching">
+          <mat-spinner color="primary"></mat-spinner>
+        </mat-card-content>
+        <mat-card-content *ngIf="!isFetching" class="padding-out">
+          <form (ngSubmit)="update()" (reset)="userForm.reset()" [formGroup]="userForm">
+            <div fxLayout="column" fxLayout.lt-sm="column" fxLayoutAlign="center">
+              <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Firstname</mat-label>
+                <input formControlName="firstName" matInput placeholder="Enter First Name" required />
+                <mat-error *ngIf="hasError('firstName', 'required')">Firstname is required
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" floatLabel="always" fxFlex="50%">
+                <mat-label>Lastname</mat-label>
+                <input formControlName="lastName" matInput placeholder="Enter Lastname" required />
+                <mat-error *ngIf="hasError('lastName', 'required')">Lastname is required
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" floatLabel="always" fxFlex="50%">
+                <mat-label>Email</mat-label>
+                <input formControlName="email" matInput placeholder="Enter Email" required />
+                <mat-error *ngIf="hasError('email', 'required')">Email is required
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Phone</mat-label>
+                <input formControlName="phone" matInput placeholder="Enter Phone" required />
+                <mat-error *ngIf="hasError('phone', 'required')">Phone is required
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Gender</mat-label>
+                <mat-select formControlName="gender" required>
+                  <mat-option *ngFor="let gender of genders" [value]="gender.value">
+                    {{ gender.viewValue }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="padding-top-20" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="end" fxLayoutGap="15px"
+              fxLayoutGap.lt-md="10px">
+              <button color="warn" fxFlex="10%" mat-raised-button type="reset">
+                Reset
+              </button>
+              <button (click)="update()" [disabled]="isLoading" class="theme-background-color" fxFlex="10%"
+                mat-raised-button type="submit">
+                <label> Update </label>
+              </button>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

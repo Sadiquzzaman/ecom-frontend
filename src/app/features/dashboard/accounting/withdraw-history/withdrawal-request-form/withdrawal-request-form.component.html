@@ -1,0 +1,509 @@
+<div fxLayout="column" fxLayoutGap="2%">
+  <!-- <div fxLayout="row" fxLayoutAlign="center center">
+    <span class="mat-h2">Withdraw Request</span>
+  </div> -->
+
+  <div
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+    fxFill
+    fxLayoutGap="1%"
+    [ngClass]="{ 'mb-1': data.isForm && token.isMerchant() }"
+  >
+    <div
+      fxLayout="row"
+      fxLayoutAlign="start center"
+      fxLayoutGap="1%"
+      fxFlex="80"
+    >
+      <span
+        class="mat-h2"
+        [fxFlex]="
+          data.isForm && token.isMerchant()
+            ? 70
+            : token.isMerchant() && request?.withdrawalStatus == 0
+            ? 33
+            : 32
+        "
+        fxFill
+        >Withdraw Request</span
+      >
+      <mat-chip-list *ngIf="!data.isForm || token.isAdmin()">
+        <mat-chip
+          class="history-content-button w-100"
+          [ngClass]="{
+            PENDING: request?.withdrawalStatus == 0,
+            APPROVED: request?.withdrawalStatus == 1,
+            REJECTED: request?.withdrawalStatus == 2,
+            CANCELED: request?.withdrawalStatus == 3
+          }"
+        >
+          <span class="text-white">
+            <ng-container *ngIf="request?.withdrawalStatus == 0"
+              >PENDING</ng-container
+            >
+            <ng-container *ngIf="request?.withdrawalStatus == 1"
+              >APPROVED</ng-container
+            >
+            <ng-container *ngIf="request?.withdrawalStatus == 2"
+              >REJECTED</ng-container
+            >
+            <ng-container *ngIf="request?.withdrawalStatus == 3"
+              >CANCELED</ng-container
+            >
+          </span>
+        </mat-chip>
+      </mat-chip-list>
+    </div>
+
+    <button
+      mat-button
+      (click)="changeStatus(request.id, 3)"
+      class="CANCELED"
+      *ngIf="token.isMerchant() && request?.withdrawalStatus == 0"
+    >
+      <span class="text-white">CANCEL</span>
+    </button>
+
+    <button mat-button (click)="onNoClick()" class="close-button">
+      <span class="btn-text">Close</span>
+    </button>
+  </div>
+
+  <div
+    fxLayout="column"
+    fxLayoutGap="2%"
+    *ngIf="!data.isForm || token.isAdmin()"
+    style="margin-bottom: 20px"
+  >
+    <div fxLayout="row" fxLayoutGap="1%">
+      <mat-label [fxFlex]="titleWidth">Request By</mat-label>
+      <mat-label>
+        {{
+          request?.requestedBy?.user?.firstName +
+            " " +
+            request?.requestedBy?.user?.lastName
+        }}
+        &nbsp;&nbsp;-&nbsp;&nbsp;
+        {{ request.createAt | date: "MMM d, y, h:mm a" }}
+      </mat-label>
+    </div>
+
+    <div fxLayout="row" fxLayoutGap="1%">
+      <mat-label [fxFlex]="titleWidth">Bank Name</mat-label>
+      <mat-label>
+        {{ request?.bankDetails?.banks?.bankName }}
+      </mat-label>
+    </div>
+
+    <div fxLayout="row" fxLayoutGap="1%">
+      <mat-label [fxFlex]="titleWidth">Account Number</mat-label>
+      <mat-label>
+        {{ request?.bankDetails?.accountNumber }}
+      </mat-label>
+    </div>
+
+    <div fxLayout="row" fxLayoutGap="1%">
+      <mat-label [fxFlex]="titleWidth">Account Holder Name</mat-label>
+      <mat-label>
+        {{ request?.bankDetails?.accountHolderName }}
+      </mat-label>
+    </div>
+
+    <div fxLayout="row" fxLayoutGap="1%">
+      <mat-label [fxFlex]="titleWidth">Requested Amount</mat-label>
+      <mat-label>
+        {{ request.amount | currency: "Tk ":"symbol":"1.2-2" }}
+      </mat-label>
+    </div>
+
+    <div fxLayout="row" fxLayoutGap="1%" *ngIf="data.isForm && token.isAdmin()">
+      <mat-label [fxFlex]="titleWidth">Available Balance</mat-label>
+      <mat-label>
+        {{ availableBalance | currency: "Tk ":"symbol":"1.2-2" }}
+      </mat-label>
+    </div>
+
+    <div fxLayout="row" fxLayoutGap="1%" *ngIf="request.rejectReason">
+      <mat-label [fxFlex]="titleWidth">Reject Reason</mat-label>
+      <mat-label>
+        {{ request.rejectReason }}
+      </mat-label>
+    </div>
+
+    <div fxLayout="row" fxLayoutGap="1%" *ngIf="request.paidAmount > 0">
+      <mat-label [fxFlex]="titleWidth">Paid Amount</mat-label>
+      <mat-label>
+        {{ request.paidAmount | currency: "Tk ":"symbol":"1.2-2" }}
+      </mat-label>
+    </div>
+
+    <div
+      fxLayout="row"
+      fxLayoutGap="1%"
+      *ngIf="
+        token.isAdmin() &&
+        (request.withdrawalStatus == 1 || request.withdrawalStatus == 2)
+      "
+    >
+      <mat-label *ngIf="request.withdrawalStatus == 1" [fxFlex]="titleWidth"
+        >Paid By</mat-label
+      >
+      <mat-label *ngIf="request.withdrawalStatus == 2" [fxFlex]="titleWidth"
+        >Rejected By</mat-label
+      >
+      <mat-label>
+        {{ request?.actionBy?.firstName + " " + request?.actionBy?.lastName }}
+        &nbsp;&nbsp;-&nbsp;&nbsp;
+        {{ request?.actionAt | date: "MMM d, y, h:mm a" }}
+      </mat-label>
+    </div>
+
+    <div fxLayout="row" fxLayoutGap="1%" *ngIf="request.transactionId">
+      <mat-label [fxFlex]="titleWidth">Transaction ID</mat-label>
+      <mat-label>
+        {{ request.transactionId }}
+      </mat-label>
+    </div>
+
+    <div fxLayout="row" fxLayoutGap="1%" *ngIf="request.remarks">
+      <mat-label [fxFlex]="titleWidth">Remarks</mat-label>
+      <mat-label>
+        {{ request.remarks }}
+      </mat-label>
+    </div>
+
+    <div fxLayout="row" fxLayoutGap="1%" *ngIf="request.attachedDocument">
+      <mat-label [fxFlex]="titleWidth">Attachment</mat-label>
+      <div>
+        <app-image
+          [imageName]="request.attachedDocument"
+          [type]="imageType"
+        ></app-image>
+      </div>
+    </div>
+
+    <!-- <div fxLayout="row" fxLayoutGap="1%" fxLayoutAlign="start center">
+      <mat-label [fxFlex]="titleWidth">Withdrawal Status</mat-label>
+      <mat-label>
+        <mat-chip-list>
+          <mat-chip
+            class="history-content-button w-100"
+            [ngClass]="{
+              PENDING: request?.withdrawalStatus == 0,
+              APPROVED: request?.withdrawalStatus == 1,
+              REJECTED: request?.withdrawalStatus == 2,
+              CANCELED: request?.withdrawalStatus == 3
+            }"
+          >
+            <span class="text-white">
+              <ng-container *ngIf="request?.withdrawalStatus == 0"
+                >PENDING</ng-container
+              >
+              <ng-container *ngIf="request?.withdrawalStatus == 1"
+                >APPROVED</ng-container
+              >
+              <ng-container *ngIf="request?.withdrawalStatus == 2"
+                >REJECTED</ng-container
+              >
+              <ng-container *ngIf="request?.withdrawalStatus == 3"
+                >CANCELED</ng-container
+              >
+            </span>
+          </mat-chip>
+        </mat-chip-list>
+      </mat-label>
+    </div> -->
+  </div>
+
+  <form fxLayout="column" [formGroup]="requestForm" *ngIf="data.isForm">
+    <ng-container *ngIf="token.isMerchant()">
+      <div fxLayout="column" fxLayoutGap="1%">
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Bank Name</mat-label>
+          <mat-select
+            formControlName="bankId"
+            placeholder="Select Bank Name"
+            required
+            (selectionChange)="onBankChange()"
+          >
+            <mat-option>
+              <ngx-mat-select-search
+                [formControl]="bankFiltering"
+                [searching]="isBankSearching"
+                noEntriesFoundLabel="No such bank"
+                placeholderLabel="Search"
+              >
+              </ngx-mat-select-search>
+            </mat-option>
+            <mat-option
+              *ngFor="let bank of filteredBankOptions | async"
+              [value]="bank.id"
+            >
+              {{ bank.bankName }}
+            </mat-option>
+          </mat-select>
+          <mat-error>Bank is required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="column" fxLayoutGap="1%">
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Account Number</mat-label>
+          <mat-select
+            formControlName="bankDetailsId"
+            placeholder="Select Account No"
+            required
+            (selectionChange)="onAccountChange()"
+          >
+            <mat-option>
+              <ngx-mat-select-search
+                [formControl]="accountFiltering"
+                [searching]="isAccountSearching"
+                noEntriesFoundLabel="No such account"
+                placeholderLabel="Search"
+              >
+              </ngx-mat-select-search>
+            </mat-option>
+            <mat-option
+              *ngFor="let account of filteredAccountOptions | async"
+              [value]="account.id"
+            >
+              {{ account.accountNumber }}
+            </mat-option>
+          </mat-select>
+          <mat-error>Account is required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="column" fxLayoutGap="1%">
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Request Amount</mat-label>
+          <input
+            formControlName="requestedAmount"
+            matInput
+            autocomplete="off"
+            type="number"
+            required
+          />
+          <mat-error
+            *ngIf="requestForm.controls.requestedAmount?.errors?.required"
+            >Requested Amount is required!</mat-error
+          >
+          <mat-error *ngIf="requestForm.controls.requestedAmount?.errors?.max"
+            >Requested Amount exceeds the available balance</mat-error
+          >
+          <mat-error
+            *ngIf="requestForm.controls.requestedAmount?.errors?.pattern"
+            >Requested Amount Must be integer only</mat-error
+          >
+          <mat-error *ngIf="requestForm.controls.requestedAmount?.errors?.min"
+            >Requested Amount Must be greater than 500 taka</mat-error
+          >
+        </mat-form-field>
+      </div>
+
+      <div
+        fxLayout="column"
+        fxLayoutGap="1%"
+        style="font-style: italic; font-weight: bold; padding-bottom: 1.4em"
+      >
+        <mat-label *ngIf="accountHolderName">
+          Account Holder : {{ accountHolderName }}
+        </mat-label>
+
+        <mat-label
+          [class]="balanceCalculation() > 0 ? 'text-success' : 'text-warn'"
+        >
+          Balance Remains :
+          {{ balanceCalculation() | currency: "Tk ":"symbol":"1.2-2" }}
+        </mat-label>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="token.isAdmin()">
+      <div fxLayout="column" fxLayoutGap="1%" style="margin-bottom: 20px">
+        <mat-radio-group formControlName="withdrawalStatus">
+          <mat-label [fxFlex]="titleWidth">Approved/Rejected ? </mat-label>
+          <mat-radio-button [value]="1" (click)="setValidation(1)"
+            >Approved &nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button
+          >
+          <mat-radio-button [value]="2" (click)="setValidation(2)"
+            >Rejected</mat-radio-button
+          >
+        </mat-radio-group>
+      </div>
+
+      <div
+        fxLayout="row"
+        *ngIf="requestForm?.controls?.withdrawalStatus?.value == 2"
+      >
+        <mat-form-field
+          appearance="outline"
+          floatLabel="always"
+          [fxFlex]="approvalFormWidth"
+          fxFlexFill
+        >
+          <mat-label>Reject Reason</mat-label>
+          <textarea
+            formControlName="rejectReason"
+            matInput
+            required
+            placeholder="Write Reject Reason"
+            rows="5"
+          >
+          </textarea>
+
+          <mat-error>Reject Reason is required!</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div
+        fxLayout="row"
+        *ngIf="requestForm?.controls?.withdrawalStatus?.value == 1"
+      >
+        <mat-form-field
+          appearance="outline"
+          floatLabel="always"
+          [fxFlex]="approvalFormWidth"
+          fxFlexFill
+        >
+          <mat-label>Paid Amount</mat-label>
+          <input
+            formControlName="paidAmount"
+            matInput
+            required
+            autocomplete="off"
+            type="number"
+          />
+          <mat-error *ngIf="requestForm.controls.paidAmount?.errors?.required"
+            >Paid Amount is required!</mat-error
+          >
+          <mat-error *ngIf="requestForm.controls.paidAmount?.errors?.max"
+            >Paid Amount exceeds the requested amount</mat-error
+          >
+          <mat-error *ngIf="requestForm.controls.paidAmount?.errors?.pattern"
+            >Paid Amount Must be integer only</mat-error
+          >
+          <mat-error *ngIf="requestForm.controls.paidAmount?.errors?.min"
+            >Paid Amount Must be greater than 500 taka</mat-error
+          >
+        </mat-form-field>
+      </div>
+
+      <div
+        fxLayout="row"
+        *ngIf="requestForm?.controls?.withdrawalStatus?.value == 1"
+      >
+        <mat-form-field
+          appearance="outline"
+          floatLabel="always"
+          [fxFlex]="approvalFormWidth"
+          fxFlexFill
+        >
+          <mat-label>Transaction ID</mat-label>
+          <input
+            formControlName="transactionId"
+            matInput
+            required
+            autocomplete="off"
+          />
+          <mat-error
+            *ngIf="requestForm.controls.transactionId?.errors?.required"
+            >Transaction ID is required!</mat-error
+          >
+        </mat-form-field>
+      </div>
+
+      <div
+        *ngIf="
+          selectedFile && requestForm?.controls?.withdrawalStatus?.value == 1
+        "
+        fxLayout="row"
+        class="image-preview-container"
+        style="width: 70%"
+      >
+        <div class="image-preview" fxFill fxLayoutAlign="center center">
+          <img [src]="selectedFile.src" alt="Attachment" height="100px" />
+        </div>
+      </div>
+
+      <div
+        class="image-upload-container btn-bwm"
+        fxLayout="row"
+        fxLayoutGap="1rem"
+        *ngIf="requestForm?.controls?.withdrawalStatus?.value == 1"
+        style="width: 70%"
+      >
+        <label>Attachment</label>
+        <input
+          formControlName="attachedDocument"
+          #imageInput
+          (change)="waitForImageRes(imageInput)"
+          accept="image/*"
+          class="image-input"
+          type="file"
+          required
+        />
+        <mat-error *ngIf="imageError">Attachment is Required</mat-error>
+      </div>
+
+      <div
+        fxLayout="row"
+        *ngIf="requestForm?.controls?.withdrawalStatus?.value == 1"
+      >
+        <mat-form-field
+          appearance="outline"
+          floatLabel="always"
+          [fxFlex]="approvalFormWidth"
+          fxFlexFill
+        >
+          <mat-label>Remarks</mat-label>
+          <textarea
+            formControlName="remarks"
+            matInput
+            placeholder="Write remarks"
+            rows="5"
+          >
+          </textarea>
+        </mat-form-field>
+      </div>
+    </ng-container>
+  </form>
+</div>
+
+<div
+  mat-dialog-actions
+  fxLayout="row"
+  fxLayoutAlign="center center"
+  *ngIf="data.isForm"
+  style="padding-bottom: 2em"
+>
+  <!-- <button mat-button (click)="onNoClick()" class="close-button">
+    <span class="btn-text">Close</span>
+  </button> -->
+
+  <ng-container *ngIf="requestForm.valid">
+    <button
+      mat-button
+      [mat-dialog-close]="requestForm.value"
+      cdkFocusInitial
+      class="save-button"
+    >
+      <span class="btn-text">Submit</span>
+    </button>
+  </ng-container>
+
+  <!-- {{ requestForm.value | json }} -->
+
+  <ng-container *ngIf="!requestForm.valid">
+    <button
+      mat-raised-button
+      cdkFocusInitial
+      disabled
+      class="save-button-disabled"
+    >
+      Submit
+    </button>
+  </ng-container>
+</div>

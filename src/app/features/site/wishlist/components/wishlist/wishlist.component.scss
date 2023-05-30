@@ -1,0 +1,22 @@
+.wishlist-section {
+  padding: 3rem 0 0 0;
+  font-family: Arial, Helvetica, sans-serif;
+  .header {
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: #eeeeee;
+  }
+  .cart-button {
+    background-color: #06b37b;
+    border-radius: 2px;
+    width: 10rem;
+    .btn-text {
+      color: white;
+    }
+  }
+}
+@media (max-width: 560px) {
+  .wishlist-section {
+    padding: 2rem 0;
+  }
+}

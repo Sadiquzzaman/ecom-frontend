@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" viewBox="0 0 48 48">
+  <defs>
+    <clipPath id="clip-checked">
+      <rect width="48" height="48"/>
+    </clipPath>
+  </defs>
+  <g id="checked" clip-path="url(#clip-checked)">
+    <path id="Icon_awesome-check-square" data-name="Icon awesome-check-square" d="M42.857,50.25H5.143A5.143,5.143,0,0,1,0,45.107V7.393A5.143,5.143,0,0,1,5.143,2.25H42.857A5.143,5.143,0,0,1,48,7.393V45.107A5.143,5.143,0,0,1,42.857,50.25ZM20.927,39.744,40.641,20.029a1.714,1.714,0,0,0,0-2.424l-2.424-2.424a1.714,1.714,0,0,0-2.424,0L19.714,31.258l-7.506-7.506a1.714,1.714,0,0,0-2.424,0L7.359,26.176a1.714,1.714,0,0,0,0,2.424L18.5,39.744a1.714,1.714,0,0,0,2.424,0Z" transform="translate(0 -2.251)" fill="#06b37b"/>
+  </g>
+</svg>

@@ -1,0 +1,129 @@
+<div class="ticket-section" fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="60" fxLayout="column" fxLayoutGap="2.2rem">
+    <span class="header">Shipment Charge</span>
+    <div fxLayout="column" fxLayoutGap="4rem">
+      <form [formGroup]="shipmentChargeForm">
+        <div fxLayout="column" fxLayoutGap="10px">
+          <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Shipment Group Name</mat-label>
+            <mat-select
+              formControlName="shipmentGroupID"
+              name="shipmentGroupID"
+              placeholder="Write shipment group name"
+              required
+              type="text"
+            >
+              <mat-option>
+                <ngx-mat-select-search
+                  [formControl]="shipmentGroupFiltering"
+                  [searching]="isShipmentGroupSearching"
+                  noEntriesFoundLabel="No such shipment attribute group"
+                  placeholderLabel="Search"
+                >
+                </ngx-mat-select-search>
+              </mat-option>
+              <mat-option
+                *ngFor="
+                  let filteredShipmentGroupOption of filteredShipmentGroupOptions
+                    | async
+                "
+                [value]="filteredShipmentGroupOption.id"
+              >
+                {{ filteredShipmentGroupOption.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error>Shipment group name is required</mat-error>
+          </mat-form-field>
+
+          <div fxLayout="row" fxLayoutAlign="end center">
+            <div class="form-btns">
+              <button mat-button class="add-button" (click)="addValue()">
+                <span class="button-text">Add New</span>
+              </button>
+            </div>
+          </div>
+
+          <div
+            formArrayName="shipmentValue"
+            *ngFor="let singleValue of attrValues.controls; let i = index"
+          >
+            <ng-container [formGroupName]="i">
+              <div fxLayout="column">
+                <mat-form-field appearance="outline" floatLabel="always">
+                  <mat-label>Value</mat-label>
+                  <input
+                    formControlName="value"
+                    id="attrValue_{{ i }}"
+                    name="attrValue_{{ i }}"
+                    matInput
+                    placeholder="Write attribute value"
+                    required
+                    type="number"
+                  />
+                  <mat-error>Value is required</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" floatLabel="always">
+                  <mat-label>Price</mat-label>
+                  <input
+                    formControlName="price"
+                    id="attrValue_{{ i }}"
+                    name="attrValue_{{ i }}"
+                    matInput
+                    placeholder="Write attribute value"
+                    required
+                    type="number"
+                  />
+                  <mat-error>Price is required</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" floatLabel="always">
+                  <mat-label>Description</mat-label>
+                  <textarea
+                    formControlName="description"
+                    matInput
+                    name="description"
+                    placeholder="Write your description here"
+                    required
+                    type="text"
+                    [rows]="5"
+                  ></textarea>
+                  <mat-error>Please write description</mat-error>
+                </mat-form-field>
+
+                <div fxLayout="row" class="form-btns">
+                  <button
+                    mat-button
+                    class="cancel-button"
+                    (click)="removeValue(i)"
+                  >
+                    <span class="button-text">Remove</span>
+                  </button>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+
+        <div
+          class="ticket-btns"
+          fxLayout="row"
+          fxLayoutAlign="end center"
+          fxLayoutGap="2rem"
+        >
+          <button class="cancel-button" mat-button (click)="clearForm()">
+            <span class="button-text">CANCEL</span>
+          </button>
+          <button
+            class="submit-button"
+            mat-button
+            type="submit"
+            (click)="save()"
+          >
+            <span class="button-text">UPDATE</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

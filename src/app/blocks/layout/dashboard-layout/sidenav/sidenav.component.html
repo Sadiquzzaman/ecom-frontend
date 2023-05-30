@@ -1,0 +1,2515 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    id="drawer"
+    [attr.role]="'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+    class="sidenav"
+    fixedInViewport
+  >
+    <mat-toolbar>
+      <a routerLink="/">
+        <img
+          src="../../../../../assets/icons/png/Ebonear_logo_green.png"
+          height="65%"
+          width="50%"
+        />
+      </a>
+    </mat-toolbar>
+
+    <mat-nav-list>
+      <a
+        (click)="redirectTo('/dashboard')"
+        [routerLink]="['/dashboard']"
+        mat-list-item
+        [routerLinkActive]="['is-active']"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+          <mat-icon class="icon-color">dashboard</mat-icon>
+          <span>Dashboard</span>
+        </div>
+      </a>
+    </mat-nav-list>
+
+    <!--user-->
+    <mat-nav-list [fxShow]="token.isAdmin() || token.isSuperAdmin()">
+      <h2 matSubheader>USER</h2>
+
+      <mat-expansion-panel hideToggle [expanded]="isExpanded(['user'])">
+        <mat-expansion-panel-header>
+          <mat-panel-title
+            fxLayout="row"
+            fxLayoutAlign="start center"
+            fxLayoutGap="10px"
+          >
+            <mat-icon class="icon-color">account_box</mat-icon>
+            <span>User List</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-divider></mat-divider>
+        <a
+          (click)="redirectTo('/dashboard/user/merchant-list')"
+          [routerLink]="['/dashboard/user/merchant-list']"
+          mat-list-item
+          [routerLinkActive]="['is-active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+            <mat-icon class="icon-color">account_box</mat-icon>
+            <span>Merchant List</span>
+          </div>
+        </a>
+
+        <a
+          (click)="redirectTo('/dashboard/user/merchant-approved-list')"
+          [routerLink]="['/dashboard/user/merchant-approved-list']"
+          mat-list-item
+          [routerLinkActive]="['is-active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+            <mat-icon class="icon-color">list_alt</mat-icon>
+            <span>Approved Merchant List</span>
+          </div>
+        </a>
+
+        <a
+          (click)="redirectTo('/dashboard/user/merchant-unapproved-list')"
+          [routerLink]="['/dashboard/user/merchant-unapproved-list']"
+          mat-list-item
+          [routerLinkActive]="['is-active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+            <mat-icon class="icon-color">list_alt</mat-icon>
+            <span>Unapproved Merchant List</span>
+          </div>
+        </a>
+
+        <a
+          (click)="redirectTo('/dashboard/user/customer-list')"
+          [routerLink]="['/dashboard/user/customer-list']"
+          [routerLinkActive]="['is-active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+          mat-list-item
+        >
+          <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+            <mat-icon class="icon-color">account_box</mat-icon>
+            <span>Customer List</span>
+          </div>
+        </a>
+
+        <a
+          (click)="redirectTo('/dashboard/user/transporter-list')"
+          [routerLink]="['/dashboard/user/transporter-list']"
+          [routerLinkActive]="['is-active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+          mat-list-item
+        >
+          <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+            <mat-icon class="icon-color">account_box</mat-icon>
+            <span>Transporter List</span>
+          </div>
+        </a>
+
+        <a
+          (click)="redirectTo('/dashboard/user/admin-list')"
+          [routerLink]="['/dashboard/user/admin-list']"
+          [routerLinkActive]="['is-active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+          mat-list-item
+        >
+          <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+            <mat-icon class="icon-color">account_box</mat-icon>
+            <span>Admin List</span>
+          </div>
+        </a>
+
+        <a
+          (click)="redirectTo('/dashboard/user/shop-manager-list')"
+          [routerLink]="['/dashboard/user/shop-manager-list']"
+          [routerLinkActive]="['is-active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+          mat-list-item
+        >
+          <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+            <mat-icon class="icon-color">account_box</mat-icon>
+            <span>Shop Manager List</span>
+          </div>
+        </a>
+      </mat-expansion-panel>
+
+      <a
+        (click)="redirectTo('/dashboard/contact-us')"
+        [routerLink]="['/dashboard/contact-us']"
+        mat-list-item
+        [routerLinkActive]="['is-active']"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+          <mat-icon class="icon-color" style="font-size: 22px"
+            >contact_mail</mat-icon
+          >
+          <span>Contact Us</span>
+        </div>
+      </a>
+    </mat-nav-list>
+
+    <!--admin-->
+    <mat-nav-list [fxShow]="token.isAdmin() || token.isSuperAdmin()">
+      <h2 matSubheader>CATELOG</h2>
+
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title
+            fxLayout="row"
+            fxLayoutAlign="start center"
+            fxLayoutGap="10px"
+          >
+            <mat-icon class="icon-color">settings_applications</mat-icon>
+            <span>Add User</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-divider></mat-divider>
+        <a
+          [routerLink]="[
+            '/dashboard/add-user/transporter',
+            { type: 'transporter' }
+          ]"
+          [routerLinkActive]="['is-active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+          mat-list-item
+        >
+          <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+            <mat-icon class="icon-color">playlist_add</mat-icon>
+            <span>New Transporter</span>
+          </div>
+        </a>
+        <!-- <a
+          [routerLink]="['/auth/registration', { type: 'employee' }]"
+          [routerLinkActive]="['is-active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+          mat-list-item
+        >
+          <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+            <mat-icon class="icon-color">playlist_add</mat-icon>
+            <span>New Employee</span>
+          </div>
+        </a> -->
+        <a
+          [routerLink]="['/dashboard/add-user/admin', { type: 'admin' }]"
+          [routerLinkActive]="['is-active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+          mat-list-item
+        >
+          <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+            <mat-icon class="icon-color">playlist_add</mat-icon>
+            <span>New Admin</span>
+          </div>
+        </a>
+        <a
+          [routerLink]="[
+            '/dashboard/add-user/shop-manager',
+            { type: 'shop_manager' }
+          ]"
+          [routerLinkActive]="['is-active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+          mat-list-item
+        >
+          <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+            <mat-icon class="icon-color">playlist_add</mat-icon>
+            <span>New Shop Manager</span>
+          </div>
+        </a>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel
+        hideToggle
+        [expanded]="isExpanded(['configuration'])"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title
+            fxLayout="row"
+            fxLayoutAlign="start center"
+            fxLayoutGap="10px"
+          >
+            <mat-icon class="icon-color">settings_applications</mat-icon>
+            <span>Configuration</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-divider></mat-divider>
+        <a
+          [routerLink]="['/dashboard/configuration/add']"
+          [routerLinkActive]="['is-active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+          mat-list-item
+        >
+          <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+            <mat-icon class="icon-color">playlist_add</mat-icon>
+            <span>New</span>
+          </div>
+        </a>
+        <a
+          (click)="redirectTo('/dashboard/configuration/list')"
+          [routerLink]="['/dashboard/configuration/list']"
+          mat-list-item
+          [class]="activeChecker(['configuration/edit', 'configuration/list'])"
+        >
+          <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+            <mat-icon class="icon-color">list_alt</mat-icon>
+            <span>List</span>
+          </div>
+        </a>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel hideToggle [expanded]="isExpanded(['static-page'])">
+        <mat-expansion-panel-header>
+          <mat-panel-title
+            fxLayout="row"
+            fxLayoutAlign="start center"
+            fxLayoutGap="10px"
+          >
+            <mat-icon class="icon-color">settings_applications</mat-icon>
+            <span>Static Page</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-divider></mat-divider>
+        <!-- <a [routerLink]="['/dashboard/static-page/add']" [routerLinkActive]="['is-active']"  [routerLinkActiveOptions]="{ exact: true }" mat-list-item>
+          <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+            <mat-icon class="icon-color">playlist_add</mat-icon>
+            <span>New</span>
+          </div>
+        </a> -->
+        <a
+          (click)="redirectTo('/dashboard/static-page/list')"
+          [routerLink]="['/dashboard/static-page/list']"
+          mat-list-item
+          [class]="activeChecker(['static-page/edit', 'static-page/list'])"
+        >
+          <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+            <mat-icon class="icon-color">list_alt</mat-icon>
+            <span>List</span>
+          </div>
+        </a>
+      </mat-expansion-panel>
+
+      <mat-accordion>
+        <mat-expansion-panel
+          hideToggle
+          [expanded]="isExpanded(['shop', 'shop-type'])"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <mat-icon class="icon-color">storefront</mat-icon>
+              <span>Shops</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+          <a
+            [routerLink]="['/dashboard/shop-type/add']"
+            [routerLinkActiveOptions]="{ exact: true }"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">playlist_add</mat-icon>
+              <span>New Shop Type</span>
+            </div>
+          </a>
+          <a
+            (click)="redirectTo('/dashboard/shop-type')"
+            [routerLink]="['/dashboard/shop-type']"
+            mat-list-item
+            [class]="activeChecker(['shop-type', 'shop-type/edit'])"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Shop Types</span>
+            </div>
+          </a>
+
+          <mat-divider></mat-divider>
+          <a
+            [routerLink]="['/dashboard/shop/add']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">playlist_add</mat-icon>
+              <span>New Shop</span>
+            </div>
+          </a>
+          <a
+            (click)="redirectTo('/dashboard/shop/list')"
+            [routerLink]="['/dashboard/shop/list']"
+            mat-list-item
+            [class]="activeChecker(['shop/edit', 'shop/list'])"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Shop List</span>
+            </div>
+          </a>
+
+          <a
+            (click)="redirectTo('/dashboard/shop/approved-list')"
+            [routerLink]="['/dashboard/shop/approved-list']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Approved shop list</span>
+            </div>
+          </a>
+          <a
+            (click)="redirectTo('/dashboard/shop/unapproved-list')"
+            [routerLink]="['/dashboard/shop/unapproved-list']"
+            [routerLinkActiveOptions]="{ exact: true }"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Unapproved shop list</span>
+            </div>
+          </a>
+
+          <!-- <mat-divider></mat-divider>
+          <a
+            (click)="redirectTo('/dashboard/shop/assign-shop')"
+            [routerLink]="['/dashboard/shop/assign-shop']"
+            [routerLinkActiveOptions]="{ exact: true }"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Assign Shop</span>
+            </div>
+          </a> -->
+        </mat-expansion-panel>
+
+        <mat-expansion-panel
+          hideToggle
+          [expanded]="isExpanded(['product/', 'category'])"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <mat-icon class="icon-color">inventory_2</mat-icon>
+              <span>Products</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+          <a
+            [routerLink]="['/dashboard/product/add']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">playlist_add</mat-icon>
+              <span>New Product</span>
+            </div>
+          </a>
+          <a
+            (click)="redirectTo('/dashboard/product/list')"
+            [routerLink]="['/dashboard/product/list']"
+            mat-list-item
+            [class]="activeChecker(['product/edit', 'product/list'])"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>All Product List</span>
+            </div>
+          </a>
+          <a
+            (click)="redirectTo('/dashboard/product/approved-list')"
+            [routerLink]="['/dashboard/product/approved-list']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Approved Product List</span>
+            </div>
+          </a>
+          <a
+            (click)="redirectTo('/dashboard/product/unapproved-list')"
+            [routerLink]="['/dashboard/product/unapproved-list']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Unapproved Product List</span>
+            </div>
+          </a>
+
+          <mat-divider></mat-divider>
+          <a
+            [routerLink]="['/dashboard/category/add']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">playlist_add</mat-icon>
+              <span>New Category</span>
+            </div>
+          </a>
+          <a
+            (click)="redirectTo('/dashboard/category')"
+            [routerLink]="['/dashboard/category']"
+            mat-list-item
+            [class]="activeChecker(['category/edit', 'category'])"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Category List</span>
+            </div>
+          </a>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel hideToggle [expanded]="isExpanded(['stock'])">
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <mat-icon class="icon-color">inventory_2</mat-icon>
+              <span>Stock</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+          <a
+            (click)="redirectTo('/dashboard/stock')"
+            [routerLink]="['/dashboard/stock']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Stock List</span>
+            </div>
+          </a>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel hideToggle [expanded]="isExpanded(['order'])">
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <mat-icon class="icon-color">production_quantity_limits</mat-icon>
+              <span>Orders</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+          <a
+            (click)="redirectTo('/dashboard/order')"
+            (click)="redirectTo('/dashboard/order')"
+            [routerLink]="['/dashboard/order']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>List</span>
+            </div>
+          </a>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel
+          hideToggle
+          [expanded]="isExpanded(['onlinePaymentInfo'])"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <mat-icon class="icon-color">savings</mat-icon>
+              <span>Payment Info</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+          <a
+            (click)="redirectTo('/dashboard/onlinePaymentInfo/list')"
+            [routerLink]="['/dashboard/onlinePaymentInfo/list']"
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+            mat-list-item
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>List</span>
+            </div>
+          </a>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel
+          hideToggle
+          [expanded]="isExpanded(['ticket', 'department'])"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <mat-icon class="icon-color">developer_board</mat-icon>
+              <span>Tickets</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+          <a
+            (click)="redirectTo('/dashboard/ticket/list')"
+            [routerLink]="['/dashboard/ticket/list']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Tickets</span>
+            </div>
+          </a>
+          <a
+            [routerLink]="['/dashboard/department/add']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">playlist_add</mat-icon>
+              <span>New Department</span>
+            </div>
+          </a>
+          <a
+            (click)="redirectTo('/dashboard/department/list')"
+            [routerLink]="['/dashboard/department/list']"
+            mat-list-item
+            [class]="activeChecker(['department/edit', 'department/list'])"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Departments</span>
+            </div>
+          </a>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel
+          hideToggle
+          [expanded]="isExpanded(['refund-config'])"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <mat-icon class="icon-color">confirmation_number</mat-icon>
+              <span>Refund Config</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+          <a
+            [routerLink]="['/dashboard/refund-config/add']"
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+            mat-list-item
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">playlist_add</mat-icon>
+              <span>New</span>
+            </div>
+          </a>
+          <a
+            (click)="redirectTo('/dashboard/refund-config/list')"
+            [routerLink]="['/dashboard/refund-config/list']"
+            [class]="
+              activeChecker(['refund-config/edit', 'refund-config/list'])
+            "
+            mat-list-item
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>List</span>
+            </div>
+          </a>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel
+          hideToggle
+          [expanded]="isExpanded(['shipping-details'])"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <mat-icon class="icon-color">flight_takeoff</mat-icon>
+              <span>Shipping Details</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+          <a
+            (click)="
+              redirectTo('/dashboard/shipping-details/assigned-order-list')
+            "
+            [routerLink]="['/dashboard/shipping-details/assigned-order-list']"
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+            mat-list-item
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Assigned invoice List</span>
+            </div>
+          </a>
+          <a
+            (click)="
+              redirectTo('/dashboard/shipping-details/unassigned-order-list')
+            "
+            [routerLink]="['/dashboard/shipping-details/unassigned-order-list']"
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+            mat-list-item
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Unassigned Invoice List</span>
+            </div>
+          </a>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel
+          hideToggle
+          [expanded]="isExpanded(['refund/', 'transporter-refund/'])"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <mat-icon class="icon-color">storefront</mat-icon>
+              <span>Refund</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+
+          <a
+            (click)="redirectTo('/dashboard/refund/refund-request-list')"
+            [routerLink]="['/dashboard/refund/refund-request-list']"
+            mat-list-item
+            [class]="
+              activeChecker([
+                'refund/refund-request/details',
+                'transporter-refund/refund-request/details',
+                'refund/refund-request-list'
+              ])
+            "
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Unapproved Requests</span>
+            </div>
+          </a>
+          <a
+            (click)="redirectTo('/dashboard/refund/rejected-refund-requests')"
+            [routerLink]="['/dashboard/refund/rejected-refund-requests']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Rejected Requests</span>
+            </div>
+          </a>
+          <a
+            (click)="redirectTo('/dashboard/refund/unassigned-refund-requests')"
+            [routerLink]="['/dashboard/refund/unassigned-refund-requests']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Approved Requests</span>
+            </div>
+          </a>
+          <a
+            (click)="
+              redirectTo('/dashboard/transporter-refund/assigned-refund-list')
+            "
+            [routerLink]="[
+              '/dashboard/transporter-refund/assigned-refund-list'
+            ]"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Assigned Requests</span>
+            </div>
+          </a>
+          <a
+            (click)="
+              redirectTo('/dashboard/transporter-refund/picked-refund-list')
+            "
+            [routerLink]="['/dashboard/transporter-refund/picked-refund-list']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Picked Requests</span>
+            </div>
+          </a>
+
+          <a
+            (click)="
+              redirectTo('/dashboard/transporter-refund/received-refund-list')
+            "
+            [routerLink]="[
+              '/dashboard/transporter-refund/received-refund-list'
+            ]"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Received Requests</span>
+            </div>
+          </a>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel hideToggle [expanded]="isExpanded(['return/'])">
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <mat-icon class="icon-color">storefront</mat-icon>
+              <span>Return</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+
+          <a
+            (click)="redirectTo('/dashboard/return/unassigned-return-list')"
+            [routerLink]="['/dashboard/return/unassigned-return-list']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Unassigned Return List</span>
+            </div>
+          </a>
+
+          <a
+            (click)="redirectTo('/dashboard/return/assigned-return-list')"
+            [routerLink]="['/dashboard/return/assigned-return-list']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Assigned Return List</span>
+            </div>
+          </a>
+
+          <a
+            (click)="redirectTo('/dashboard/return/picked-return-list')"
+            [routerLink]="['/dashboard/return/picked-return-list']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Picked Return List</span>
+            </div>
+          </a>
+
+          <a
+            (click)="redirectTo('/dashboard/return/delivered-return-list')"
+            [routerLink]="['/dashboard/return/delivered-return-list']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Delivered Return List</span>
+            </div>
+          </a>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel hideToggle [expanded]="isExpanded(['coupon/'])">
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <mat-icon class="icon-color">card_giftcard</mat-icon>
+              <span>Coupons</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+          <a
+            (click)="redirectTo('/dashboard/coupon/list')"
+            [routerLink]="['/dashboard/coupon/list']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Coupons</span>
+            </div>
+          </a>
+          <a
+            (click)="redirectTo('/dashboard/coupon/shop-list')"
+            [routerLink]="['/dashboard/coupon/shop-list']"
+            mat-list-item
+            [class]="activeChecker(['coupon/add', 'coupon/shop-list'])"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">playlist_add</mat-icon>
+              <span>New Coupon</span>
+            </div>
+          </a>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel hideToggle [expanded]="isExpanded(['promotion/'])">
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <mat-icon class="icon-color">featured_video</mat-icon>
+              <span>Promotion</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+          <!-- <a
+            [routerLink]="['/dashboard/promotion/slot/add']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">playlist_add</mat-icon>
+              <span>Add Promotion Slot</span>
+            </div>
+          </a> -->
+          <a
+            (click)="redirectTo('/dashboard/promotion/slot/list')"
+            [routerLink]="['/dashboard/promotion/slot/list']"
+            mat-list-item
+            [class]="
+              activeChecker(['promotion/slot/edit', 'promotion/slot/list'])
+            "
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Promotion Slots</span>
+            </div>
+          </a>
+          <!-- <a
+            [routerLink]="['/dashboard/promotion/add']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">playlist_add</mat-icon>
+              <span>Add New Promotion</span>
+            </div>
+          </a> -->
+          <a
+            (click)="redirectTo('/dashboard/promotion/list')"
+            [routerLink]="['/dashboard/promotion/list']"
+            mat-list-item
+            [class]="activeChecker(['promotion/edit', 'promotion/list'])"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Promotion List</span>
+            </div>
+          </a>
+          <!-- <a
+            (click)="redirectTo('/dashboard/promotion/approved-promotion-list')"
+            [routerLink]="['/dashboard/promotion/approved-promotion-list']"
+            mat-list-item
+            [class]="activeChecker(['promotion/approved-promotion-list'])"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Approved Promotion List</span>
+            </div>
+          </a>
+          <a
+            (click)="
+              redirectTo('/dashboard/promotion/unapproved-promotion-list')
+            "
+            [routerLink]="['/dashboard/promotion/unapproved-promotion-list']"
+            mat-list-item
+            [class]="activeChecker(['promotion/unapproved-promotion-list'])"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>UnApproved Promotion List</span>
+            </div>
+          </a> -->
+        </mat-expansion-panel>
+
+        <mat-expansion-panel
+          hideToggle
+          [expanded]="
+            isExpanded(['product-attribute/', 'product-attribute-group/'])
+          "
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <mat-icon class="icon-color">analytics</mat-icon>
+              <span>Product Attribute</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+          <a
+            [routerLink]="['/dashboard/product-attribute/add']"
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+            mat-list-item
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">playlist_add</mat-icon>
+              <span>Add Attributes</span>
+            </div>
+          </a>
+          <a
+            [routerLink]="['/dashboard/product-attribute-group/add']"
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+            mat-list-item
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">playlist_add</mat-icon>
+              <span>Add Attribute Group</span>
+            </div>
+          </a>
+          <a
+            (click)="redirectTo('/dashboard/product-attribute-group/list')"
+            [routerLink]="['/dashboard/product-attribute-group/list']"
+            [class]="
+              activeChecker([
+                'product-attribute-group/list',
+                'product-attribute-group/edit'
+              ])
+            "
+            mat-list-item
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Attribute Group List</span>
+            </div>
+          </a>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel
+          hideToggle
+          [expanded]="isExpanded(['accounting/'])"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <mat-icon class="icon-color">account_balance_wallet</mat-icon>
+              <span>Accounting</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-expansion-panel
+            hideToggle
+            [expanded]="isExpanded(['accounting/'])"
+          >
+            <mat-expansion-panel-header>
+              <mat-panel-title
+                fxLayout="row"
+                fxLayoutAlign="start center"
+                fxLayoutGap="10px"
+              >
+                <mat-icon class="icon-color">account_balance_wallet</mat-icon>
+                <span>Sales History</span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-divider></mat-divider>
+            <a
+              (click)="redirectTo('/dashboard/accounting/admin-sales-history')"
+              [routerLink]="['/dashboard/accounting/admin-sales-history']"
+              [routerLinkActive]="['is-active']"
+              [routerLinkActiveOptions]="{ exact: true }"
+              mat-list-item
+            >
+              <div
+                fxLayout="row"
+                fxLayoutAlign="start center"
+                fxLayoutGap="10px"
+              >
+                <mat-icon class="icon-color">playlist_add</mat-icon>
+                <span>Admin Sales</span>
+              </div>
+            </a>
+            <a
+              (click)="
+                redirectTo('/dashboard/accounting/merchant-sales-history')
+              "
+              [routerLink]="['/dashboard/accounting/merchant-sales-history']"
+              [class]="
+                activeChecker([
+                  'accounting/merchant-sales-history',
+                  'accounting/merchant-invoices/details'
+                ])
+              "
+              mat-list-item
+            >
+              <div
+                fxLayout="row"
+                fxLayoutAlign="start center"
+                fxLayoutGap="10px"
+              >
+                <mat-icon class="icon-color">list_alt</mat-icon>
+                <span>Merchant Sales</span>
+              </div>
+            </a>
+            <a
+              (click)="redirectTo('/dashboard/accounting/shop-sales-history')"
+              [routerLink]="['/dashboard/accounting/shop-sales-history']"
+              [class]="
+                activeChecker([
+                  'accounting/shop-sales-history',
+                  'accounting/shop-invoices/details'
+                ])
+              "
+              mat-list-item
+            >
+              <div
+                fxLayout="row"
+                fxLayoutAlign="start center"
+                fxLayoutGap="10px"
+              >
+                <mat-icon class="icon-color">list_alt</mat-icon>
+                <span>Shop Sales</span>
+              </div>
+            </a>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel
+            hideToggle
+            [expanded]="isExpanded(['accounting/admin-merchant-withdrawals'])"
+          >
+            <mat-expansion-panel-header>
+              <mat-panel-title
+                fxLayout="row"
+                fxLayoutAlign="start center"
+                fxLayoutGap="10px"
+              >
+                <mat-icon class="icon-color">account_balance_wallet</mat-icon>
+                <span>Withdraw History</span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-divider></mat-divider>
+            <a
+              (click)="
+                redirectTo('/dashboard/accounting/admin-merchant-withdrawals')
+              "
+              [routerLink]="[
+                '/dashboard/accounting/admin-merchant-withdrawals'
+              ]"
+              mat-list-item
+              [class]="activeChecker(['accounting/admin-merchant-withdrawals'])"
+            >
+              <div
+                fxLayout="row"
+                fxLayoutAlign="start center"
+                fxLayoutGap="10px"
+              >
+                <mat-icon class="icon-color">list_alt</mat-icon>
+                <span>Merchant Withdrawals</span>
+              </div>
+            </a>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel
+            hideToggle
+            [expanded]="isExpanded(['accounting/bank-details'])"
+          >
+            <mat-expansion-panel-header>
+              <mat-panel-title
+                fxLayout="row"
+                fxLayoutAlign="start center"
+                fxLayoutGap="10px"
+              >
+                <mat-icon class="icon-color">account_balance_wallet</mat-icon>
+                <span>Bank Details</span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-divider></mat-divider>
+            <!-- <a
+              (click)="redirectTo('/dashboard/accounting/bank-details/add')"
+              [routerLink]="['/dashboard/accounting/bank-details/add']"
+              mat-list-item
+              [class]="activeChecker(['accounting/bank-details/add'])"
+            >
+              <div
+                fxLayout="row"
+                fxLayoutAlign="start center"
+                fxLayoutGap="10px"
+              >
+                <mat-icon class="icon-color">playlist_add</mat-icon>
+                <span>Add Bank Details</span>
+              </div>
+            </a> -->
+            <a
+              (click)="redirectTo('/dashboard/accounting/bank/list')"
+              [routerLink]="['/dashboard/accounting/bank/list']"
+              mat-list-item
+              [class]="activeChecker(['accounting/bank/list'])"
+            >
+              <div
+                fxLayout="row"
+                fxLayoutAlign="start center"
+                fxLayoutGap="10px"
+              >
+                <mat-icon class="icon-color">list_alt</mat-icon>
+                <span>Bank List</span>
+              </div>
+            </a>
+            <a
+              (click)="redirectTo('/dashboard/accounting/bank-details/list')"
+              [routerLink]="['/dashboard/accounting/bank-details/list']"
+              mat-list-item
+              [class]="activeChecker(['accounting/bank-details/list'])"
+            >
+              <div
+                fxLayout="row"
+                fxLayoutAlign="start center"
+                fxLayoutGap="10px"
+              >
+                <mat-icon class="icon-color">list_alt</mat-icon>
+                <span>Bank Details List</span>
+              </div>
+            </a>
+          </mat-expansion-panel>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel hideToggle [expanded]="isExpanded(['shipment/'])">
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <mat-icon class="icon-color">analytics</mat-icon>
+              <span>Shipping Config</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+          <a
+            [routerLink]="['/dashboard/shipment/attribute/add']"
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+            mat-list-item
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">playlist_add</mat-icon>
+              <span>Add Shipment Attributes</span>
+            </div>
+          </a>
+          <a
+            [routerLink]="['/dashboard/shipment/charge/add']"
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+            mat-list-item
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">playlist_add</mat-icon>
+              <span>Add Charge</span>
+            </div>
+          </a>
+          <a
+            (click)="redirectTo('/dashboard/shipment/attribute/list')"
+            [routerLink]="['/dashboard/shipment/attribute/list']"
+            [class]="
+              activeChecker([
+                'shipment/attribute/list',
+                'shipment/attribute/edit',
+                'shipment/charge/list/details',
+                'shipment/charge/edit'
+              ])
+            "
+            mat-list-item
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Charge List</span>
+            </div>
+          </a>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-nav-list>
+
+    <!--merchant-->
+    <mat-nav-list [fxShow]="token.isMerchant()">
+      <h2 matSubheader>MERCHANT</h2>
+
+      <mat-accordion>
+        <mat-expansion-panel hideToggle [expanded]="isExpanded(['shop'])">
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <mat-icon class="icon-color">storefront</mat-icon>
+              <span>My Shops</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+          <a
+            [routerLink]="['/dashboard/shop/add']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">playlist_add</mat-icon>
+              <span>New</span>
+            </div>
+          </a>
+          <a
+            (click)="redirectTo('/dashboard/shop/list')"
+            [routerLink]="['/dashboard/shop/list']"
+            mat-list-item
+            [class]="activeChecker(['shop/list', 'shop/edit'])"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>List</span>
+            </div>
+          </a>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel hideToggle [expanded]="isExpanded(['product/'])">
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <mat-icon class="icon-color">inventory_2</mat-icon>
+              <span>My Products</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+          <a
+            [routerLink]="['/dashboard/product/add']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">playlist_add</mat-icon>
+              <span>New</span>
+            </div>
+          </a>
+          <a
+            (click)="redirectTo('/dashboard/product/list')"
+            [routerLink]="['/dashboard/product/list']"
+            mat-list-item
+            [class]="activeChecker(['product/list', 'product/edit'])"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>List</span>
+            </div>
+          </a>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel hideToggle [expanded]="isExpanded(['promotion/'])">
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <mat-icon class="icon-color">featured_video</mat-icon>
+              <span>Promotion</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+          <a
+            [routerLink]="['/dashboard/promotion/add']"
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+            mat-list-item
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">playlist_add</mat-icon>
+              <span>New</span>
+            </div>
+          </a>
+          <a
+            (click)="redirectTo('/dashboard/promotion/list')"
+            [routerLink]="['/dashboard/promotion/list']"
+            mat-list-item
+            [class]="activeChecker(['promotion/list', 'promotion/edit'])"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>List</span>
+            </div>
+          </a>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel
+          hideToggle
+          [expanded]="isExpanded(['accounting/'])"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <mat-icon class="icon-color">account_balance_wallet</mat-icon>
+              <span>Accounting</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <mat-expansion-panel
+            hideToggle
+            [expanded]="
+              isExpanded([
+                'accounting/merchant-sales-history',
+                'accounting/shop-sales-history'
+              ])
+            "
+          >
+            <mat-expansion-panel-header>
+              <mat-panel-title
+                fxLayout="row"
+                fxLayoutAlign="start center"
+                fxLayoutGap="10px"
+              >
+                <mat-icon class="icon-color">account_balance_wallet</mat-icon>
+                <span>Sales History</span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-divider></mat-divider>
+            <a
+              (click)="
+                redirectTo('/dashboard/accounting/merchant-sales-history')
+              "
+              [routerLink]="['/dashboard/accounting/merchant-sales-history']"
+              mat-list-item
+              [class]="
+                activeChecker([
+                  'accounting/merchant-sales-history',
+                  'accounting/merchant-invoices/details'
+                ])
+              "
+            >
+              <div
+                fxLayout="row"
+                fxLayoutAlign="start center"
+                fxLayoutGap="10px"
+              >
+                <mat-icon class="icon-color">list_alt</mat-icon>
+                <span>Sales Report</span>
+              </div>
+            </a>
+            <a
+              (click)="redirectTo('/dashboard/accounting/shop-sales-history')"
+              [routerLink]="['/dashboard/accounting/shop-sales-history']"
+              mat-list-item
+              [class]="
+                activeChecker([
+                  'accounting/shop-sales-history',
+                  'accounting/shop-invoices/details'
+                ])
+              "
+            >
+              <div
+                fxLayout="row"
+                fxLayoutAlign="start center"
+                fxLayoutGap="10px"
+              >
+                <mat-icon class="icon-color">list_alt</mat-icon>
+                <span>Shop Sales</span>
+              </div>
+            </a>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel
+            hideToggle
+            [expanded]="isExpanded(['accounting/merchant-withdrawals'])"
+          >
+            <mat-expansion-panel-header>
+              <mat-panel-title
+                fxLayout="row"
+                fxLayoutAlign="start center"
+                fxLayoutGap="10px"
+              >
+                <mat-icon class="icon-color">account_balance_wallet</mat-icon>
+                <span>Withdraw History</span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-divider></mat-divider>
+            <a
+              (click)="redirectTo('/dashboard/accounting/merchant-withdrawals')"
+              [routerLink]="['/dashboard/accounting/merchant-withdrawals']"
+              mat-list-item
+              [class]="
+                activeChecker([
+                  'accounting/merchant-withdrawals',
+                  'accounting/merchant-withdrawals/details'
+                ])
+              "
+            >
+              <div
+                fxLayout="row"
+                fxLayoutAlign="start center"
+                fxLayoutGap="10px"
+              >
+                <mat-icon class="icon-color">list_alt</mat-icon>
+                <span>Merchant Withdrawals</span>
+              </div>
+            </a>
+          </mat-expansion-panel>
+          <mat-expansion-panel
+            hideToggle
+            [expanded]="isExpanded(['accounting/bank-details'])"
+          >
+            <mat-expansion-panel-header>
+              <mat-panel-title
+                fxLayout="row"
+                fxLayoutAlign="start center"
+                fxLayoutGap="10px"
+              >
+                <mat-icon class="icon-color">account_balance_wallet</mat-icon>
+                <span>Bank Details</span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-divider></mat-divider>
+            <a
+              (click)="redirectTo('/dashboard/accounting/bank-details/add')"
+              [routerLink]="['/dashboard/accounting/bank-details/add']"
+              mat-list-item
+              [class]="activeChecker(['accounting/bank-details/add'])"
+            >
+              <div
+                fxLayout="row"
+                fxLayoutAlign="start center"
+                fxLayoutGap="10px"
+              >
+                <mat-icon class="icon-color">playlist_add</mat-icon>
+                <span>Add Bank Details</span>
+              </div>
+            </a>
+            <a
+              (click)="redirectTo('/dashboard/accounting/bank-details/list')"
+              [routerLink]="['/dashboard/accounting/bank-details/list']"
+              mat-list-item
+              [class]="activeChecker(['accounting/bank-details/list'])"
+            >
+              <div
+                fxLayout="row"
+                fxLayoutAlign="start center"
+                fxLayoutGap="10px"
+              >
+                <mat-icon class="icon-color">list_alt</mat-icon>
+                <span>Bank Details List</span>
+              </div>
+            </a>
+          </mat-expansion-panel>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel
+          hideToggle
+          [expanded]="isExpanded(['shipping-details/'])"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <mat-icon class="icon-color">flight_takeoff</mat-icon>
+              <span>Shipping Details</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+          <a
+            (click)="
+              redirectTo('/dashboard/shipping-details/assigned-order-list')
+            "
+            [routerLink]="['/dashboard/shipping-details/assigned-order-list']"
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+            mat-list-item
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Assigned invoice List</span>
+            </div>
+          </a>
+          <a
+            (click)="
+              redirectTo('/dashboard/shipping-details/unassigned-order-list')
+            "
+            [routerLink]="['/dashboard/shipping-details/unassigned-order-list']"
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+            mat-list-item
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Unassigned invoice List</span>
+            </div>
+          </a>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel hideToggle [expanded]="isExpanded(['stock'])">
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <mat-icon class="icon-color">inventory_2</mat-icon>
+              <span>Stock</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+          <a
+            (click)="redirectTo('/dashboard/stock')"
+            [routerLink]="['/dashboard/stock']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Stock List</span>
+            </div>
+          </a>
+        </mat-expansion-panel>
+
+        <!--back-->
+
+        <mat-expansion-panel hideToggle [expanded]="isExpanded(['return/'])">
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <mat-icon class="icon-color">storefront</mat-icon>
+              <span>Return</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+
+          <!-- <a
+            [routerLink]="['/dashboard/return/unassigned-return-list']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Unassigned Return List</span>
+            </div>
+          </a> -->
+
+          <a
+            (click)="redirectTo('/dashboard/return/unassigned-return-list')"
+            [routerLink]="['/dashboard/return/unassigned-return-list']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Unassigned Return List</span>
+            </div>
+          </a>
+
+          <a
+            [routerLink]="['/dashboard/return/assigned-return-list']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Assigned Return List</span>
+            </div>
+          </a>
+
+          <!-- <a
+            [routerLink]="['/dashboard/return/picked-return-list']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Picked Return List</span>
+            </div>
+          </a>
+
+          <a
+            [routerLink]="['/dashboard/return/delivered-return-list']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Delivered Return List</span>
+            </div>
+          </a> -->
+        </mat-expansion-panel>
+
+        <!--  <mat-expansion-panel hideToggle [expanded]="isExpanded(['report'])">
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <mat-icon class="icon-color">report</mat-icon>
+              <span>Report</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <a
+            (click)="redirectTo('/dashboard/report')"
+            [routerLink]="['/dashboard/report']"
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+            mat-list-item
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>List</span>
+            </div>
+          </a>
+        </mat-expansion-panel> -->
+      </mat-accordion>
+    </mat-nav-list>
+
+    <!--Customer-->
+    <mat-nav-list
+      [fxShow]="token.isCustomer()"
+      [fxHide]="
+        token.isMerchant() ||
+        token.isAdmin() ||
+        token.isTransporter() ||
+        token.isShopManager()
+      "
+    >
+      <h2 matSubheader>CUSTOMER</h2>
+
+      <mat-accordion>
+        <mat-expansion-panel hideToggle [expanded]="isExpanded(['order'])">
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <mat-icon class="icon-color">storefront</mat-icon>
+              <span>My Orders</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+
+          <a
+            (click)="redirectTo('/dashboard/order')"
+            [routerLink]="['/dashboard/order']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>List</span>
+            </div>
+          </a>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel hideToggle [expanded]="isExpanded(['ticket'])">
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <mat-icon class="icon-color">confirmation_number</mat-icon>
+              <span>Ticket</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+          <a
+            [routerLink]="['/dashboard/ticket']"
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+            mat-list-item
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">playlist_add</mat-icon>
+              <span>New</span>
+            </div>
+          </a>
+          <a
+            (click)="redirectTo('/dashboard/ticket/list')"
+            [routerLink]="['/dashboard/ticket/list']"
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+            mat-list-item
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>List</span>
+            </div>
+          </a>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel
+          hideToggle
+          [expanded]="isExpanded(['refund/', 'transporter-refund/'])"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <mat-icon class="icon-color">storefront</mat-icon>
+              <span>Refund</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+
+          <a
+            (click)="redirectTo('/dashboard/refund/refund-request-list')"
+            [routerLink]="['/dashboard/refund/refund-request-list']"
+            mat-list-item
+            [class]="
+              activeChecker([
+                'refund/refund-request/details',
+                'refund/refund-request-list'
+              ])
+            "
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Refund Requests</span>
+            </div>
+          </a>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-nav-list>
+
+    <!--Transporter-->
+    <mat-nav-list
+      [fxShow]="token.isTransporter()"
+      [fxHide]="
+        token.isMerchant() ||
+        token.isAdmin() ||
+        token.isCustomer() ||
+        token.isShopManager()
+      "
+    >
+      <h2 matSubheader>TRANSPORTER</h2>
+
+      <mat-accordion>
+        <mat-expansion-panel
+          hideToggle
+          [expanded]="isExpanded(['transporter-details/'])"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <mat-icon class="icon-color">storefront</mat-icon>
+              <span>Orders</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+
+          <a
+            (click)="redirectTo('/dashboard/transporter-details/assigned-list')"
+            [routerLink]="['/dashboard/transporter-details/assigned-list']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Assigned List</span>
+            </div>
+          </a>
+
+          <a
+            (click)="redirectTo('/dashboard/transporter-details/picked-list')"
+            [routerLink]="['/dashboard/transporter-details/picked-list']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Picked List</span>
+            </div>
+          </a>
+
+          <a
+            (click)="
+              redirectTo('/dashboard/transporter-details/delivered-list')
+            "
+            [routerLink]="['/dashboard/transporter-details/delivered-list']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Delivered List</span>
+            </div>
+          </a>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel
+          hideToggle
+          [expanded]="isExpanded(['transporter-refund/'])"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <mat-icon class="icon-color">storefront</mat-icon>
+              <span>Refunds</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+
+          <a
+            (click)="
+              redirectTo('/dashboard/transporter-refund/assigned-refund-list')
+            "
+            [routerLink]="[
+              '/dashboard/transporter-refund/assigned-refund-list'
+            ]"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Assigned Requests</span>
+            </div>
+          </a>
+
+          <a
+            (click)="
+              redirectTo('/dashboard/transporter-refund/picked-refund-list')
+            "
+            [routerLink]="['/dashboard/transporter-refund/picked-refund-list']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Picked Requests</span>
+            </div>
+          </a>
+
+          <a
+            (click)="
+              redirectTo('/dashboard/transporter-refund/received-refund-list')
+            "
+            [routerLink]="[
+              '/dashboard/transporter-refund/received-refund-list'
+            ]"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Received Requests</span>
+            </div>
+          </a>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel hideToggle [expanded]="isExpanded(['return/'])">
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <mat-icon class="icon-color">storefront</mat-icon>
+              <span>Return</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+
+          <!-- <a
+            [routerLink]="['/dashboard/return/unassigned-return-list']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Unassigned Return List</span>
+            </div>
+          </a> -->
+
+          <a
+            [routerLink]="['/dashboard/return/assigned-return-list']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Assigned Return List</span>
+            </div>
+          </a>
+
+          <a
+            [routerLink]="['/dashboard/return/picked-return-list']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Picked Return List</span>
+            </div>
+          </a>
+
+          <a
+            [routerLink]="['/dashboard/return/delivered-return-list']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Delivered Return List</span>
+            </div>
+          </a>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-nav-list>
+
+    <!--Shop Manager-->
+    <mat-nav-list
+      [fxShow]="token.isShopManager()"
+      [fxHide]="
+        token.isMerchant() ||
+        token.isAdmin() ||
+        token.isCustomer() ||
+        token.isTransporter()
+      "
+    >
+      <h2 matSubheader>SHOP MANAGER</h2>
+
+      <mat-accordion>
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <mat-icon class="icon-color">settings_applications</mat-icon>
+              <span>Add User</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+          <a
+            [routerLink]="[
+              '/dashboard/add-user/transporter',
+              { type: 'transporter' }
+            ]"
+            [routerLinkActive]="['is-active']"
+            mat-list-item
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">playlist_add</mat-icon>
+              <span>New Transporter</span>
+            </div>
+          </a>
+        </mat-expansion-panel>
+        <mat-expansion-panel
+          hideToggle
+          [expanded]="isExpanded(['shop', 'shop-type'])"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <mat-icon class="icon-color">storefront</mat-icon>
+              <span>Shops</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+          <!-- <a
+            [routerLink]="['/dashboard/shop-type/add']"
+            [routerLinkActiveOptions]="{ exact: true }"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">playlist_add</mat-icon>
+              <span>New Shop Type</span>
+            </div>
+          </a>
+          <a
+            (click)="redirectTo('/dashboard/shop-type')"
+            [routerLink]="['/dashboard/shop-type']"
+            mat-list-item
+            [class]="activeChecker(['shop-type', 'shop-type/edit'])"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Shop Types</span>
+            </div>
+          </a>
+
+          <mat-divider></mat-divider> -->
+          <!-- <a
+            [routerLink]="['/dashboard/shop/add']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">playlist_add</mat-icon>
+              <span>New Shop</span>
+            </div>
+          </a> -->
+          <a
+            (click)="redirectTo('/dashboard/shop/list')"
+            [routerLink]="['/dashboard/shop/list']"
+            mat-list-item
+            [class]="activeChecker(['shop/edit', 'shop/list'])"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Shop List</span>
+            </div>
+          </a>
+
+          <!-- <a
+            (click)="redirectTo('/dashboard/shop/approved-list')"
+            [routerLink]="['/dashboard/shop/approved-list']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Approved shop list</span>
+            </div>
+          </a>
+          <a
+            (click)="redirectTo('/dashboard/shop/unapproved-list')"
+            [routerLink]="['/dashboard/shop/unapproved-list']"
+            [routerLinkActiveOptions]="{ exact: true }"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Unapproved shop list</span>
+            </div>
+          </a> -->
+
+          <!-- <mat-divider></mat-divider> -->
+          <!-- <a
+            (click)="redirectTo('/dashboard/shop/assign-shop')"
+            [routerLink]="['/dashboard/shop/assign-shop']"
+            [routerLinkActiveOptions]="{ exact: true }"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Assign Shop</span>
+            </div>
+          </a> -->
+        </mat-expansion-panel>
+
+        <mat-expansion-panel
+          hideToggle
+          [expanded]="isExpanded(['product/', 'category'])"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <mat-icon class="icon-color">inventory_2</mat-icon>
+              <span>Products</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+          <!-- <a
+            [routerLink]="['/dashboard/product/add']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">playlist_add</mat-icon>
+              <span>New Product</span>
+            </div>
+          </a> -->
+          <a
+            (click)="redirectTo('/dashboard/product/list')"
+            [routerLink]="['/dashboard/product/list']"
+            mat-list-item
+            [class]="activeChecker(['product/edit', 'product/list'])"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Product List</span>
+            </div>
+          </a>
+          <!-- <a
+            (click)="redirectTo('/dashboard/product/approved-list')"
+            [routerLink]="['/dashboard/product/approved-list']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Approved Product List</span>
+            </div>
+          </a> -->
+          <!-- <a
+            (click)="redirectTo('/dashboard/product/unapproved-list')"
+            [routerLink]="['/dashboard/product/unapproved-list']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Unapproved Product List</span>
+            </div>
+          </a> -->
+
+          <!-- <mat-divider></mat-divider>
+          <a
+            [routerLink]="['/dashboard/category/add']"
+            mat-list-item
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">playlist_add</mat-icon>
+              <span>New Category</span>
+            </div>
+          </a>
+          <a
+            (click)="redirectTo('/dashboard/category')"
+            [routerLink]="['/dashboard/category']"
+            mat-list-item
+            [class]="activeChecker(['category/edit', 'category'])"
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Category List</span>
+            </div>
+          </a> -->
+        </mat-expansion-panel>
+
+        <mat-expansion-panel
+          hideToggle
+          [expanded]="isExpanded(['accounting/'])"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <mat-icon class="icon-color">account_balance_wallet</mat-icon>
+              <span>Accounting</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-expansion-panel
+            hideToggle
+            [expanded]="isExpanded(['accounting/'])"
+          >
+            <mat-expansion-panel-header>
+              <mat-panel-title
+                fxLayout="row"
+                fxLayoutAlign="start center"
+                fxLayoutGap="10px"
+              >
+                <mat-icon class="icon-color">account_balance_wallet</mat-icon>
+                <span>Sales History</span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-divider></mat-divider>
+            <!-- <a
+              (click)="redirectTo('/dashboard/accounting/admin-sales-history')"
+              [routerLink]="['/dashboard/accounting/admin-sales-history']"
+              [routerLinkActive]="['is-active']"
+              [routerLinkActiveOptions]="{ exact: true }"
+              mat-list-item
+            >
+              <div
+                fxLayout="row"
+                fxLayoutAlign="start center"
+                fxLayoutGap="10px"
+              >
+                <mat-icon class="icon-color">playlist_add</mat-icon>
+                <span>Admin Sales</span>
+              </div>
+            </a> -->
+            <!-- <a
+              (click)="
+                redirectTo('/dashboard/accounting/merchant-sales-history')
+              "
+              [routerLink]="['/dashboard/accounting/merchant-sales-history']"
+              [class]="
+                activeChecker([
+                  'accounting/merchant-sales-history',
+                  'accounting/merchant-invoices/details'
+                ])
+              "
+              mat-list-item
+            >
+              <div
+                fxLayout="row"
+                fxLayoutAlign="start center"
+                fxLayoutGap="10px"
+              >
+                <mat-icon class="icon-color">list_alt</mat-icon>
+                <span>Merchant Sales</span>
+              </div>
+            </a> -->
+            <a
+              (click)="redirectTo('/dashboard/accounting/shop-sales-history')"
+              [routerLink]="['/dashboard/accounting/shop-sales-history']"
+              [class]="
+                activeChecker([
+                  'accounting/shop-sales-history',
+                  'accounting/shop-invoices/details'
+                ])
+              "
+              mat-list-item
+            >
+              <div
+                fxLayout="row"
+                fxLayoutAlign="start center"
+                fxLayoutGap="10px"
+              >
+                <mat-icon class="icon-color">list_alt</mat-icon>
+                <span>Shop Sales</span>
+              </div>
+            </a>
+          </mat-expansion-panel>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel
+          hideToggle
+          [expanded]="isExpanded(['shipping-details'])"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <mat-icon class="icon-color">flight_takeoff</mat-icon>
+              <span>Shipping Details</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+          <a
+            (click)="
+              redirectTo('/dashboard/shipping-details/assigned-order-list')
+            "
+            [routerLink]="['/dashboard/shipping-details/assigned-order-list']"
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+            mat-list-item
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Assigned invoice List</span>
+            </div>
+          </a>
+          <a
+            (click)="
+              redirectTo('/dashboard/shipping-details/unassigned-order-list')
+            "
+            [routerLink]="['/dashboard/shipping-details/unassigned-order-list']"
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+            mat-list-item
+          >
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+              <mat-icon class="icon-color">list_alt</mat-icon>
+              <span>Unassigned Invoice List</span>
+            </div>
+          </a>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="admin-header">
+    <mat-toolbar
+      class="theme-background-color"
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+    >
+      <button
+        (click)="drawer.toggle()"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        type="button"
+      >
+        <mat-icon aria-label="Side nav toggle icon" class="text-white"
+          >menu
+        </mat-icon>
+      </button>
+
+      <span class="welcome-text" fxFlexAlign="end center">
+        Welcome To Ebonear Dashboard
+      </span>
+
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <button [matMenuTriggerFor]="account" class="pop-menu" mat-icon-button>
+          <mat-icon class="text-white">settings</mat-icon>
+        </button>
+        <mat-menu
+          #account="matMenu"
+          class="portal-menu"
+          xPosition="before"
+          yPosition="below"
+        >
+          <mat-list>
+            <mat-list-item>
+              <button
+                [routerLink]="['/dashboard/user/edit/profile']"
+                mat-flat-button
+              >
+                <mat-icon>manage_accounts</mat-icon>
+                Profile Settings
+              </button>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+              <button
+                [routerLink]="['/dashboard/user/profile']"
+                mat-flat-button
+              >
+                <mat-icon>person</mat-icon>
+                My Profile
+              </button>
+            </mat-list-item>
+
+            <mat-divider></mat-divider>
+
+            <mat-list-item>
+              <button (click)="gotoChangePassword(tokenId)" mat-flat-button>
+                <mat-icon>lock_open</mat-icon>
+                Change Password
+              </button>
+            </mat-list-item>
+
+            <mat-divider></mat-divider>
+
+            <mat-list-item>
+              <button (click)="logOut()" mat-flat-button>
+                <mat-icon>exit_to_app</mat-icon>
+                Sign out
+              </button>
+            </mat-list-item>
+          </mat-list>
+        </mat-menu>
+      </div>
+    </mat-toolbar>
+
+    <!-- <ng-container *ngIf="loading">
+      <mat-progress-bar color="primary" mode="indeterminate">
+      </mat-progress-bar>
+      <div class="loading-shade"></div>
+    </ng-container> -->
+
+    <div class="content-padding">
+      <router-outlet></router-outlet>
+    </div>
+    <app-footer></app-footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>

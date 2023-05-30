@@ -1,0 +1,425 @@
+<div fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="90" fxFlex.gt-xs="70" fxLayout="column">
+    <app-breadcrumb [navigation]="navbar"></app-breadcrumb>
+    <div
+      fxLayout="column"
+      fxLayout.gt-sm="row"
+      fxLayoutAlign="start start"
+      fxLayoutGap="3rem"
+      class="singleGalleryOption"
+    >
+      <div>
+        <!-- <div fxLayout="column" fxLayoutGap="15px"> -->
+        <!-- <carousel
+            *ngIf="!isImageLoading"
+            [borderRadius]="2"
+            [cellWidth]="'100%'"
+            [height]="400"
+            [images]="productImages"
+            [loop]="true"
+            [objectFit]="'cover'"
+            [transitionTimingFunction]="'ease-in-out'"
+          >
+          </carousel>
+
+          <carousel
+            *ngIf="!isImageLoading"
+            [borderRadius]="5"
+            [cellWidth]="120"
+            [height]="80"
+            [images]="productImages"
+            [loop]="true"
+            [objectFit]="'cover'"
+            [transitionTimingFunction]="'ease-in-out'"
+          >
+          </carousel> -->
+        <!-- </div> -->
+
+        <ngx-gallery
+          [options]="galleryOptions"
+          [images]="productImages"
+          (change)="imageChange($event)"
+        ></ngx-gallery>
+      </div>
+
+      <div fxFlex.gt-sm="52" id="imageDetails">
+        <div
+          fxLayout="column"
+          fxLayoutAlign="center start"
+          fxLayoutGap="0.4rem"
+        >
+          <div class="product-name">{{ productDetails?.product?.name }}</div>
+          <div
+            class="mbtm"
+            fxLayout="row"
+            fxLayoutAlign="start start"
+            fxLayoutGap="1rem"
+          >
+            <div class="rating-icon-section">
+              <app-rating
+                [rating]="productDetails.product.rating"
+                [starCount]="5"
+              ></app-rating>
+            </div>
+            <div>{{ productDetails?.product?.rating }}</div>
+            <a class="rating-link" (click)="showRatingReview(ratingTarget)"
+              >Rate Now</a
+            >
+          </div>
+
+          <div
+            class="mbtm"
+            fxLayout="row"
+            fxLayoutAlign="start start"
+            fxLayoutGap="2rem"
+          >
+            <div class="code">SKU:</div>
+            <div class="code">{{ productDetails.product.reference }}</div>
+          </div>
+
+          <div class="mbtm">Short Description</div>
+          <div class="short-description">
+            {{ productDetails.product.summary }}
+          </div>
+
+          <mat-form-field
+            appearance="outline"
+            floatLabel="always"
+            *ngIf="
+              firstLevelAttributes &&
+              firstLevelAttributes.length &&
+              !isDefaultAttribute
+            "
+          >
+            <mat-label>{{ firstLevelSelectedAttribute.key }}</mat-label>
+            <mat-select
+              (valueChange)="onFirstAttributeSelectionChange($event)"
+              [(ngModel)]="firstLevelSelectedAttribute.name"
+            >
+              <mat-option
+                *ngFor="let levelAttribute of firstLevelAttributes"
+                [value]="levelAttribute.name"
+              >
+                {{ levelAttribute.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field
+            appearance="outline"
+            floatLabel="always"
+            *ngIf="secondLevelAttributes && secondLevelAttributes.length"
+          >
+            <mat-label>{{ secondLevelSelectedAttribute.key }}</mat-label>
+            <mat-select
+              (valueChange)="onSecondAttributeSelectionChange($event)"
+              [(ngModel)]="secondLevelSelectedAttribute.name"
+            >
+              <mat-option
+                *ngFor="let levelAttribute of secondLevelAttributes"
+                [value]="levelAttribute.name"
+              >
+                {{ levelAttribute.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <!-- {{ selectedProduct | json }} -->
+
+          <ng-container *ngIf="selectedProduct.price">
+            <div
+              class="mbtm"
+              fxLayout="row"
+              fxLayoutAlign="center center"
+              fxLayoutGap="3rem"
+            >
+              <div class="text">AVAILABILITY:</div>
+              <div>{{ selectedProduct.quantity }}</div>
+              <div *ngIf="selectedProduct.quantity">
+                <button class="stock-btn">
+                  <span class="stock-text">In Stock</span>
+                </button>
+              </div>
+
+              <div *ngIf="!selectedProduct.quantity">
+                <button class="stock-btns">
+                  <span class="stock-text">Out Stock</span>
+                </button>
+              </div>
+            </div>
+
+            <div
+              class="price"
+              fxLayout="row"
+              fxLayoutAlign="center center"
+              fxLayoutGap="2rem"
+            >
+              <span class="discount-price">
+                {{
+                  (selectedProduct.price - selectedProduct.discount).toFixed(2)
+                    | currency: "BDT ":"symbol"
+                }}
+              </span>
+              <span class="total-price" *ngIf="selectedProduct.discount > 0">
+                {{
+                  selectedProduct.price.toFixed(2) | currency: "BDT ":"symbol"
+                }}
+              </span>
+              <span class="discount" *ngIf="selectedProduct.discount > 0">
+                {{
+                  selectedProduct.discount.toFixed(2)
+                    | currency: "BDT ":"symbol"
+                }}
+              </span>
+            </div>
+
+            <div
+              *ngIf="selectedProduct.quantity"
+              fxLayout="row"
+              fxLayoutGap="4rem"
+            >
+              <button
+                (click)="addToCart(productDetails.product)"
+                class="cart-btn"
+                mat-button
+              >
+                <span
+                  fxLayout="row"
+                  fxLayoutAlign="center center"
+                  fxLayoutGap="1.5rem"
+                >
+                  <mat-icon class="cart-icon">shopping_cart</mat-icon>
+                  <span class="cart-icon">Add to Cart</span>
+                </span>
+              </button>
+              <!-- <button class="buy-button" mat-button>
+                <span
+                  fxLayout="row"
+                  fxLayoutAlign="center center"
+                  fxLayoutGap="1.5rem"
+                >
+                  <mat-icon class="buy-icon">add_shopping_cart</mat-icon>
+                  <span class="buy-icon">Buy Now</span>
+                </span>
+              </button> -->
+            </div>
+          </ng-container>
+        </div>
+      </div>
+
+      <div
+        id="overlay"
+        (mousemove)="zoomIn($event)"
+        fxFlex.gt-sm="52"
+        fxFlexFill
+      ></div>
+    </div>
+    <span #ratingTarget></span>
+    <div
+      class="mtop"
+      fxLayout="column"
+      fxLayoutAlign="start start"
+      fxLayoutGap="3rem"
+    >
+      <div>
+        <mat-button-toggle-group value="product-description">
+          <mat-button-toggle
+            (click)="showProductDescription()"
+            class="tab-button"
+            value="product-description"
+          >
+            <span class="hover-text">Product Description</span>
+          </mat-button-toggle>
+          <mat-button-toggle
+            (click)="ratingsReview(ratingTarget)"
+            class="tab-button"
+            value="rating-reviews"
+          >
+            <span class="hover-text">Rating & Review</span>
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+      <!--Product description-->
+      <div
+        class="desc"
+        fxLayout="column"
+        *ngIf="productDescription"
+        fxLayoutGap="3rem"
+      >
+        <div
+          fxLayout="row"
+          fxLayout.lt-md="column"
+          fxLayoutAlign="start start"
+          fxLayoutGap="10rem"
+          fxLayoutGap.lt-md="5px"
+        >
+          <table>
+            <tr>
+              <td>Shop Name:</td>
+              <td
+                (click)="gotoShop(productDetails?.product)"
+                class="shop-name cursor-pointer"
+              >
+                {{ productDetails.product.shop?.name }}
+              </td>
+            </tr>
+            <tr>
+              <td>Seller:</td>
+              <td class="table-text">
+                {{ productDetails.product.merchant?.user?.firstName }}
+                {{ productDetails.product.merchant?.user?.lastName }}
+              </td>
+            </tr>
+            <tr>
+              <td>Product Origin:</td>
+              <td class="table-text">Bangladesh</td>
+            </tr>
+
+            <!-- <tr>
+              <td>Weight:</td>
+              <td class="table-text">75.2gm</td>
+            </tr> -->
+          </table>
+
+          <table>
+            <tr>
+              <td>Shipped By:</td>
+              <td class="table-text">
+                {{ productDetails.product.shop?.name }}
+              </td>
+            </tr>
+            <tr>
+              <td>Marketed On:</td>
+              <td class="table-text">
+                {{ productDetails.product.createAt | date }}
+              </td>
+            </tr>
+            <tr>
+              <td>Shop Address:</td>
+              <td class="table-text">
+                {{ productDetails.product.shop?.location }}
+              </td>
+            </tr>
+            <!-- <tr>
+              <td>{{ attribute.attributeGroup.name }}</td>
+              <td class="table-text">
+                <span *ngFor="let attribute of attributes.Color; index as i">
+                  <span class="margin-right text-uppercase">{{
+                    attribute.name
+                  }}</span>
+                  <span *ngIf="i !== attributes.Color.length - 1">,</span>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td>{{ attribute.attributeGroup.name }}</td>
+              <td class="table-text">
+                <span *ngFor="let attribute of attributes.Size; index as i">
+                  <span class="margin-right text-uppercase">{{
+                    attribute.name
+                  }}</span>
+                  <span *ngIf="i !== attributes.Size.length - 1">,</span>
+                </span>
+              </td>
+            </tr> -->
+          </table>
+        </div>
+        <div fxLayout="column" fxLayoutGap="2rem">
+          <p>Description</p>
+          <p class="table-text">
+            {{ productDetails.product.description }}
+          </p>
+        </div>
+        <div>
+          <table>
+            <tr>
+              <td>Category Name:</td>
+              <td>{{ productDetails.product.category?.name }}</td>
+            </tr>
+            <!-- <tr>
+              <td>Barcode:</td>
+              <td>{{ productDetails.product.id }}</td>
+            </tr> -->
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Product reviews-->
+<div *ngIf="ratingReview">
+  <div *ngIf="token.isLoggedIn()">
+    <app-review
+      [source]="'product'"
+      [productId]="productDetails.product.id"
+      [rating]="rating"
+      [starCount]="starCount"
+      (ratingUpdated)="onRatingChanged($event)"
+      (productReviewEmitter)="reviewSubmitted($event)"
+    >
+    </app-review>
+  </div>
+</div>
+<!--Product reviews-->
+
+<div *ngIf="ratingReview">
+  <div class="review-section" fxLayout="row" fxLayoutAlign="center center">
+    <div fxFlex="90" fxFlex.gt-xs="70" fxLayout="column" fxLayoutGap="1.5rem">
+      <span *ngIf="productReviews?.length" class="top-text">REVIEWS</span>
+      <span fxLayoutAlign="center center" *ngIf="!productReviews?.length">
+        No reviews yet
+      </span>
+      <div
+        fxLayout="column"
+        fxLayoutAlign="space-between start"
+        *ngFor="let productReview of productReviews"
+      >
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1.5rem">
+          <div *ngIf="!productReview?.user?.profile?.profileImageUrl">
+            <img
+              src="../../../../../../../assets/icons/png/default_profile.png"
+              height="4%"
+              width="4%"
+            />
+          </div>
+          <div *ngIf="productReview?.user?.profile?.profileImageUrl">
+            <img
+              src="{{ productReview?.user?.profile?.profileImageUrl }}"
+              height="40"
+              width="40"
+            />
+          </div>
+          <div class="name">
+            {{ productReview?.user?.firstName }}
+            {{ productReview?.user?.lastName }}
+          </div>
+        </div>
+        <app-rating
+          [rating]="productReview?.productRating"
+          [starCount]="starCount"
+        >
+        </app-rating>
+        <div class="review-des">{{ productReview?.productReview }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="90" fxFlex.gt-xs="70" fxLayout="column" fxLayoutGap=".5rem">
+    <h2>Related Product</h2>
+  </div>
+</div>
+
+<!-- Related product -->
+<app-product-content
+  *ngIf="relatedProductInfo?.length"
+  [products]="relatedProductInfo"
+>
+</app-product-content>
+
+<div *ngIf="relatedProductInfo?.length === 0">
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <h4 class="text-bold">NO RELATED PRODUCT FOUND</h4>
+  </div>
+</div>

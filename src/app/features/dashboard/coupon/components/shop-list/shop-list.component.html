@@ -1,0 +1,183 @@
+<div class="footer-section" fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="90" fxLayout="column">
+    <div fxLayout="column" fxLayoutGap="4rem">
+      
+      <div fxLayout="row" fxLayoutAlign="space-between start">
+        
+        <div fxLayout="column">       
+          <h2>All Shops</h2>         
+          <div class="example-container" matSort>
+            <div cdkDropList #allShopList="cdkDropList" [cdkDropListData]="allShops"
+              [cdkDropListConnectedTo]="[selectedShopsList]" class="example-list"
+              (cdkDropListDropped)="shopDrop($event)">
+              <div class="example-box" *ngFor="let allShop of allShops" cdkDrag>
+                <img src="{{ allShop?.shopProfileImage }}" alt="{{ allShop?.name }}" width="50" />
+                {{ allShop?.name }}
+              </div>
+              <mat-paginator #shopPaginator [length]="shopPagination.totalCount"
+                [pageSizeOptions]="[10, 20, 30, 40, 50, shopPagination.totalCount]"
+                [pageSize]="shopPagination.rowsPerPage" showFirstLastButtons>
+              </mat-paginator>
+            </div>
+          </div>
+        </div>
+
+        <div fxLayout="column">
+          <h2>Selected Shops</h2>
+          <div class="example-container">
+            <div cdkDropList #selectedShopsList="cdkDropList" [cdkDropListData]="selectedShops"
+              [cdkDropListConnectedTo]="[allShopList]" class="example-list" (cdkDropListDropped)="shopDrop($event)">
+              <div class="example-box" *ngFor="let selectedShop of selectedShops" cdkDrag>
+                <img src="{{ selectedShop?.shopProfileImage }}" alt="{{ selectedShop?.name }}" width="50" />
+                {{ selectedShop?.id }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="space-between start">
+        
+        <div fxLayout="column">
+          <h2>All Products</h2>
+          <div class="example-container" matSort>
+            <div cdkDropList #allProductList="cdkDropList" [cdkDropListData]="allProducts"
+              [cdkDropListConnectedTo]="[selectedProductList]" class="example-list"
+              (cdkDropListDropped)="productDrop($event)">
+              <div class="example-box" *ngFor="let allProduct of allProducts" cdkDrag>
+                <img src="{{ allProduct?.image?.cover }}" alt="{{ allProduct?.name }}" width="50" />
+                {{ allProduct?.name }}
+              </div>
+              <mat-paginator #productPaginator [length]="productPagination.totalCount"
+                [pageSizeOptions]="[10, 20, 30, 40, 50, productPagination.totalCount]"
+                [pageSize]="productPagination.rowsPerPage" showFirstLastButtons>
+              </mat-paginator>
+            </div>
+          </div>
+        </div>
+
+        <div fxLayout="column">
+          <h2>Selected Products</h2>
+          <div class="example-container">
+            <div cdkDropList #selectedProductList="cdkDropList" [cdkDropListData]="selectedProducts"
+              [cdkDropListConnectedTo]="[allProductList]" class="example-list"
+              (cdkDropListDropped)="productDrop($event)">
+              <div class="example-box" *ngFor="let selectedProduct of selectedProducts" cdkDrag>
+                <img src="{{ selectedProduct?.image?.cover }}" alt="{{ selectedProduct?.name }}" width="50" />
+                {{ selectedProduct?.name }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="space-between start">
+        
+        <div fxLayout="column">
+          <h2>All Category</h2>
+          <div class="example-container" matSort>
+            <div cdkDropList #allCategoryList="cdkDropList" [cdkDropListData]="allCategories"
+              [cdkDropListConnectedTo]="[selectedCategoryList]" class="example-list"
+              (cdkDropListDropped)="categoryDrop($event)">
+              <div class="example-box" *ngFor="let allCategory of allCategories" cdkDrag>
+                <img src="{{ allCategory?.image }}" alt="{{ allCategory?.name }}" width="50" />
+                {{ allCategory?.name }}
+              </div>
+              <mat-paginator #categoryPaginator [length]="categoryPagination.totalCount"
+                [pageSizeOptions]="[10, 20, 30, 40, 50, categoryPagination.totalCount]"
+                [pageSize]="categoryPagination.rowsPerPage" showFirstLastButtons>
+              </mat-paginator>
+            </div>
+          </div>
+        </div>
+
+        <div fxLayout="column">
+          <h2>Selected Category</h2>
+          <div class="example-container">
+            <div cdkDropList #selectedCategoryList="cdkDropList" [cdkDropListData]="selectedCategories"
+              [cdkDropListConnectedTo]="[allCategoryList]" class="example-list"
+              (cdkDropListDropped)="categoryDrop($event)">
+              <div class="example-box" *ngFor="let selectedCategory of selectedCategories" cdkDrag>
+                <img src="{{ selectedCategory?.image }}" alt="{{ selectedCategory?.name }}" width="50" />
+                {{ selectedCategory?.name }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="space-between start">
+        
+        <div fxLayout="column">
+          <h2>All Thanas</h2>
+          <div class="example-container" matSort>
+            <div cdkDropList #allThanaList="cdkDropList" [cdkDropListData]="allThanas"
+              [cdkDropListConnectedTo]="[selectedThanaList]" class="example-list"
+              (cdkDropListDropped)="thanaDrop($event)">
+              <div class="example-box" *ngFor="let allThana of allThanas" cdkDrag>
+                {{ allThana?.name }}
+              </div>
+              <mat-paginator #thanaPaginator [length]="thanaPagination.totalCount"
+                [pageSizeOptions]="[10, 20, 30, 40, 50, thanaPagination.totalCount]"
+                [pageSize]="thanaPagination.rowsPerPage" showFirstLastButtons>
+              </mat-paginator>
+            </div>
+          </div>
+        </div>
+
+        <div fxLayout="column">
+          <h2>Selected Thanas</h2>
+          <div class="example-container">
+            <div cdkDropList #selectedThanaList="cdkDropList" [cdkDropListData]="selectedThanas"
+              [cdkDropListConnectedTo]="[allThanaList]" class="example-list" (cdkDropListDropped)="thanaDrop($event)">
+              <div class="example-box" *ngFor="let selectedThana of selectedThanas" cdkDrag>
+                {{ selectedThana?.name }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="space-between start">
+        
+        <div fxLayout="column">
+          <h2>All Users</h2>
+          <div class="example-container" matSort>
+            <div cdkDropList #allUserList="cdkDropList" [cdkDropListData]="allUsers"
+              [cdkDropListConnectedTo]="[selectedUserList]" class="example-list"
+              (cdkDropListDropped)="userDrop($event)">
+              <div class="example-box" *ngFor="let allUser of allUsers" cdkDrag>
+                {{ allUser.firstName }} {{ allUser.lastName }}
+              </div>
+              <mat-paginator #userPaginator [length]="userPagination.totalCount"
+                [pageSizeOptions]="[10, 20, 30, 40, 50, userPagination.totalCount]" showFirstLastButtons>
+              </mat-paginator>
+            </div>
+          </div>
+        </div>
+
+        <div fxLayout="column">
+          <h2>Selected users</h2>
+          <div class="example-container">
+            <div cdkDropList #selectedUserList="cdkDropList" [cdkDropListData]="selectedUsers"
+              [cdkDropListConnectedTo]="[allUserList]" class="example-list" (cdkDropListDropped)="userDrop($event)">
+              <div class="example-box" *ngFor="let selectedUser of selectedUsers" cdkDrag>
+                {{ selectedUser.firstName }} {{ selectedUser.lastName }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <button mat-button [routerLink]="['/dashboard/coupon/add']" class="next-button">
+      <span class="btn-text">Add Coupon Details</span>
+    </button>
+  </div>
+</div>

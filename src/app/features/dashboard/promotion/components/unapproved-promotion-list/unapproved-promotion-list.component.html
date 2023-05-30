@@ -1,0 +1,128 @@
+<div class="padding-top-20">
+  <div class="mat-elevation-z8">
+    <ng-container *ngIf="pagination.isLoading">
+      <mat-progress-bar color="primary" mode="indeterminate">
+      </mat-progress-bar>
+      <div class="loading-shade"></div>
+    </ng-container>
+    <mat-table [dataSource]="dataSource" class="table-section" matSort>
+      <ng-container matColumnDef="checkbox">
+        <mat-header-cell *matHeaderCellDef>
+          <mat-checkbox
+            (change)="$event ? masterToggle() : null"
+            [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()"
+          >
+          </mat-checkbox>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <mat-checkbox
+            (click)="$event.stopPropagation()"
+            (change)="$event ? selection.toggle(row) : null"
+            [checked]="selection.isSelected(row)"
+          >
+          </mat-checkbox>
+        </mat-cell>
+      </ng-container>
+      <!-- Cover Image Column -->
+      <ng-container matColumnDef="promotionCoverImage">
+        <mat-header-cell *matHeaderCellDef>Cover Image</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <img [src]="element.promotionCoverImage" height="20%" width="20%" />
+        </mat-cell>
+      </ng-container>
+
+      <!-- Shop Name Column -->
+      <ng-container matColumnDef="shopName">
+        <mat-header-cell *matHeaderCellDef>Shop Name</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.shop?.name }}</mat-cell>
+      </ng-container>
+
+      <!-- Product Name Weight Column -->
+      <ng-container matColumnDef="productName">
+        <mat-header-cell *matHeaderCellDef>Product Name</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{
+          element.product?.name
+        }}</mat-cell>
+      </ng-container>
+
+      <!-- Promotion Type Column -->
+      <ng-container matColumnDef="promotionType">
+        <mat-header-cell *matHeaderCellDef>Promotion Type</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{
+          getPromotionType(element)
+        }}</mat-cell>
+      </ng-container>
+
+      <!-- Start Date Column -->
+      <ng-container matColumnDef="startDate">
+        <mat-header-cell *matHeaderCellDef>Start Date</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.startDate }}</mat-cell>
+      </ng-container>
+
+      <!-- End Date Column -->
+      <ng-container matColumnDef="endDate">
+        <mat-header-cell *matHeaderCellDef>End Date</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.endDate }}</mat-cell>
+      </ng-container>
+
+      <!-- Title Column -->
+      <ng-container matColumnDef="title">
+        <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.title }}</mat-cell>
+      </ng-container>
+
+      <!-- Description Column -->
+      <!-- <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.description }}</mat-cell>
+      </ng-container> -->
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <div
+            fxLayout="row"
+            fxLayoutGap="0.5rem"
+            style="padding: 0 0.5rem 0 0.5rem"
+          >
+            <button
+              [routerLink]="['/dashboard/promotion/edit/' + element.id]"
+              color="primary"
+              mat-raised-button
+              title="Update"
+            >
+              <span style="color: white"> Update </span>
+            </button>
+
+            <button
+              (click)="delete(element.id)"
+              color="warn"
+              mat-raised-button
+              title="Remove"
+            >
+              <span style="color: white"> Delete </span>
+            </button>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <button mat-button class="approve-button" (click)="logSelection()">
+        <span class="btn-text">Approve</span>
+      </button>
+      <mat-paginator
+        [length]="pagination.totalCount"
+        [pageSizeOptions]="[10, 20, 30, 40, 50, pagination.totalCount]"
+        [pageSize]="pagination.rowsPerPage"
+        showFirstLastButtons
+      >
+      </mat-paginator>
+    </div>
+  </div>
+</div>

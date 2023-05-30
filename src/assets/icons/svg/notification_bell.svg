@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" viewBox="0 0 48 48">
+  <defs>
+    <clipPath id="clip-notification_bell">
+      <rect width="48" height="48"/>
+    </clipPath>
+  </defs>
+  <g id="notification_bell" clip-path="url(#clip-notification_bell)">
+    <path id="Icon_material-notifications" data-name="Icon material-notifications" d="M25.692,51.75a4.938,4.938,0,0,0,4.923-4.923H20.769A4.922,4.922,0,0,0,25.692,51.75ZM40.462,36.981V24.673c0-7.557-4.037-13.883-11.077-15.557V7.442a3.692,3.692,0,1,0-7.385,0V9.116c-7.065,1.674-11.077,7.975-11.077,15.557V36.981L6,41.9v2.462H45.385V41.9Z" transform="translate(-1.763 -3.75)" fill="#fff"/>
+  </g>
+</svg>

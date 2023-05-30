@@ -1,0 +1,25 @@
+.report-section {
+  padding: 3rem 0 3rem 0;
+  font-family: Arial, Helvetica, sans-serif;
+  .table-section {
+    width: 100%;
+    border-radius: 2px;
+    td {
+      padding: 1rem;
+      border: 1px solid #cfcfcf;
+    }
+    th {
+      text-align: center;
+      border: 1px solid #5bbb9b;
+      background-color: #06b37b;
+      color: white;
+      font-size: 0.9rem;
+    }
+    .eye-icon {
+      color: #06b37b;
+    }
+    .delete-icon {
+      color: #f9403f;
+    }
+  }
+}

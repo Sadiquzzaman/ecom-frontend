@@ -1,0 +1,148 @@
+@media screen and (max-width: 960px) {
+  .mat-table {
+    border: 0;
+    vertical-align: middle;
+  }
+
+  .mat-table caption {
+    font-size: 1em;
+  }
+
+  .mat-table .mat-header-cell {
+    border: 10px solid;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+
+  .mat-table .mat-row {
+    border-bottom: 5px solid #ddd;
+    display: block;
+  }
+  .mat-table .mat-cell:first-child {
+    padding-left: 0;
+  }
+
+  .mat-table .mat-cell {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: 1em;
+    text-align: right;
+    font-weight: bold;
+    height: 30px;
+    line-height: 46px;
+    padding-right: 16px;
+  }
+  .mat-table .mat-cell:before {
+    content: attr(data-label);
+    float: left;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-size: 0.85em;
+    padding-left: 16px;
+  }
+  .mat-table .mat-cell:last-child {
+    border-bottom: -1px;
+  }
+}
+
+a {
+  text-decoration: none;
+}
+
+.order-btn {
+  min-width: 6rem;
+  max-height: 2rem;
+  border-radius: 2px;
+  border: 1px solid #25a55d;
+}
+
+.container {
+  padding-top: 1rem;
+}
+
+.result-container {
+  padding-bottom: 1rem;
+}
+
+.paraOption {
+  line-height: 1rem;
+  padding-top: 1rem;
+}
+
+.small {
+  font-size: 11px;
+}
+
+.filter-box {
+  padding: 1rem;
+}
+
+.entity {
+  min-width: 10rem;
+}
+
+.admin-sales {
+  overflow: hidden;
+}
+
+.submit-button {
+  padding: 0 15px;
+  border-radius: 5px;
+  background-color: #28b37b;
+  height: 3.1rem;
+  margin-bottom: 1.2rem;
+  .btn-text {
+    color: #ffffff;
+  }
+}
+
+.reset-button {
+  padding: 0 15px;
+  border-radius: 5px;
+  background-color: rgb(255, 132, 132);
+  height: 3.1rem;
+  margin-bottom: 1.2rem;
+  .btn-text {
+    color: #ffffff;
+  }
+}
+
+::ng-deep .mat-datepicker-toggle > button.mat-icon-button {
+  width: 1.5em !important;
+}
+
+::ng-deep .entity .mat-form-field-suffix .mat-icon-button {
+  width: 1em !important;
+}
+
+.italic {
+  font-style: italic;
+}
+
+// ::ng-deep .searchFormField > .mat-form-field-subscript-wrapper {
+//   padding: 0 !important;
+// }
+
+// ::ng-deep .searchFormField > mat-form-field .mat-form-field-subscript-wrapper {
+//   position: absolute !important;
+// }
+
+// ::ng-deep .searchFormField > div.mat-form-field-wrapper {
+//   padding-bottom: 0 !important;
+// }
+
+// ::ng-deep .searchFormField > div.mat-form-field-subscript-wrapper {
+//   padding: 0 !important;
+// }
+
+::ng-deep
+  .searchFormField
+  > div.mat-form-field-wrapper
+  > div.mat-form-field-subscript-wrapper {
+  padding: 0 !important;
+  position: absolute !important;
+}

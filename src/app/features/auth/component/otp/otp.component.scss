@@ -1,0 +1,50 @@
+.background-card {
+  padding: 3rem 0 8rem 0 !important;
+  border-radius: 0 !important;
+  background-color: rgba(255, 255, 255, 255);
+  background-image: url("../../../../../assets/images/verification_illustration.png");
+  background-repeat: no-repeat;
+
+  .mini-card {
+    background-color: rgba(244, 244, 244, 255);
+    border-radius: 0 !important;
+    transform: scale(0.9);
+
+    input {
+      padding: 0.5rem !important;
+      border-color: unset;
+      display: inline-block;
+      font-size: 20px;
+      margin: 0 0.2rem;
+      width: 2.7rem;
+      text-align: center;
+      outline: none;
+    }
+
+    .time {
+      color: rgba(233, 114, 114, 255);
+    }
+
+    .forget {
+      text-decoration: none;
+    }
+
+    .verify-button {
+      height: 2.3rem;
+      width: 22rem;
+      background-color: rgb(63, 63, 63);
+      margin-top: 1rem;
+
+      .verify-text {
+        color: white;
+        font-size: 1.1rem;
+        font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+      }
+    }
+
+    .edit-text {
+      text-decoration: none;
+      color: #28B37B;
+    }
+  }
+}

@@ -1,0 +1,13 @@
+.auth-layout {
+  min-height: 100% !important;
+  padding: 0 !important;
+
+  .header {
+    min-height: 5rem !important;
+  }
+
+  .footer {
+    margin-top: 5rem !important;
+    bottom: 0 !important;
+  }
+}

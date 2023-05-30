@@ -1,0 +1,56 @@
+<div class="ticket-section" fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="60" fxLayout="column" fxLayoutGap="2.2rem">
+    <span class="header">Shipment Attributes</span>
+    <div fxLayout="column" fxLayoutGap="4rem">
+      <form [formGroup]="addAttributeGroupForm">
+        <div fxLayout="column" fxLayoutGap="10px">
+          <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Shipment Attribute Name</mat-label>
+            <input
+              formControlName="name"
+              matInput
+              name="name"
+              placeholder="Write attribute name"
+              required
+              type="text"
+            />
+            <mat-error>Attribute name is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Description</mat-label>
+            <textarea
+              formControlName="description"
+              matInput
+              name="description"
+              placeholder="Write your description here"
+              required
+              type="text"
+              rows="8"
+            ></textarea>
+            <mat-error>Please write description in details</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div
+          class="ticket-btns"
+          fxLayout="row"
+          fxLayoutAlign="end center"
+          fxLayoutGap="2rem"
+        >
+          <button class="cancel-button" mat-button (click)="clearForm()">
+            <span class="button-text">RESET</span>
+          </button>
+          <button
+            class="submit-button"
+            mat-button
+            type="submit"
+            (click)="save()"
+          >
+            <span class="button-text">SUBMIT</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

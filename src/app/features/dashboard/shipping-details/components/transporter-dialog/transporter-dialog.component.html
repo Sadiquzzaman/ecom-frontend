@@ -1,0 +1,88 @@
+<div fxLayout="column" fxLayoutGap="2rem">
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <span>Assign Delivery Man</span>
+  </div>
+  <div>
+    <form fxLayout="column" [formGroup]="deliveryAssignForm">
+      <div fxLayout="column" fxLayoutGap="1%">
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Delivery Man</mat-label>
+          <mat-select
+            formControlName="deliveryManId"
+            placeholder="Select Delivery Man"
+            required
+          >
+            <mat-option>
+              <ngx-mat-select-search
+                [formControl]="transporterFiltering"
+                [searching]="isTransporterSearching"
+                noEntriesFoundLabel="No such delivery Man"
+                placeholderLabel="Search"
+              >
+              </ngx-mat-select-search>
+            </mat-option>
+            <mat-option
+              *ngFor="let transporter of filteredtransportersOptions | async"
+              [value]="transporter.id"
+            >
+              {{ transporter.firstName }} {{ transporter.lastName }}
+              {{ transporter.phone }}
+            </mat-option>
+          </mat-select>
+          <mat-error>Delivery Man is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div fxLayout="column" fxLayoutGap="1%">
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Expected pick up date</mat-label>
+          <input
+            [matDatepicker]="datePicker"
+            [min]="minStartDate"
+            formControlName="expectedShipmentDate"
+            matInput
+            readonly
+            placeholder="MM/DD/YYYY"
+          />
+          <mat-datepicker-toggle
+            [for]="datePicker"
+            matSuffix
+          ></mat-datepicker-toggle>
+          <mat-datepicker #datePicker></mat-datepicker>
+          <mat-error>Expected pick up date is required!</mat-error>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+  <button mat-button (click)="onNoClick()" class="close-button">
+    <span class="btn-text">Close</span>
+  </button>
+
+  <ng-container *ngIf="deliveryAssignForm.valid">
+    <button
+      mat-button
+      [mat-dialog-close]="deliveryAssignForm.value"
+      cdkFocusInitial
+      class="save-button"
+    >
+      <span class="btn-text">Save</span>
+    </button>
+  </ng-container>
+
+  <ng-container *ngIf="!deliveryAssignForm.valid">
+    <button
+      mat-raised-button
+      cdkFocusInitial
+      disabled
+      class="save-button-disabled"
+    >
+      Save
+    </button>
+
+    <!-- <button mat-button cdkFocusInitial disabled class="save-button-disabled">
+      <span class="btn-text-disabled">Save</span>
+    </button> -->
+  </ng-container>
+</div>

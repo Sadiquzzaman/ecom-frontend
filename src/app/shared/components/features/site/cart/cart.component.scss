@@ -1,0 +1,112 @@
+:host {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000;
+  .cart-div {
+    border: 1px solid #28b37b;
+    border-radius: 0;
+    position: relative;
+    height: 100vh;
+    width: 22rem;
+    background: #fff;
+    padding: 0.8rem;
+    .full-card-section {
+      border-radius: 0;
+      cursor: pointer;
+      .purchase {
+        .purchase-detail {
+          margin: auto;
+        }
+      }
+      .overflow-box {
+        margin: 10px 0;
+        height: 65vh;
+        overflow: auto;
+        overflow-x: hidden;
+      }
+      .cart-items-box {
+        padding-top: 1rem;
+      }
+      .cart-icon {
+        color: rgb(56, 166, 98);
+      }
+      .inside-card {
+        background-color: #eeeeee;
+        box-shadow: unset;
+      }
+      .inside-card div{
+        font-size: small;
+      }
+      .text {
+        color: white;
+      }
+      mat-icon {
+        font-size: 1.3rem;
+        cursor: pointer;
+      }
+      .price-text {
+        color: #bababa;
+      }
+      .add-icon {
+        color: #6fb9fb;
+      }
+      .remove-icon {
+        color: red;
+      }
+      .product-divider {
+        margin-top: -0.6rem;
+        margin-bottom: 0.5rem;
+      }
+    }
+    .divider {
+      margin-bottom: 10px;
+    }
+    .coupon-box {
+      input::placeholder {
+        text-align: center;
+      }
+    }
+    .order-box {
+      margin-bottom: 7px;
+
+      .order-button {
+        background-color: #06b37b;
+      }
+      .text {
+        color: white;
+        font-weight: bold;
+      }
+    }
+    .price {
+      background-color: #06b37b;
+    }
+    .promo {
+      text-align: center;
+      margin-top: 6px;
+    }
+    .coupon-input {
+      height: 2rem;
+      width: 90%;
+      border: 1px solid grey;
+    }
+    .apply-button {
+      width: 100%;
+      background-color: #444444;
+      cursor: pointer;
+      .text {
+        color: white;
+      }
+    }
+  }
+  .bold {
+    font-weight: bold;
+  }
+  .space-between {
+    margin: 1rem;
+  }
+  .cancel-box{
+    cursor: pointer;
+  }
+}

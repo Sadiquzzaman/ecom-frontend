@@ -1,0 +1,16 @@
+.shop-section {
+  .popular-shop-header {
+    padding-top: 1.5rem;
+    .shop-header {
+      font-weight: bold;
+      color: black;
+      font-family: sans-serif;
+      font-size: 1rem;
+      text-transform: uppercase;
+    }
+  }
+  .custom-spinner ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+    margin-top: 1rem;
+    stroke: #28B37B;
+  }
+}

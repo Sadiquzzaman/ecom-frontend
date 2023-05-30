@@ -1,0 +1,231 @@
+<div class="padding-top-20">
+  <div class="mat-elevation-z8">
+    <div class="return-section" fxLayout="column" fxLayoutGap="2rem">
+      <div fxLayout="row" fxLayoutAlign="end start">
+        <a [routerLink]="['/dashboard/order']">
+          <button mat-raised-button class="back-button" color="primary">
+            Back
+          </button>
+        </a>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="center center">
+        <span fxHide.lt-sm class="invoice-title"> Order # {{ orderID }} </span>
+        <hr fxHide.lt-sm style="width: 40%" />
+        <span class="invoice-title">Refund Request</span>
+      </div>
+
+      <ng-container *ngIf="isLoading">
+        <div style="height: 200px"></div>
+        <div class="loading-shade">
+          <mat-spinner class="matSpinner"></mat-spinner>
+        </div>
+        <!-- <mat-progress-bar color="primary" mode="indeterminate"> </mat-progress-bar>
+     <div class="loading-shade"></div> -->
+      </ng-container>
+
+      <ng-container *ngIf="!isLoading">
+        <ng-container *ngIf="data.length; else noDelivered">
+          <span class="invoice-title" style="margin-bottom: 10px">
+            Choose from the delivered item(s), you want to return
+          </span>
+
+          <form
+            [formGroup]="refundForm"
+            #refundNgForm="ngForm"
+            (ngSubmit)="logSelection()"
+          >
+            <div class="padding-top-20" fxLayout="column" fxLayoutGap="2rem">
+              <div
+                fxLayout="column"
+                fxLayoutGap=".5rem"
+                *ngFor="let data of dataSource"
+              >
+                <p class="shop-title">Shop - {{ data?.shop?.name }}</p>
+
+                <mat-table [dataSource]="data?.shopInvoiceDetails">
+                  <ng-container matColumnDef="checkbox">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let row" data-label="checkbox">
+                      <mat-checkbox
+                        (click)="$event.stopPropagation()"
+                        (change)="$event ? selection.toggle(row) : null"
+                        [checked]="selection.isSelected(row)"
+                      ></mat-checkbox>
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="product">
+                    <mat-header-cell *matHeaderCellDef>
+                      Product Details
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row" data-label="product">
+                      <div
+                        fxLayout.gt-sm="row"
+                        fxLayoutAlign.gt-sm="start center"
+                      >
+                        <!-- <img
+                          style="margin-right: 10px; width: 50px"
+                          [src]="row?.productAttribute?.image"
+                        /> -->
+                        <div style="margin-right: 20px;">
+                          <app-image
+                            [imageName]="row.product.image?.cover"
+                            [type]="imageType"
+                            [width]="'70px'"
+                            [height]="'70px'"
+                          >
+                          </app-image>
+                        </div>
+
+                        <div>
+                          {{ row?.product?.name }} <br />
+                          {{
+                            productAttributeExtractor(
+                              row?.productAttribute?.reference
+                            )
+                          }}
+                        </div>
+                      </div>
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="quantity">
+                    <mat-header-cell *matHeaderCellDef>
+                      Purchased Quantity
+                    </mat-header-cell>
+                    <mat-cell
+                      *matCellDef="let row; let i = index"
+                      data-label="purchased quantity"
+                    >
+                      {{ row?.quantity }}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="return_quantity">
+                    <mat-header-cell *matHeaderCellDef>
+                      Return Quantity
+                    </mat-header-cell>
+                    <mat-cell
+                      *matCellDef="let row; let i = index"
+                      data-label="return quantity"
+                    >
+                      <div>
+                        <mat-form-field
+                          appearance="outline"
+                          floatLabel="always"
+                          required
+                          class="quantity"
+                        >
+                          <mat-select
+                            #quantity
+                            (selectionChange)="changeQuantity($event, row)"
+                          >
+                            <mat-option
+                              *ngFor="
+                                let item of [].constructor(row?.quantity);
+                                let i = index
+                              "
+                              [value]="i + 1"
+                            >
+                              {{ i + 1 }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="reason">
+                    <mat-header-cell *matHeaderCellDef>
+                      Return Reason
+                    </mat-header-cell>
+                    <mat-cell
+                      *matCellDef="let row; let i = index"
+                      data-label="reason"
+                    >
+                      <mat-form-field
+                        appearance="outline"
+                        floatLabel="always"
+                        required
+                        class="reason"
+                      >
+                        <mat-label>Select</mat-label>
+                        <mat-select
+                          placeholder="Select Reason"
+                          #quantity
+                          (selectionChange)="changeReason($event, row)"
+                        >
+                          <mat-option
+                            *ngFor="let reason of reasons"
+                            [value]="reason.name"
+                          >
+                            {{ reason.name }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </mat-cell>
+                  </ng-container>
+
+                  <mat-header-row *matHeaderRowDef="displayedColumns">
+                  </mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedColumns">
+                  </mat-row>
+                </mat-table>
+              </div>
+
+              <div fxFlex fxLayout="column" fxLayoutGap="1%">
+                <mat-form-field appearance="outline" floatLabel="always">
+                  <mat-label>Description</mat-label>
+                  <textarea
+                    matInput
+                    required
+                    name="Description"
+                    type="text"
+                    formControlName="additionalInformation"
+                    rows="5"
+                  >
+                  </textarea>
+
+                  <mat-error>Description is required!</mat-error>
+                </mat-form-field>
+              </div>
+
+              <div fxLayout="column">
+                <mat-checkbox formControlName="agreeCheck">
+                  I agree with the
+                  <a class="link" [routerLink]="['/return-policies']">
+                    <span class="refund-link">Return & Refund</span>
+                  </a>
+                  Policy
+                </mat-checkbox>
+                <mat-error
+                  style="padding-left: 25px; font-size: 75%"
+                  *ngIf="
+                    refundNgForm.submitted &&
+                    refundForm.hasError('required', 'agreeCheck')
+                  "
+                >
+                  You must have to check the box
+                </mat-error>
+              </div>
+
+              <!-- {{ refundForm.controls["agreeCheck"].value }} -->
+
+              <div fxLayout="column" fxLayoutAlign="center center">
+                <button type="submit" mat-button class="submit-btn">
+                  <span class="btn-text">Submit</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </ng-container>
+
+        <ng-template #noDelivered>
+          <span class="invoice-title noDelivered">
+            No item available to be delivered
+          </span>
+        </ng-template>
+      </ng-container>
+    </div>
+  </div>
+</div>

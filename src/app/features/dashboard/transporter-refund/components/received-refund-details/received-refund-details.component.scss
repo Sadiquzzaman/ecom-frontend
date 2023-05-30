@@ -1,0 +1,172 @@
+@media screen and (max-width: 960px) {
+  .mat-table {
+    border: 0;
+    vertical-align: middle;
+  }
+
+  .mat-table caption {
+    font-size: 1em;
+  }
+
+  .mat-table .mat-header-cell {
+    border: 10px solid;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+
+  .mat-table .mat-row {
+    border-bottom: 5px solid #ddd;
+    display: block;
+  }
+  .mat-table .mat-cell:first-child {
+    padding-left: 0;
+  }
+
+  .mat-table .mat-cell {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: 1em;
+    text-align: right;
+    font-weight: bold;
+    height: 30px;
+    line-height: 46px;
+    padding-right: 16px;
+  }
+  .mat-table .mat-cell:before {
+    content: attr(data-label);
+    float: left;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-size: 0.85em;
+    padding-left: 16px;
+  }
+  .mat-table .mat-cell:last-child {
+    border-bottom: -1px;
+  }
+}
+
+.button {
+  background-color: #28b37b;
+  // border-radius: 2px;
+  // width: 6rem;
+  // height: 2.5rem;
+}
+
+.quantity {
+  width: 3rem;
+  margin-top: 1.5rem;
+}
+
+.bottom {
+  padding: 10px 0 10px 0;
+}
+
+.approve-button {
+  background-color: #28b37b;
+}
+
+.mat-raised-button {
+  margin-right: 10px;
+}
+
+.mat-back {
+  background-color: dimgray;
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: #06b37b;
+}
+
+.mat-column-checkbox {
+  flex: none;
+  width: 3%;
+  text-align: center;
+  justify-content: center;
+}
+
+.mat-column-refundRequestDate {
+  flex: none;
+  width: 12%;
+  // text-align: center;
+  // justify-content: center;
+}
+
+.mat-column-pickUpDate {
+  // flex: none;
+  width: 15%;
+  // text-align: center;
+  // justify-content: center;
+}
+
+.mat-column-refundRequestQuantity {
+  flex: none;
+  width: 10%;
+  text-align: center;
+  justify-content: center;
+}
+.mat-column-reviewed_quantity {
+  flex: none;
+  width: 10%;
+  text-align: center;
+  justify-content: center;
+}
+.mat-column-refundPickedQuantity {
+  flex: none;
+  width: 10%;
+  text-align: center;
+  justify-content: center;
+}
+.mat-column-approve_quantity {
+  flex: none;
+  width: 10%;
+  text-align: center;
+  justify-content: center;
+}
+
+.mat-column-refundReason {
+  // flex: none;
+  width: 20%;
+  // text-align: center;
+  // justify-content: center;
+}
+
+.mat-column-product {
+  // flex: none;
+  width: 30%;
+  // text-align: center;
+  // justify-content: center;
+}
+
+.mat-column-action {
+  flex: none;
+  width: 10%;
+  text-align: center;
+  justify-content: center;
+}
+
+.mat-column-details {
+  flex: none;
+  width: 10%;
+  text-align: center;
+  justify-content: center;
+}
+
+.mat-cell:first-of-type,
+mat-header-cell:first-of-type,
+mat-footer-cell:first-of-type {
+  padding-left: 10px;
+}
+
+mat-cell:last-of-type,
+mat-footer-cell:last-of-type,
+mat-header-cell:last-of-type {
+  // display: flex;
+  justify-content: start !important;
+  text-align: left;
+  padding-right: 10px;
+}

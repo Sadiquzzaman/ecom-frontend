@@ -1,0 +1,779 @@
+<div class="product-add-section" fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="70" fxLayout="column" fxLayoutGap="1rem">
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <p class="header">Instant Product Upload</p>
+    </div>
+
+    <form (ngSubmit)="save()" [formGroup]="addProductForm">
+      <div fxLayout="column">
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Shop</mat-label>
+          <mat-select
+            class="test"
+            formControlName="shopID"
+            placeholder="Select Shop"
+            required
+          >
+            <mat-option>
+              <ngx-mat-select-search
+                [formControl]="shopFiltering"
+                [searching]="isShopSearching"
+                noEntriesFoundLabel="No such shop"
+                placeholderLabel="Search"
+              >
+              </ngx-mat-select-search>
+            </mat-option>
+            <mat-option
+              *ngFor="let shop of filteredShopOptions | async"
+              [value]="shop.id"
+            >
+              {{ shop.name }}
+            </mat-option>
+          </mat-select>
+          <mat-error>Shop is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Category</mat-label>
+          <mat-select
+            class="test"
+            formControlName="categoryID"
+            placeholder="Select Category"
+            required
+          >
+            <mat-option>
+              <ngx-mat-select-search
+                [formControl]="categoryFiltering"
+                [searching]="isCategorySearching"
+                noEntriesFoundLabel="No such category"
+                placeholderLabel="Search"
+              >
+              </ngx-mat-select-search>
+            </mat-option>
+            <mat-option
+              *ngFor="let cat of filteredCategoryOptions | async"
+              [value]="cat.id"
+            >
+              {{ cat.name }}
+            </mat-option>
+          </mat-select>
+          <mat-error>Category is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Product Name</mat-label>
+          <input
+            class="test"
+            formControlName="name"
+            matInput
+            placeholder="Write Product Name (1-80 Letter)"
+            required
+          />
+        </mat-form-field>
+
+        <div fxFlex fxLayout="column">
+          <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Product weight (In Kg)</mat-label>
+            <div
+              class="hide-input-arrows"
+              fxLayout="row"
+              fxLayoutAlign="center center"
+            >
+              <input
+                formControlName="weight"
+                matInput
+                placeholder="Write the weight"
+                required
+                type="number"
+                min="0"
+              />
+              <div
+                fxLayout="row"
+                fxLayoutAlign="center center"
+                fxLayoutGap="5px"
+              >
+                <div (click)="dec('weight')" class="add-button">
+                  <mat-icon>remove</mat-icon>
+                </div>
+                <div (click)="inc('weight')" class="add-button">
+                  <mat-icon>add</mat-icon>
+                </div>
+              </div>
+            </div>
+            <mat-error
+              >Product weight is required && Should be positive value</mat-error
+            >
+          </mat-form-field>
+        </div>
+
+        <div fxFlex fxLayout="column">
+          <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Product Price (In BDT)</mat-label>
+            <div
+              class="hide-input-arrows"
+              fxLayout="row"
+              fxLayoutAlign="center center"
+            >
+              <input
+                formControlName="price"
+                matInput
+                placeholder="Write the Selling Price"
+                required
+                type="number"
+                min="0"
+              />
+              <div
+                fxLayout="row"
+                fxLayoutAlign="center center"
+                fxLayoutGap="5px"
+              >
+                <div (click)="dec('price')" class="add-button">
+                  <mat-icon>remove</mat-icon>
+                </div>
+                <div (click)="inc('price')" class="add-button">
+                  <mat-icon>add</mat-icon>
+                </div>
+              </div>
+            </div>
+            <mat-error
+              >Product price is required && Should be positive value</mat-error
+            >
+          </mat-form-field>
+        </div>
+
+        <div fxFlex fxLayout="column">
+          <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Product purchased price (In BDT)</mat-label>
+            <div
+              class="hide-input-arrows"
+              fxLayout="row"
+              fxLayoutAlign="center center"
+            >
+              <input
+                formControlName="purchasedPrice"
+                matInput
+                placeholder="Write the Purchased Price"
+                required
+                type="number"
+                min="0"
+              />
+              <div
+                fxLayout="row"
+                fxLayoutAlign="center center"
+                fxLayoutGap="5px"
+              >
+                <div (click)="dec('purchasedPrice')" class="add-button">
+                  <mat-icon>remove</mat-icon>
+                </div>
+                <div (click)="inc('purchasedPrice')" class="add-button">
+                  <mat-icon>add</mat-icon>
+                </div>
+              </div>
+            </div>
+            <mat-error
+              >Product purchased price is required && Should be positive
+              value</mat-error
+            >
+          </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Quantity</mat-label>
+          <div
+            class="hide-input-arrows"
+            fxLayout="row"
+            fxLayoutAlign="center center"
+          >
+            <input
+              [readonly]="readableQuantity"
+              formControlName="quantity"
+              matInput
+              placeholder="Write the Product Quantity"
+              required
+              type="number"
+              min="0"
+            />
+            <div
+              [fxHide]="readableQuantity"
+              fxLayout="row"
+              fxLayoutAlign="center center"
+              fxLayoutGap="5px"
+            >
+              <div (click)="dec('quantity')" class="add-button">
+                <mat-icon>remove</mat-icon>
+              </div>
+              <div (click)="inc('quantity')" class="add-button">
+                <mat-icon>add</mat-icon>
+              </div>
+            </div>
+          </div>
+          <mat-error
+            >Quantity is required && Should be positive value</mat-error
+          >
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Description (Optional)</mat-label>
+          <textarea
+            formControlName="description"
+            matInput
+            placeholder="Write the Product Description"
+            rows="5"
+          >
+          </textarea>
+        </mat-form-field>
+
+        <div
+          *ngIf="selectedProductCover || selectedProductGallery.length"
+          class="multiple-image-container"
+          fxLayout="column"
+          fxLayoutGap="10px"
+        >
+          <div
+            *ngIf="selectedProductCover"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+            fxLayoutGap="5px"
+          >
+            <div class="text-bold">COVER IMAGE</div>
+            <img
+              [src]="selectedProductCover.src"
+              alt="image of product cover"
+              height="70px"
+            />
+          </div>
+
+          <hr
+            *ngIf="selectedProductGallery.length"
+            style="width: 100%; color: black"
+          />
+
+          <div
+            *ngIf="selectedProductGallery.length"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+            fxLayoutGap="5px"
+          >
+            <div class="text-bold">GALLERY IMAGES</div>
+            <div
+              fxLayout="row wrap"
+              fxLayoutAlign="center center"
+              fxLayoutGap="5px grid"
+            >
+              <div
+                *ngFor="let image of selectedProductGallery; index as i"
+                (click)="makeItCoverImage(image, i)"
+                class="cursor-pointer"
+                matTooltip="Make it cover image"
+              >
+                <img
+                  [alt]="'image of  product gallery image no: ' + i"
+                  [src]="image.src"
+                  height="50px"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="image-upload-container btn-bwm"
+          fxLayout="column"
+          fxLayoutGap="1rem"
+        >
+          <label>Upload Product Images</label>
+          <input
+            #productImageInput
+            (change)="getFiles(productImageInput)"
+            accept="image/*"
+            class="image-input"
+            multiple
+            type="file"
+          />
+          <mat-error *ngIf="imageError">Image is required</mat-error>
+        </div>
+
+        <div style="padding: 0 0 10px 0">
+          <mat-radio-group formControlName="isRefundable">
+            <label> Product is refundable? </label><br />
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+              <mat-radio-button [value]="1">Yes</mat-radio-button>
+              <mat-radio-button [value]="0">No</mat-radio-button>
+            </div>
+          </mat-radio-group>
+        </div>
+
+        <div
+          (click)="showAdvanceFeature()"
+          *ngIf="!advanceFeature"
+          class="feature"
+          matTooltip="Add Advance Features"
+        >
+          + ADD ADVANCE FEATURES
+        </div>
+
+        <div *ngIf="advanceFeature" class="advance-features" fxLayout="column">
+          <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Reference</mat-label>
+            <input
+              [readonly]="true"
+              class="test"
+              formControlName="reference"
+              matInput
+              placeholder="Reference"
+            />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Meta Description</mat-label>
+            <input
+              class="test"
+              formControlName="metaDescription"
+              matInput
+              placeholder="Meta Description"
+              required
+            />
+            <mat-error>Meta Description is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Meta Keywords</mat-label>
+            <input
+              class="test"
+              formControlName="metaKeywords"
+              matInput
+              placeholder="Meta Keywords"
+              required
+            />
+            <mat-error>Meta Keyword is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Meta Title</mat-label>
+            <input
+              class="test"
+              formControlName="metaTitle"
+              matInput
+              placeholder="Meta Title"
+              required
+            />
+            <mat-error>Meta Title is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Summary</mat-label>
+            <textarea
+              formControlName="summary"
+              matInput
+              placeholder="Write the Product Summary"
+              rows="4"
+            >
+            </textarea>
+            <mat-error>Summary is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Wholesale Price</mat-label>
+            <div
+              class="hide-input-arrows"
+              fxLayout="row"
+              fxLayoutAlign="center center"
+            >
+              <input
+                formControlName="wholesalePrice"
+                matInput
+                placeholder="Write the Product Wholesale Price"
+                required
+                type="number"
+                min="0"
+              />
+              <div
+                fxLayout="row"
+                fxLayoutAlign="center center"
+                fxLayoutGap="5px"
+              >
+                <div (click)="dec('wholesalePrice')" class="add-button">
+                  <mat-icon>remove</mat-icon>
+                </div>
+                <div (click)="inc('wholesalePrice')" class="add-button">
+                  <mat-icon>add</mat-icon>
+                </div>
+              </div>
+            </div>
+            <mat-error
+              >Wholesale Price is required && Should be positive
+              value</mat-error
+            >
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Discount</mat-label>
+            <div
+              class="hide-input-arrows"
+              fxLayout="row"
+              fxLayoutAlign="center center"
+            >
+              <input
+                formControlName="discount"
+                matInput
+                placeholder="Write the Product Discount"
+                required
+                type="number"
+                min="0"
+              />
+              <div
+                fxLayout="row"
+                fxLayoutAlign="center center"
+                fxLayoutGap="5px"
+              >
+                <div (click)="dec('discount')" class="add-button">
+                  <mat-icon>remove</mat-icon>
+                </div>
+                <div (click)="inc('discount')" class="add-button">
+                  <mat-icon>add</mat-icon>
+                </div>
+              </div>
+            </div>
+            <mat-error
+              >Discount is required && Should be positive value</mat-error
+            >
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>LowStockThreshold</mat-label>
+            <div
+              class="hide-input-arrows"
+              fxLayout="row"
+              fxLayoutAlign="center center"
+            >
+              <input
+                formControlName="lowStockThreshold"
+                matInput
+                placeholder="Write the Product LowStockThreshold"
+                required
+                type="number"
+                min="0"
+              />
+              <div
+                fxLayout="row"
+                fxLayoutAlign="center center"
+                fxLayoutGap="5px"
+              >
+                <div (click)="dec('lowStockThreshold')" class="add-button">
+                  <mat-icon>remove</mat-icon>
+                </div>
+                <div (click)="inc('lowStockThreshold')" class="add-button">
+                  <mat-icon>add</mat-icon>
+                </div>
+              </div>
+            </div>
+            <mat-error
+              >LowStockThreshold is required && Should be positive
+              value</mat-error
+            >
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>AdditionalShippingCost</mat-label>
+            <div
+              class="hide-input-arrows"
+              fxLayout="row"
+              fxLayoutAlign="center center"
+            >
+              <input
+                formControlName="additionalShippingCost"
+                matInput
+                placeholder="Write the Product Additional Shipping Cost"
+                required
+                type="number"
+                min="0"
+              />
+              <div
+                fxLayout="row"
+                fxLayoutAlign="center center"
+                fxLayoutGap="5px"
+              >
+                <div (click)="dec('additionalShippingCost')" class="add-button">
+                  <mat-icon>remove</mat-icon>
+                </div>
+                <div (click)="inc('additionalShippingCost')" class="add-button">
+                  <mat-icon>add</mat-icon>
+                </div>
+              </div>
+            </div>
+            <mat-error
+              >Additional Shipping Cost is required && Should be positive
+              value</mat-error
+            >
+          </mat-form-field>
+
+          <mat-radio-group formControlName="onSale">
+            <label> On Sale ? </label><br />
+            <mat-radio-button [value]="1"
+              >Yes&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button
+            >
+            <mat-radio-button [value]="0">No</mat-radio-button>
+          </mat-radio-group>
+
+          <!--Product Combination-->
+
+          <div class="product-combination" fxLayout="column" fxLayoutGap="1rem">
+            <p class="combination-header">Manage your product combination</p>
+
+            <div
+              fxLayout="row"
+              fxLayoutAlign="center center"
+              fxLayoutGap="1rem"
+            >
+              <div fxFlex="60">
+                <div fxLayout="row" fxLayoutAlign="center center">
+                  <input
+                    (click)="generateCombination()"
+                    [disabled]="ifNoAttribute()"
+                    [ngStyle]="{ opacity: ifNoAttribute() ? '50%' : '100%' }"
+                    class="generate-btn"
+                    type="button"
+                    value="Generate"
+                  />
+                </div>
+              </div>
+
+              <div fxFlex="40" fxLayout="column" fxLayoutGap="0.5rem">
+                <div *ngFor="let group of attributeGroups">
+                  <mat-expansion-panel>
+                    <mat-expansion-panel-header *ngIf="group.name != 'Default'">
+                      <mat-panel-title>
+                        {{ group.name }}
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <mat-radio-group
+                      *ngIf="group.isColorGroup"
+                      [(ngModel)]="combination[group.name]"
+                      [ngModelOptions]="{ standalone: true }"
+                      fxLayout="column"
+                      fxLayoutGap="5px"
+                    >
+                      <mat-radio-button
+                        *ngFor="let attribute of group?.attributes"
+                        [value]="{ id: attribute.id, value: attribute.color }"
+                      >
+                        <div
+                          [style]="
+                            'padding: 0.5rem; background-color: ' +
+                            convertToHex(attribute.color)
+                          "
+                        >
+                          {{ attribute.color }}
+                        </div>
+                      </mat-radio-button>
+                    </mat-radio-group>
+
+                    <mat-radio-group
+                      *ngIf="!group.isColorGroup"
+                      [(ngModel)]="combination[group.name]"
+                      [ngModelOptions]="{ standalone: true }"
+                      fxLayout="column"
+                      fxLayoutGap="5px"
+                    >
+                      <mat-radio-button
+                        *ngFor="let attribute of group?.attributes"
+                        [value]="{ id: attribute.id, value: attribute.name }"
+                      >
+                        {{ attribute.name }}
+                      </mat-radio-button>
+                    </mat-radio-group>
+                  </mat-expansion-panel>
+                </div>
+              </div>
+            </div>
+
+            <table>
+              <tr>
+                <!-- <th>Image</th> -->
+                <th>Combination</th>
+                <th>Weight</th>
+                <th>Price</th>
+                <th>Purchased Price</th>
+                <th>Quantity</th>
+                <th>Discount</th>
+                <th>Action</th>
+              </tr>
+              <tr
+                *ngFor="
+                  let each of productCombination;
+                  let combinationIndex = index
+                "
+                style="text-align: center"
+              >
+                <!-- <td>
+                  <img
+                    [alt]="
+                      'image of product attribute of no: ' + combinationIndex
+                    "
+                    [matMenuTriggerFor]="chooseImage"
+                    [src]="each.imagePreview.src"
+                    class="table-image cursor-pointer"
+                    height="25px"
+                    matTooltip="Change image of this attribute"
+                  />
+
+                  <mat-menu
+                    #chooseImage="matMenu"
+                    class="multiple-image-container"
+                  >
+                    <div
+                      fxLayout="row wrap"
+                      fxLayoutAlign="center center"
+                      fxLayoutGap="5px grid"
+                    >
+                      <img
+                        (click)="changeCombinationImage(combinationIndex, -1)"
+                        [src]="selectedProductCover.src"
+                        alt="image of product cover"
+                        class="cursor-pointer"
+                        height="40px"
+                        style="margin: 0 5px 5px 0"
+                      />
+
+                      <div
+                        (click)="
+                          changeCombinationImage(combinationIndex, imageIndex)
+                        "
+                        *ngFor="
+                          let image of selectedProductGallery;
+                          index as imageIndex
+                        "
+                        class="cursor-pointer"
+                        matTooltip="Make this as image of this attribute"
+                      >
+                        <img
+                          [alt]="
+                            'image of  product gallery image no: ' + imageIndex
+                          "
+                          [src]="image.src"
+                          height="40px"
+                        />
+                      </div>
+                    </div>
+                  </mat-menu>
+                </td> -->
+                <td>{{ showCombination(each?.combination) }}</td>
+                <td>
+                  <form>
+                    <input
+                      (change)="
+                        changeCombinationWeight($event, combinationIndex)
+                      "
+                      (keyup)="
+                        changeCombinationWeight($event, combinationIndex)
+                      "
+                      [min]="1"
+                      [value]="each.weight"
+                      class="combination-input text-center"
+                      type="number"
+                    />
+                  </form>
+                </td>
+                <td>
+                  <form>
+                    <input
+                      (change)="
+                        changeCombinationPrice($event, combinationIndex)
+                      "
+                      (keyup)="changeCombinationPrice($event, combinationIndex)"
+                      [min]="1"
+                      [value]="each.price"
+                      class="combination-input text-center"
+                      type="number"
+                    />
+                  </form>
+                </td>
+                <td>
+                  <form>
+                    <input
+                      (change)="
+                        changeCombinationPurchasedPrice(
+                          $event,
+                          combinationIndex
+                        )
+                      "
+                      (keyup)="
+                        changeCombinationPurchasedPrice(
+                          $event,
+                          combinationIndex
+                        )
+                      "
+                      [min]="1"
+                      [value]="each.purchasedPrice"
+                      class="combination-input text-center"
+                      type="number"
+                    />
+                  </form>
+                </td>
+                <td>
+                  <form>
+                    <input
+                      (change)="
+                        changeCombinationQuantity($event, combinationIndex)
+                      "
+                      (keyup)="
+                        changeCombinationQuantity($event, combinationIndex)
+                      "
+                      [min]="1"
+                      [value]="each.quantity"
+                      class="combination-input text-center"
+                      type="number"
+                    />
+                  </form>
+                </td>
+                <td>
+                  <form>
+                    <input
+                      (change)="
+                        changeCombinationDiscount($event, combinationIndex)
+                      "
+                      (keyup)="
+                        changeCombinationDiscount($event, combinationIndex)
+                      "
+                      [min]="1"
+                      [value]="each.discount"
+                      class="combination-input text-center"
+                      type="number"
+                    />
+                  </form>
+                </td>
+                <td>
+                  <mat-icon
+                    (click)="removeCombination(combinationIndex)"
+                    class="cursor-pointer"
+                    >delete
+                  </mat-icon>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <button
+          [routerLink]="['/dashboard/product/list']"
+          class="cancel-button"
+          color="warn"
+          mat-raised-button
+        >
+          <span class="button-text">CANCEL</span>
+        </button>
+        <button
+          [disabled]="isLoading"
+          class="submit-button"
+          mat-raised-button
+          type="submit"
+        >
+          <span class="button-text">{{ btnLabel }}</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,128 @@
+<div class="padding-top-20">
+  <div class="mat-elevation-z8">
+    <ng-container *ngIf="pagination.isLoading">
+      <mat-progress-bar color="primary" mode="indeterminate">
+      </mat-progress-bar>
+      <div class="loading-shade"></div>
+    </ng-container>
+
+    <mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="sl.no">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Sl.</mat-header-cell>
+        <mat-cell *matCellDef="let row; let i = index" data-label="sl.no">
+          {{ paginator.pageIndex * paginator.pageSize + (i + 1) }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="createAt">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Date
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="createAt">
+          <div>
+            <span>{{ row?.createAt | date: "MMM d, y, h:mm a" }}</span>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="totalRefundableAmount">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Refund Amount
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="totalRefundableAmount">
+          <div>
+            <span>{{ row?.refundRequest?.totalRefundableAmount }}</span>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="isApproved">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Approval
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="isApproved">
+          <div *ngIf="row?.isApproved === 1">
+            <span>Return to Shop</span>
+          </div>
+          <div *ngIf="row?.isApproved === 0">
+            <span>Return to Customer</span>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="shop">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Shop
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="shop">
+          <ng-container *ngIf="row?.shop; else elseTemplate">
+            <div fxLayout="column">
+              <span>{{ row?.shop?.name }}</span>
+              <span>{{ row?.shop?.location }}</span>
+            </div>
+          </ng-container>
+          <ng-template #elseTemplate>
+            <div>N/A</div>
+          </ng-template>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="customer">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Customer
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="customer">
+          <div fxLayout="column" fxLayoutAlign="space-between start">
+            <div>
+              {{ row?.order?.shippingAddress?.firstname }}
+              {{ row?.order?.shippingAddress?.lastname }}
+            </div>
+            <div>
+              {{ row?.order?.shippingAddress?.phone }}
+            </div>
+            <div>
+              {{ row?.order?.shippingAddress?.address }}
+            </div>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="details">
+        <mat-header-cell *matHeaderCellDef>Details</mat-header-cell>
+        <mat-cell *matCellDef="let row" mat-cell>
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="goToReturnRequestDetails(row.id)"
+          >
+            <span class="text-white">Details</span>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+        <mat-cell *matCellDef="let row" mat-cell>
+          <button
+            class="button"
+            mat-button
+            (click)="openDialog(row?.refundRequest?.id, row?.id)"
+          >
+            <span class="text-white">Assign</span>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+
+    <mat-paginator
+      [length]="pagination.totalCount"
+      [pageSizeOptions]="[10, 20, 30, 40, 50, pagination.totalCount]"
+      [pageSize]="pagination.rowsPerPage"
+      showFirstLastButtons
+    >
+    </mat-paginator>
+  </div>
+</div>

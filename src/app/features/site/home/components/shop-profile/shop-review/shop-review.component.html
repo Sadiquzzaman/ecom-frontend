@@ -1,0 +1,60 @@
+<div class="header-section" fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="70" fxLayout="column" fxLayoutGap=".5rem">
+    <app-breadcrumb [navigation]="navbar"></app-breadcrumb>
+  </div>
+</div>
+<app-shop-profile-top></app-shop-profile-top>
+<app-shop-profile-header [shop]="shop"></app-shop-profile-header>
+
+<div *ngIf="token.isLoggedIn()">
+  <app-review
+    [source]="'shop'"
+    [shopId]="shop.id"
+    [rating]="shopRating"
+    [starCount]="starCount"
+    (ratingUpdated)="onRatingChanged($event)"
+    (shopReviewEmitter)="reviewSubmitted($event)"
+  ></app-review>
+</div>
+<div class="review-section" fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="70" fxLayout="column" fxLayoutGap="2rem">
+    <span *ngIf="shopReviews.length" class="top-text">REVIEWS</span>
+    <span
+      class="text"
+      fxLayoutAlign="center center"
+      *ngIf="!shopReviews.length"
+    >
+      No Reviews Yet!
+    </span>
+    <div
+      fxLayout="column"
+      fxLayoutAlign="space-between start"
+      *ngFor="let shopReview of shopReviews"
+    >
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2rem">
+        <div *ngIf="!shopReview?.user?.profile?.profileImageUrl">
+          <img
+            src="../../../../../../../assets/icons/png/default_profile.png"
+            height="4%"
+            width="4%"
+          />
+        </div>
+        <div *ngIf="shopReview?.user?.profile?.profileImageUrl">
+          <img
+            src="{{ shopReview?.user?.profile?.profileImageUrl }}"
+            height="45"
+            width="45"
+          />
+        </div>
+        <span class="name"
+          >{{ shopReview?.user?.firstName }} {{ shopReview?.user?.lastName }}
+        </span>
+      </div>
+      <app-rating
+        [rating]="shopReview?.shopRating"
+        [starCount]="starCount"
+      ></app-rating>
+      <span> {{ shopReview?.shopReview }}</span>
+    </div>
+  </div>
+</div>

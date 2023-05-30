@@ -1,0 +1,108 @@
+<div class="ticket-section" fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="60" fxLayout="column" fxLayoutGap="2.2rem">
+    <span class="header">Attributes</span>
+    <div fxLayout="column" fxLayoutGap="4rem">
+      <form [formGroup]="productAttributeForm">
+        <div fxLayout="column" fxLayoutGap="10px">
+          <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Attribute Name</mat-label>
+            <mat-select
+              formControlName="attributeGroupID"
+              name="attributeGroupID"
+              placeholder="Write attribute name"
+              required
+              type="text"
+            >
+              <mat-option>
+                <ngx-mat-select-search
+                  [formControl]="attributeGroupFiltering"
+                  [searching]="isAttributeGroupSearching"
+                  noEntriesFoundLabel="No such attribute group"
+                  placeholderLabel="Search"
+                >
+                </ngx-mat-select-search>
+              </mat-option>
+              <mat-option
+                *ngFor="
+                  let filteredAttributeGroupOption of filteredAttributeGroupOptions
+                    | async
+                "
+                [value]="filteredAttributeGroupOption.id"
+              >
+                {{ filteredAttributeGroupOption.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error>Attribute name is required</mat-error>
+          </mat-form-field>
+
+          <div fxLayout="row" fxLayoutAlign="end center">
+            <div class="form-btns">
+              <button mat-button class="add-button" (click)="addValue()">
+                <span class="button-text">Add New</span>
+              </button>
+            </div>
+          </div>
+
+          <div
+            formArrayName="attributeValue"
+            *ngFor="let singleValue of attrValues.controls; let i = index"
+          >
+            <ng-container [formGroupName]="i">
+              <div fxLayout="column">
+                <mat-form-field appearance="outline" floatLabel="always">
+                  <mat-label>Attribute value</mat-label>
+                  <input
+                    formControlName="name"
+                    id="attrValue_{{ i }}"
+                    name="attrValue_{{ i }}"
+                    matInput
+                    placeholder="Write attribute value"
+                    required
+                    type="text"
+                  />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" floatLabel="always">
+                  <mat-label>Description</mat-label>
+                  <textarea
+                    formControlName="description"
+                    matInput
+                    name="description"
+                    placeholder="Write your description here"
+                    required
+                    type="text"
+                  ></textarea>
+                  <mat-error>Please write description</mat-error>
+                </mat-form-field>
+
+                <div fxLayout="row" class="form-btns">
+                  <button
+                    mat-button
+                    class="cancel-button"
+                    (click)="removeValue(i)"
+                  >
+                    <span class="button-text">Remove</span>
+                  </button>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </form>
+
+      <div
+        class="ticket-btns"
+        fxLayout="row"
+        fxLayoutAlign="end center"
+        fxLayoutGap="2rem"
+      >
+        <button class="cancel-button" mat-button (click)="clearForm()">
+          <span class="button-text">CANCEL</span>
+        </button>
+        <button class="submit-button" mat-button type="submit" (click)="save()">
+          <span class="button-text">SUBMIT</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

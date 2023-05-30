@@ -1,0 +1,31 @@
+.dashboard-layout {
+  min-height: 100% !important;
+  padding: 0 !important;
+
+  .header {
+    min-height: 5rem !important;
+  }
+
+  mat-card {
+    mat-drawer-container {
+      mat-drawer {
+        width: 300px !important;
+        position: fixed !important;
+        top: 100px !important;
+        left: 1px !important;
+        bottom: 0 !important;
+      }
+
+      mat-drawer-content {
+        top: 0.5rem !important;
+      }
+    }
+
+    .footer {
+      margin-top: 5rem !important;
+      bottom: 0 !important;
+    }
+  }
+}
+
+

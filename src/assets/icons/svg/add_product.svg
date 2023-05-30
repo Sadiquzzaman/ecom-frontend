@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" viewBox="0 0 48 48">
+  <defs>
+    <clipPath id="clip-add_product">
+      <rect width="48" height="48"/>
+    </clipPath>
+  </defs>
+  <g id="add_product" clip-path="url(#clip-add_product)">
+    <g id="Icon_feather-upload" data-name="Icon feather-upload" transform="translate(-2.514 -2.822)">
+      <path id="Path_2591" data-name="Path 2591" d="M47.973,22.5v9.661a4.83,4.83,0,0,1-4.83,4.83H9.33a4.83,4.83,0,0,1-4.83-4.83V22.5" transform="translate(0 10.982)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+      <path id="Path_2592" data-name="Path 2592" d="M34.651,16.576,22.576,4.5,10.5,16.576" transform="translate(3.661)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+      <path id="Path_2593" data-name="Path 2593" d="M18,4.5V33.482" transform="translate(8.236)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+    </g>
+  </g>
+</svg>

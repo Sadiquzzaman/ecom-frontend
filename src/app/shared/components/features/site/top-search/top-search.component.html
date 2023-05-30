@@ -1,0 +1,489 @@
+<div class="top-search-section" fxLayout="row" fxLayoutAlign="center center">
+  <!--  for large screen-->
+  <div fxFlex="70" fxHide.lt-md>
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="1rem">
+      <div class="top-search-category-section">
+        <button [matMenuTriggerFor]="rootMenu" mat-button mat-flat-button>
+          <span class="category-button">Category</span>
+          <mat-icon>arrow_drop_down</mat-icon>
+        </button>
+
+        <mat-menu #rootMenu="matMenu">
+          <ng-container *ngFor="let category of categoryData">
+            <button
+              (click)="gotoCategoryProfile(category)"
+              *ngIf="category.children.length; else noChildren"
+              [matMenuTriggerFor]="subMenu"
+              mat-menu-item
+            >
+              {{ category.name }}
+            </button>
+
+            <ng-template #noChildren>
+              <button (click)="gotoCategoryProfile(category)" mat-menu-item>
+                {{ category.name }}
+              </button>
+            </ng-template>
+
+            <mat-menu #subMenu="matMenu">
+              <ng-container *ngFor="let subcategory of category.children">
+                <button
+                  (click)="gotoCategoryProfile(subcategory)"
+                  *ngIf="subcategory.children.length; else noSubChildren"
+                  [matMenuTriggerFor]="subCategoryMenu"
+                  mat-menu-item
+                >
+                  {{ subcategory.name }}
+                </button>
+
+                <ng-template #noSubChildren>
+                  <button
+                    (click)="gotoCategoryProfile(subcategory)"
+                    mat-menu-item
+                  >
+                    {{ subcategory.name }}
+                  </button>
+                </ng-template>
+
+                <mat-menu #subCategoryMenu="matMenu">
+                  <ng-container
+                    *ngFor="let subSubCategoryMenu of subcategory.children"
+                  >
+                    <button
+                      (click)="gotoCategoryProfile(subSubCategoryMenu)"
+                      mat-menu-item
+                    >
+                      {{ subSubCategoryMenu.name }}
+                    </button>
+                  </ng-container>
+                </mat-menu>
+              </ng-container>
+            </mat-menu>
+          </ng-container>
+        </mat-menu>
+      </div>
+
+      <!--Location searchBox section-->
+      <div class="top-search-location-section">
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <mat-button-toggle-group
+            class="location"
+            fxLayout="row"
+            fxLayoutAlign="center center"
+          >
+            <input
+              #locationSearch
+              matInput
+              [(ngModel)]="currentLocation"
+              (keyup)="location(locationSearch.value)"
+              placeholder="Enter your location"
+            />
+            <mat-icon (click)="searchShopsOrProducts()" matSuffix
+              >gps_fixed</mat-icon
+            >
+          </mat-button-toggle-group>
+        </div>
+      </div>
+
+      <!--Filter item section-->
+      <div class="top-search-filter-section">
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <mat-button-toggle-group
+            class="filter"
+            fxLayout="row"
+            fxLayoutAlign="center center"
+          >
+            <mat-button-toggle [matMenuTriggerFor]="menu" class="filter-button">
+              <!-- <mat-icon>tune</mat-icon> -->
+              <span class="text-capitalize">{{ filterEntity }}</span>
+              <mat-icon>arrow_drop_down</mat-icon>
+            </mat-button-toggle>
+
+            <!-- <mat-menu #menu="matMenu">
+              <div class="filter-section" fxLayout="column" fxLayoutGap="1rem">
+                <mat-radio-group
+                  *ngIf="currentRoute === '/product'"
+                  [(ngModel)]="filterOption.price"
+                  fxLayout="column"
+                  fxLayoutGap="1rem"
+                >
+                  <mat-radio-button
+                    class="mat-radio-top"
+                    value="asc"
+                    (change)="filterChange($event, 'price')"
+                  >
+                    Low to High Price
+                  </mat-radio-button>
+                  <mat-radio-button
+                    class="mat-radio-bottom"
+                    value="dsc"
+                    (change)="filterChange($event, 'price')"
+                  >
+                    High to Low Price
+                  </mat-radio-button>
+                </mat-radio-group>
+
+                <mat-divider *ngIf="currentRoute === '/product'"></mat-divider>
+
+                <mat-radio-group
+                  fxLayout="column"
+                  fxLayoutGap="1rem"
+                  [(ngModel)]="filterOption.rating"
+                >
+                  <mat-radio-button
+                    value="dsc"
+                    (change)="filterChange($event, 'rating')"
+                  >
+                    High to Low Rating
+                  </mat-radio-button>
+                  <mat-radio-button
+                    value="asc"
+                    (change)="filterChange($event, 'rating')"
+                  >
+                    Low to High Rating
+                  </mat-radio-button>
+                </mat-radio-group>
+
+                <mat-divider *ngIf="currentRoute === '/product'"></mat-divider>
+
+                <mat-radio-group
+                  fxLayout="column"
+                  fxLayoutGap="1rem"
+                  [(ngModel)]="filterOption.algorithm"
+                  *ngIf="currentRoute === '/product'"
+                >
+                  <mat-radio-button
+                    value="latest"
+                    (change)="filterChange($event, 'algorithm')"
+                  >
+                    Latest Product
+                  </mat-radio-button>
+                  <mat-radio-button
+                    value="popular"
+                    (change)="filterChange($event, 'algorithm')"
+                  >
+                    Popular Product
+                  </mat-radio-button>
+                  <mat-radio-button
+                    value="trending"
+                    (change)="filterChange($event, 'algorithm')"
+                  >
+                    Trending Now
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </mat-menu> -->
+
+            <mat-menu #menu="matMenu">
+              <div class="filter-section" fxLayout="column" fxLayoutGap="1rem">
+                <mat-radio-group
+                  fxLayout="column"
+                  fxLayoutGap="1rem"
+                  [(ngModel)]="filterEntity"
+                >
+                  <mat-radio-button
+                    value="product"
+                    (change)="filterEntityChange($event)"
+                  >
+                    Product
+                  </mat-radio-button>
+
+                  <mat-radio-button
+                    value="shop"
+                    (change)="filterEntityChange($event)"
+                  >
+                    Shop
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </mat-menu>
+
+            <input
+              (keyup.enter)="search()"
+              [(ngModel)]="searchKey"
+              matInput
+              [placeholder]="searchPlaceholder"
+            />
+
+            <mat-icon (click)="search()" matSuffix>search</mat-icon>
+          </mat-button-toggle-group>
+        </div>
+      </div>
+
+      <!--Notification section-->
+      <div
+        [fxShow]="token.isLoggedIn()"
+        fxLayout="row"
+        fxLayoutAlign="center center"
+      >
+        <!-- <app-notification></app-notification> -->
+
+        <button [matMenuTriggerFor]="profile" mat-button>
+          <mat-icon class="notification-button">account_circle</mat-icon>
+          <mat-icon class="notification-button">arrow_drop_down</mat-icon>
+        </button>
+
+        <!--Menu Options For Profile Button-->
+        <mat-menu #profile="matMenu">
+          <button [routerLink]="['/dashboard']" mat-menu-item>
+            <span matPrefix>
+              <mat-icon class="notification-button">logout</mat-icon>
+            </span>
+            Dashboard
+          </button>
+          <button (click)="goToProfile()" mat-menu-item>
+            <span matPrefix>
+              <mat-icon class="notification-button">account_circle</mat-icon>
+            </span>
+            Profile
+          </button>
+
+          <button [routerLink]="['/dashboard/order']" mat-menu-item>
+            <span matPrefix>
+              <mat-icon class="notification-button">restore</mat-icon>
+            </span>
+            History
+          </button>
+
+          <button mat-menu-item [routerLink]="['/wishlist']">
+            <span matPrefix>
+              <mat-icon class="notification-button">favorite_border</mat-icon>
+            </span>
+            Wishlist
+          </button>
+
+          <button mat-menu-item [routerLink]="['/following-shops']">
+            <span matPrefix>
+              <mat-icon class="notification-button">done</mat-icon>
+            </span>
+            Following Shops
+          </button>
+
+          <button
+            [routerLink]="['/auth/login']"
+            [state]="{ redirect: router.url }"
+            mat-menu-item
+          >
+            <span matPrefix>
+              <mat-icon class="notification-button">logout</mat-icon>
+            </span>
+            Sign-Out
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+  </div>
+
+  <!--for small screen-->
+  <div
+    fxFlex="100"
+    fxHide.gt-md
+    fxHide.md
+    style="padding: 0.5rem"
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+  >
+    <!--Notification section-->
+    <div fxFlex="15">
+      <!-- <button mat-button fxLayout="column" fxLayoutAlign="center center">
+        <mat-icon class="notification-button">menu</mat-icon>
+      </button> -->
+      <app-site-sidenav [categories]="categoryData"></app-site-sidenav>
+    </div>
+
+    <!--Filter item section-->
+    <div class="top-search-filter-section" fxFlex="70">
+      <mat-button-toggle-group
+        style="width: 70%"
+        class="filter"
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+      >
+        <div
+          [matMenuTriggerFor]="menu"
+          fxFlex="10"
+          fxLayout="row"
+          fxLayoutAlign="center center"
+        >
+          <mat-icon>arrow_drop_down</mat-icon>
+        </div>
+
+        <!-- <mat-menu #menu="matMenu">
+            <mat-checkbox class="checkbox-margin">
+              <button mat-menu-item>Low to High Price</button>
+            </mat-checkbox>
+            <mat-checkbox class="checkbox-margin">
+              <button mat-menu-item>High to Low Price</button>
+            </mat-checkbox>
+            <mat-divider></mat-divider>
+            <mat-divider></mat-divider>
+
+            <mat-checkbox class="checkbox-margin">
+              <button mat-menu-item>High to Low Rating</button>
+            </mat-checkbox>
+            <mat-checkbox class="checkbox-margin">
+              <button mat-menu-item>High to Low Rating</button>
+            </mat-checkbox>
+            <mat-divider></mat-divider>
+            <mat-divider></mat-divider>
+
+            <mat-checkbox class="checkbox-margin">
+              <button mat-menu-item>New Product</button>
+            </mat-checkbox>
+            <mat-checkbox class="checkbox-margin">
+              <button mat-menu-item>Popular Product</button>
+            </mat-checkbox>
+            <mat-checkbox class="checkbox-margin">
+              <button mat-menu-item>Trending Now</button>
+            </mat-checkbox>
+          </mat-menu> -->
+
+        <!-- <mat-menu #menu="matMenu">
+            <mat-checkbox class="checkbox-margin">
+              <button mat-menu-item>Shop</button>
+            </mat-checkbox>
+            <mat-checkbox class="checkbox-margin">
+              <button mat-menu-item>Product</button>
+            </mat-checkbox>
+          </mat-menu> -->
+
+        <mat-menu #menu="matMenu">
+          <div class="filter-section" fxLayout="column" fxLayoutGap="1rem">
+            <mat-radio-group
+              fxLayout="column"
+              fxLayoutGap="1rem"
+              [(ngModel)]="filterEntity"
+            >
+              <mat-radio-button
+                value="product"
+                (change)="filterEntityChange($event)"
+              >
+                Product
+              </mat-radio-button>
+            </mat-radio-group>
+            <mat-radio-button
+              value="shop"
+              (change)="filterEntityChange($event)"
+            >
+              Shop
+            </mat-radio-button>
+          </div>
+        </mat-menu>
+
+        <input
+          (keyup.enter)="search()"
+          [(ngModel)]="searchKey"
+          fxFlex="80"
+          matInput
+          placeholder="Shops/Products.."
+        />
+
+        <mat-icon (click)="search()" fxFlex="10" matSuffix>search</mat-icon>
+      </mat-button-toggle-group>
+    </div>
+
+    <!--Notification section-->
+    <div
+      fxFlex="10"
+      [fxShow]="token.isLoggedIn()"
+      fxLayout="row"
+      fxLayoutAlign="center center"
+      fxFlex="15"
+    >
+      <!-- <app-notification></app-notification> -->
+
+      <button [matMenuTriggerFor]="profile" mat-button>
+        <mat-icon class="notification-button">account_circle</mat-icon>
+        <mat-icon class="notification-button">arrow_drop_down</mat-icon>
+      </button>
+
+      <!--Menu Options For Profile Button-->
+      <mat-menu #profile="matMenu">
+        <button [routerLink]="['/dashboard']" mat-menu-item>
+          <span matPrefix>
+            <mat-icon class="notification-button">logout</mat-icon>
+          </span>
+          Dashboard
+        </button>
+        <button mat-menu-item (click)="goToProfile()">
+          <span matPrefix>
+            <mat-icon class="notification-button">account_circle</mat-icon>
+          </span>
+          Profile
+        </button>
+
+        <button mat-menu-item>
+          <span matPrefix>
+            <mat-icon class="notification-button"
+              >account_balance_wallet</mat-icon
+            >
+          </span>
+          Wallet
+        </button>
+
+        <button mat-menu-item [routerLink]="['/dashboard/order']">
+          <span matPrefix>
+            <mat-icon class="notification-button">restore</mat-icon>
+          </span>
+          History
+        </button>
+
+        <button mat-menu-item>
+          <span matPrefix>
+            <mat-icon class="notification-button">favorite_border</mat-icon>
+          </span>
+          Wishlist
+        </button>
+
+        <button mat-menu-item>
+          <span matPrefix>
+            <mat-icon class="notification-button">done</mat-icon>
+          </span>
+          Following Shops
+        </button>
+
+        <button (click)="logOut()" mat-menu-item>
+          <span matPrefix>
+            <mat-icon class="notification-button">logout</mat-icon>
+          </span>
+          Sign-Out
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+</div>
+
+<!-- app.component.html -->
+<div class="locationMap" *ngIf="showMap">
+  <mat-icon
+    class="cancel-button"
+    (click)="closeMap()"
+    matTooltip="Close Map"
+    *ngIf="showMap"
+    >close</mat-icon
+  >
+  <agm-map
+    *ngIf="showMap"
+    [ngClass.xs]="'xs-ban'"
+    [ngClass.sm]="'sm-ban'"
+    [ngClass.md]="'md-ban'"
+    [ngClass.lg]="'lg-ban'"
+    [ngClass.xl]="'xl-ban'"
+    [latitude]="searchLocation.x"
+    [longitude]="searchLocation.y"
+    [zoom]="zoom"
+    (mapClick)="addMarker($event.coords.lat, $event.coords.lng)"
+  >
+    <agm-marker
+      [latitude]="searchLocation.x"
+      [longitude]="searchLocation.y"
+      [label]="'My Location'"
+    ></agm-marker>
+    <agm-marker
+      *ngFor="let shop of shopListByLocation"
+      [latitude]="shop.geoLocation.x"
+      [longitude]="shop.geoLocation.y"
+      [label]="shop.name"
+    ></agm-marker>
+  </agm-map>
+</div>

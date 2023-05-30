@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" viewBox="0 0 48 48">
+  <defs>
+    <clipPath id="clip-address">
+      <rect width="48" height="48"/>
+    </clipPath>
+  </defs>
+  <g id="address" clip-path="url(#clip-address)">
+    <path id="Icon_awesome-location-arrow" data-name="Icon awesome-location-arrow" d="M41.479.328,2.682,18.235A4.524,4.524,0,0,0,4.472,26.89H20.887V43.3A4.524,4.524,0,0,0,29.542,45.1L47.449,6.3A4.656,4.656,0,0,0,41.479.328Z" transform="translate(0.223 0.223)" fill="#c9c9c9"/>
+  </g>
+</svg>

@@ -1,0 +1,46 @@
+<div class="shop-profile-section" fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="100" fxFlex.gt-xs="70">
+    <div class="r-cover">
+      <app-image
+        [imageName]="shop?.shopCoverImage"
+        [loader]="false"
+        [type]="coverImageType"
+        height="310px"
+      >
+      </app-image>
+      <div class="a-profile">
+        <img
+          [src]="selectedProfileFile.src"
+          class="logo-section text-center"
+          height="180px"
+          width="180px"
+        />
+      </div>
+      <div
+        class="shop-desc"
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+        fxLayoutGap="3rem"
+      >
+        <div fxFlex="20">
+          <div fxLayout="column" fxLayoutAlign="end start">
+            <div class="shop-name">{{ shop?.name }}</div>
+            <div>
+              <app-rating [rating]="shop?.rating" [starCount]="5"></app-rating>
+            </div>
+          </div>
+        </div>
+        <div
+          class="shop-details"
+          fxFlex.xs="70"
+          fxFlex.sm="60"
+          fxFlex.gt-sm="50"
+        >
+          <span>{{ shop?.shopType?.name }}, </span>
+          <span>{{ shop?.location }}, </span>
+          <span>{{ shop?.createAt | date }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

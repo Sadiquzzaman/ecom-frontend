@@ -1,0 +1,146 @@
+<div class="feed-header-section" fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="100" fxFlex.gt-xs="70">
+    <div
+      fxLayout="column"
+      fxLayout.gt-sm="row"
+      fxLayoutAlign="center center"
+      fxLayoutAlign.gt-sm="space-between center"
+      fxLayoutGap="2rem"
+    >
+      <div fxFlex.lt-md="25">
+        <p class="feed-header">
+          <!-- {{ currentRoute }} -->
+          {{
+            isSelected
+              ? (selectedComponent + "s").toUpperCase()
+              : (unselectedComponent + "s").toUpperCase()
+          }}
+        </p>
+      </div>
+
+      <div
+        fxFlex.lt-md="40"
+        fxLayout="row"
+        fxLayoutAlign="center center"
+        fxLayoutAlign.lt-md="center center"
+      >
+        <div fxLayout="row" fxLayoutAlign.lt-md="center center">
+          <button
+            (click)="resetSearch()"
+            [class]="isSelected ? 'background-black' : 'background-white'"
+            [routerLink]="['/']"
+            mat-button
+          >
+            <span class="button-style text-capitalize">{{
+              selectedComponent + "s"
+            }}</span>
+          </button>
+
+          <button
+            (click)="resetSearch()"
+            [class]="isSelected ? 'background-white' : 'background-black'"
+            [routerLink]="['/' + unselectedComponent]"
+            mat-button
+          >
+            <span class="button-style text-capitalize">{{
+              unselectedComponent + "s"
+            }}</span>
+          </button>
+        </div>
+      </div>
+
+      <div fxFlex.lt-md="35">
+        <!-- <button [matMenuTriggerFor]="viewMenu" class="view-button" mat-button>
+          <mat-icon>grid_view</mat-icon>
+          View
+        </button>
+        <mat-menu #viewMenu="matMenu">
+          <div fxLayout="column">
+            <button mat-menu-item (click)="viewAsColumn()">
+              <mat-icon class="view-icon">view_column</mat-icon>
+              View as Column
+            </button>
+            <mat-divider></mat-divider>
+            <button mat-menu-item (click)="viewAsRow()">
+              <mat-icon class="view-icon">calendar_view_day</mat-icon>
+              View as Row
+            </button>
+          </div>
+        </mat-menu> -->
+
+        <button
+          class="filter-button"
+          mat-button
+          [matMenuTriggerFor]="filterMenu"
+        >
+          <mat-icon>tune</mat-icon>
+          Filter
+          <mat-icon>arrow_drop_down</mat-icon>
+        </button>
+        <mat-menu #filterMenu="matMenu">
+          <div class="filter-section" fxLayout="column" fxLayoutGap="1rem">
+            <mat-radio-group
+              *ngIf="isProduct"
+              fxLayout="column"
+              fxLayoutGap="1rem"
+            >
+              <mat-radio-button
+                class="mat-radio-bottom"
+                value="asc"
+                (change)="filterChange($event, 'price')"
+              >
+                Low to High Price
+              </mat-radio-button>
+              <mat-radio-button
+                class="mat-radio-top"
+                value="dsc"
+                (change)="filterChange($event, 'price')"
+              >
+                High to Low Price
+              </mat-radio-button>
+            </mat-radio-group>
+
+            <mat-divider *ngIf="isProduct"></mat-divider>
+            <mat-radio-group fxLayout="column" fxLayoutGap="1rem">
+              <mat-radio-button
+                value="asc"
+                (change)="filterChange($event, 'rating')"
+              >
+                Low to High Rating
+              </mat-radio-button>
+              <mat-radio-button
+                value="dsc"
+                (change)="filterChange($event, 'rating')"
+              >
+                High to Low Rating
+              </mat-radio-button>
+            </mat-radio-group>
+
+            <mat-divider></mat-divider>
+
+            <mat-radio-group fxLayout="column" fxLayoutGap="1rem">
+              <mat-radio-button
+                value="latest"
+                (change)="filterChange($event, 'algorithm')"
+              >
+                {{ isProduct ? "Latest Product" : "Latest Shop" }}
+              </mat-radio-button>
+              <mat-radio-button
+                value="popular"
+                (change)="filterChange($event, 'algorithm')"
+              >
+                {{ isProduct ? "Popular Product" : "Popular Shop" }}
+              </mat-radio-button>
+              <mat-radio-button
+                value="trending"
+                (change)="filterChange($event, 'algorithm')"
+              >
+                {{ isProduct ? "Trending Product" : "Trending Shop" }}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </mat-menu>
+      </div>
+    </div>
+  </div>
+</div>

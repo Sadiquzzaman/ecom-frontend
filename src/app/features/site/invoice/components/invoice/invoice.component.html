@@ -1,0 +1,174 @@
+<div class="invoice">
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <div class="invoice-top-section" fxFlex="80" fxFlex.lt-sm="100"></div>
+  </div>
+
+  <div id="contentToConvert">
+    <div class="heading-section" fxLayout="row" fxLayoutAlign="center center">
+      <div fxFlex="70" fxFlex.lt-sm="100">
+        <div
+          fxLayout="row"
+          fxLayoutAlign="space-between center"
+          fxLayoutGap="3rem"
+        >
+          <p class="invoice-view">INVOICE</p>
+
+          <div>
+            <img
+              alt="logo of a-let"
+              src="../../../../../../assets/img/AletLogo_new.png"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <div fxFlex="70" fxFlex.lt-sm="100">
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <div>
+            <p>Company Name : {{ companyInfo.name }}</p>
+            <p>Address : {{ companyInfo.address }}</p>
+            <p>Phone No : {{ companyInfo.phone }}</p>
+            <p>E-mail :{{ companyInfo.email }}</p>
+          </div>
+
+          <div
+            class="date-section"
+            fxLayout="column"
+            fxLayoutAlign="center end"
+          >
+            <div>
+              {{ transMaster?.invoice?.dateApplied | date }}
+            </div>
+            <div>
+              {{ transMaster?.invoice?.id }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <div fxFlex="70" fxFlex.lt-sm="100">
+        <div fxLayout="column" fxLayoutAlign="space-between end">
+          <p class="terms-section">
+            <i> [Payment terms (due on recipt, due in x days)] </i>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <div fxFlex="70" fxFlex.lt-sm="100">
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <div>
+            <p class="billing-section">BILL TO</p>
+            <hr class="line-size"/>
+            <p>Contact name :</p>
+            <p>Client Company name :</p>
+            <p>Address :</p>
+            <p>Phone :</p>
+            <p>E-mail :</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-section" fxLayoutAlign="center center">
+      <div fxFlex="70" fxFlex.lt-sm="100">
+        <table style="width: 100%">
+          <tr>
+            <th>DESCRIPTION</th>
+            <th>QUANTITY</th>
+            <th>UNIT PRICE</th>
+            <th>TOTAL</th>
+          </tr>
+
+          <tr>
+            <td>{{ getDescription() }}</td>
+            <td>1</td>
+            <td>{{ transMaster?.totalAmount }}</td>
+            <td>{{ transMaster?.totalAmount }}</td>
+          </tr>
+
+          <tr>
+            <td class="table-cell"></td>
+            <td class="table-cell"></td>
+            <td class="table-cell">TOTAL :</td>
+            <td class="table-cell-final">{{ transMaster?.totalAmount }}</td>
+          </tr>
+
+          <tr>
+            <td class="table-cell"></td>
+            <td class="table-cell"></td>
+            <td class="table-cell">TOTAL TAX:</td>
+            <td class="table-cell-final">0</td>
+          </tr>
+
+          <tr>
+            <td class="table-cell"></td>
+            <td class="table-cell"></td>
+            <td class="table-cell">BALANCE DUE:</td>
+            <td class="table-cell-final">{{ transMaster?.totalAmount }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="invoice-bottom-section"
+    fxLayout="row"
+    fxLayoutAlign="center center"
+  >
+    <div fxFlex="70"></div>
+  </div>
+
+  <mat-card>
+    <mat-card-content
+      class="bottom-options"
+      fxLayout="column"
+      fxLayout.gt-sm="row"
+      fxLayoutAlign="center center"
+      fxLayoutGap="20px"
+    >
+      <div
+        [fxHide]="ifPublished()"
+        fxLayout="column"
+        fxLayoutAlign="center center"
+      >
+        <h2>PUBLISH YOUR POST</h2>
+        <div>
+          <button
+            color="primary"
+            endpoint=""
+            id="sslczPayBtn"
+            mat-raised-button
+            order=""
+            postdata=""
+            token=""
+            type="button"
+          >
+            <span class="text-white">PAY WITH SSLCOMMERZ </span>
+          </button>
+        </div>
+      </div>
+
+      <div fxLayout="column" fxLayoutAlign="center center">
+        <h2>DOWNLOAD INVOICE</h2>
+        <div>
+          <button
+            (click)="convertToPDF()"
+            class="invoiceButton"
+            color="primary"
+            mat-raised-button
+            type="button"
+          >
+            <span class="text-white"> Click Here</span>
+          </button>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

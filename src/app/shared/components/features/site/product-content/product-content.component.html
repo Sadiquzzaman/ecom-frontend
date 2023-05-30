@@ -1,0 +1,181 @@
+<div class="product-feed-section" fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="100" fxFlex.gt-xs="70">
+    <div
+      fxLayout="row wrap"
+      fxLayoutAlign="center start"
+      fxLayoutGap="1rem grid"
+    >
+      <div
+        *ngIf="promotions"
+        fxFlex="25"
+        fxFlex.lt-lg="33.33"
+        fxFlex.lt-md="50"
+        fxFlex.lt-sm="90"
+      >
+        <div class="cursor-pointer">
+          <div>
+            <mat-card class="feed-card-section promotion">
+              <div class="slider-image-container" mat-card-image>
+                <div
+                  class="slide-image"
+                  [ngClass.xs]="'xs-slide-image'"
+                  [style.z-index]="slideZIndex[i]"
+                  [@promo_cat_fade]="slideAnim[i]"
+                  *ngFor="let promotion of promotions; let i = index"
+                >
+                  <app-image
+                    [imageName]="promotion.promotionCoverImage"
+                    [type]="promotionImageType"
+                    mat-card-image
+                  >
+                  </app-image>
+                </div>
+              </div>
+              <div class="slider-content-container">
+                <div
+                  [style.z-index]="slideZIndex[i]"
+                  [@promo_cat_fade]="slideAnim[i]"
+                  class="slide-content"
+                  *ngFor="let promotion of promotions; let i = index"
+                >
+                  <div class="promotion-title">
+                    {{ promotion.title }}
+                  </div>
+                  <div class="promotion-description">
+                    {{ promotion.description }}
+                  </div>
+                </div>
+              </div>
+            </mat-card>
+          </div>
+        </div>
+        <div class="button-slider-container">
+          <button
+            [routerLink]="['/product/profile/' + promotion?.product?.id]"
+            [style.z-index]="slideZIndex[i]"
+            class="visit-shop"
+            mat-button
+            *ngFor="let promotion of promotions; let i = index"
+          >
+            <div
+              fxLayout="row"
+              fxLayoutAlign="center center"
+              fxLayoutGap="1rem"
+            >
+              <div class="button-style">
+                {{ promotion?.product?.name }}
+              </div>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <div
+        *ngFor="let product of products; let key = index"
+        fxFlex="25"
+        fxFlex.lt-lg="33.33"
+        fxFlex.lt-md="50"
+        fxFlex.lt-sm="90"
+      >
+        <div
+          [@zoom]="product?.hover ? 'zoomIn' : 'zoomOut'"
+          (mouseout)="onHoverOut(key)"
+          (mouseover)="onHoverIn(key)"
+          class="cursor-pointer"
+        >
+          <mat-card class="singleProductSec">
+            <div class="feed-card-section">
+              <a
+                [routerLink]="['/product/profile/' + product.id]"
+                class="product-image"
+                [ngClass.xs]="'xs-product-image'"
+                mat-card-image
+                [ngClass]="{ 'product-hover': product?.hover }"
+              >
+                <app-image
+                  [imageName]="product.image?.cover"
+                  [type]="productImageType"
+                  mat-card-image
+                >
+                </app-image>
+              </a>
+
+              <div class="product-details">
+                <div class="product-name-section">
+                  {{ product.name }}
+                </div>
+                <div class="company-name">
+                  {{ product.metaTitle }}
+                </div>
+
+                <div class="location" fxLayout="row" fxLayoutGap=".4rem">
+                  <mat-icon class="location-icon">room</mat-icon>
+                  <span class="location-name">{{ product.location }}</span>
+                </div>
+
+                <div
+                  class="price-wish"
+                  fxLayout="row"
+                  fxLayoutAlign="space-between center"
+                  fxLayoutGap=".5rem"
+                  routerLinkActive="inactive"
+                >
+                  <div fxFlex="85" class="price">
+                    {{ product.price | currency: "Tk ":"symbol":"1.2-2" }}
+                  </div>
+                  <div fxFlex="15" fxLayoutAlign="end">
+                    <mat-icon
+                      matTooltip="Add to wishlist"
+                      (click)="
+                        isWished(product.id) === true
+                          ? removeWishList(product.id)
+                          : productWishList(product.id)
+                      "
+                      class="favourite-icon"
+                      [ngClass]="{ wished: isWished(product.id) === true }"
+                    >
+                      favorite
+                    </mat-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <button
+                [routerLink]="['/product/profile/' + product.id]"
+                (mouseout)="onHoverOut(key)"
+                (mouseover)="onHoverIn(key)"
+                class="cart-button-section"
+                mat-button
+              >
+                <span
+                  fxLayout="row"
+                  fxLayoutAlign="center center"
+                  fxLayoutGap="1rem"
+                >
+                  <span>View Details</span>
+                </span>
+              </button>
+
+              <!-- <button
+                (click)="addToCart(product)"
+                (mouseout)="onHoverOut(key)"
+                (mouseover)="onHoverIn(key)"
+                class="cart-button-section"
+                mat-button>
+                <span
+                  fxLayout="row"
+                  fxLayoutAlign="center center"
+                  fxLayoutGap="1rem">
+                  <mat-icon class="cart-icon">shopping_cart</mat-icon>
+                  <span>Add to Cart</span>
+                </span>
+              </button> -->
+            </div>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

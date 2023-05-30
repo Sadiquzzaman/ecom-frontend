@@ -1,0 +1,137 @@
+.billing-section {
+  padding: 3rem 0 3rem 0;
+
+  .billing-header {
+    color: rgb(51, 51, 51);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+
+  .dialog-button {
+    width: 32rem;
+    .btn-text {
+      font-size: 1rem;
+      color: #28b37b;
+    }
+  }
+
+  .profile-section {
+    font-size: small;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: rgb(78, 78, 78);
+  }
+
+  table {
+    color: rgb(138, 138, 138);
+
+    .right {
+      text-align: right;
+    }
+
+    td {
+      width: 10rem;
+    }
+
+    .total {
+      color: rgb(32, 32, 32);
+    }
+  }
+
+  button {
+    width: 10rem;
+    height: 2.2rem;
+    border: 0;
+  }
+
+  .cancel-button {
+    background-color: rgb(201, 201, 201);
+    color: white;
+  }
+
+  ::ng-deep .pay-button {
+    background-color: #28b37b;
+    color: white;
+    font-size: small;
+  }
+}
+
+::ng-deep .mat-checkbox-frame,
+::ng-deep .mat-checkbox-background {
+  border-radius: 50% !important;
+  border-color: #28b37b;
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: #28b37b;
+}
+
+.btn-text {
+  color: #ffffff;
+  font-size: 0.9rem;
+}
+
+#sslczPayBtn {
+  position: relative;
+  background: #3498db;
+  border: 0 none;
+  color: #fff;
+  padding: 0px 20px 8px 70px;
+  border-radius: 4px;
+  height: 35px;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 13px;
+  width: 254px;
+  outline: 0;
+  overflow: hidden;
+}
+
+.mat-button,
+.mat-icon-button,
+.mat-stroked-button,
+.mat-flat-button {
+  line-height: normal !important;
+}
+
+.terms {
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-size: 1rem;
+  // color: #28b37b;
+}
+.term {
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-size: 1rem;
+  // color: #28b37b;
+}
+
+a {
+  text-decoration: none;
+}
+
+.terms:hover {
+  color: #28b37b;
+}
+
+:host ::ng-deep .mat-radio-container {
+  height: 16px;
+  width: 16px;
+}
+:host ::ng-deep .mat-radio-outer-circle {
+  height: 16px;
+  width: 16px;
+}
+:host ::ng-deep .mat-radio-inner-circle {
+  height: 16px;
+  width: 16px;
+}
+:host ::ng-deep .mat-radio-button .mat-radio-ripple {
+  height: 20px; /*double of your required circle radius*/
+  width: 20px; /*double of your required circle radius*/
+  left: calc(50% - 16px); /*'10px'-same as your required circle radius*/
+  top: calc(50% - 16px); /*'10px'-same as your required circle radius*/
+}
+::ng-deep.cartOrder .mat-radio-label {
+  @media (max-width: 570px) {
+    white-space: break-spaces;
+  }
+}

@@ -1,0 +1,95 @@
+<!-- <app-top-search [categories]="categories"></app-top-search> -->
+<!-- <app-breadcrumb [navigation]="navbar"></app-breadcrumb> -->
+
+<app-business-decoration @fade [promotions]="promotions">
+</app-business-decoration>
+
+<app-feed-header></app-feed-header>
+
+<div
+  (scrolled)="onScrollDown($event)"
+  [infiniteScrollDistance]="scrollDistance"
+  [infiniteScrollThrottle]="throttle"
+  class="shop-section"
+  infinite-scroll
+>
+  <ng-container *ngIf="isLocationSearch || isKeySearch; else elseTemplate">
+  </ng-container>
+  <ng-template #elseTemplate>
+    <!--Popular Shop-->
+    <div *ngIf="popularShops">
+      <div
+        class="popular-shop-header"
+        fxLayout="row"
+        fxLayoutAlign="center center"
+      >
+        <div class="shop-header" fxFlex="90" fxFlex.gt-xs="70">
+          Popular Shops
+        </div>
+      </div>
+      <app-shop-content *ngIf="popularShops?.length" [feeds]="popularShops">
+      </app-shop-content>
+    </div>
+    <!--Trending Shop-->
+
+    <div *ngIf="trendingShops">
+      <div
+        class="popular-shop-header"
+        fxLayout="row"
+        fxLayoutAlign="center center"
+      >
+        <div class="shop-header" fxFlex="90" fxFlex.gt-xs="70">
+          Trending Shops
+        </div>
+      </div>
+      <app-shop-content *ngIf="trendingShops?.length" [feeds]="trendingShops">
+      </app-shop-content>
+    </div>
+  </ng-template>
+
+  <!--Shop Type based Show  Shop-->
+
+  <div *ngIf="!isLocationSearch && !isKeySearch">
+    <div @fade *ngFor="let shopType of shopsByType">
+      <app-shop-category [shop_promotion]="shopType"></app-shop-category>
+    </div>
+  </div>
+
+  <!--Location Nearest Shop-->
+  <div *ngIf="isLocationSearch">
+    <app-shop-content
+      *ngIf="shopsByLocation?.length; else noShop"
+      [feeds]="shopsByLocation"
+    >
+    </app-shop-content>
+    <ng-template #noShop>
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <h4 class="text-bold">NO SHOP FOUND</h4>
+      </div>
+    </ng-template>
+  </div>
+
+  <!--Shop Shop using key-->
+
+  <div *ngIf="isKeySearch">
+    <app-shop-content
+      *ngIf="shopsByKeySearch?.length; else noShop"
+      [feeds]="shopsByKeySearch"
+    >
+    </app-shop-content>
+    <ng-template #noShop>
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <h4 class="text-bold">NO SHOP FOUND</h4>
+      </div>
+    </ng-template>
+  </div>
+  <div class="custom-spinner" fxLayout="row" fxLayoutAlign="center center">
+    <mat-spinner *ngIf="isLoading" [diameter]="50"></mat-spinner>
+  </div>
+</div>
+<!-- 
+<app-business-boost></app-business-boost>
+
+<app-google-play-promotion></app-google-play-promotion> -->
+
+<app-partners></app-partners>

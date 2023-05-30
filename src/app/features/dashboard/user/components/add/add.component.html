@@ -1,0 +1,82 @@
+<div class="mtb16" fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="60" fxFlex.lt-md="100">
+    <div class="padding-top-20">
+      <mat-card>
+        <mat-toolbar class="theme-background-color">
+          <mat-toolbar-row class="margin-left"> Add New Role</mat-toolbar-row>
+        </mat-toolbar>
+        <mat-card-content
+          *ngIf="isFetching"
+          fxLayout="row"
+          fxLayoutAlign="center center"
+        >
+          <mat-spinner color="primary"></mat-spinner>
+        </mat-card-content>
+        <mat-card-content *ngIf="!isFetching" class="padding-out">
+          <form
+            (ngSubmit)="save(id)"
+            (reset)="addRoleForm.reset()"
+            [formGroup]="addRoleForm"
+          >
+            <div
+              fxLayout="row"
+              fxLayout.lt-md="column"
+              fxLayoutAlign="center"
+              fxLayoutGap="5%"
+              fxLayoutGap.lt-md="1%"
+            >
+              <mat-form-field
+                appearance="outline"
+                floatLabel="always"
+                fxFlex="100%"
+              >
+                <mat-label>Role</mat-label>
+                <mat-select
+                  formControlName="roleId"
+                  placeholder="Select Role"
+                  required
+                >
+                  <mat-option>
+                    <ngx-mat-select-search
+                      [formControl]="roleFiltering"
+                      [searching]="isSearching"
+                      noEntriesFoundLabel="No such Role"
+                      placeholderLabel="Search"
+                    >
+                    </ngx-mat-select-search>
+                  </mat-option>
+                  <mat-option
+                    *ngFor="let role of filteredRoleOptions | async"
+                    [value]="role.id"
+                  >
+                    {{ role.role }}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="hasError('roleId', 'required')"
+                >Role is required
+                </mat-error
+                >
+              </mat-form-field>
+            </div>
+            <div
+              class="padding-top-20"
+              fxLayout="row"
+              fxLayout.lt-sm="column"
+              fxLayoutAlign="end"
+              fxLayoutGap="15px"
+              fxLayoutGap.lt-md="10px"
+            >
+              <button color="warn" fxFlex="10%" mat-raised-button type="reset">
+                Reset
+              </button>
+              <button [disabled]="isLoading" class="theme-background-color" fxFlex="10%" mat-raised-button
+                      type="submit">
+                <label *ngIf="!isLoading"> {{ btnLabel }} </label>
+              </button>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

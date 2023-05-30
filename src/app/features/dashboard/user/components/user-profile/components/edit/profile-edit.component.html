@@ -1,0 +1,315 @@
+<mat-card class="background-card">
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <mat-card class="mini-card" fxLayout="column" fxLayoutGap="2rem">
+      <div fxLayout="row" fxLayoutAlign="space-between start">
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="3rem">
+          <app-image
+            *ngIf="!selectedProfileFile?.src"
+            [imageName]="userProfileImageName"
+            [type]="profileImageType"
+            width="100px"
+            height="100px"
+          ></app-image>
+          <img
+            *ngIf="selectedProfileFile?.src"
+            class="profile-image"
+            [src]="selectedProfileFile?.src"
+            alt="profile image"
+          />
+          <div fxLayout="column" fxLayoutAlign="end start" fxLayoutGap="1rem">
+            <span class="user-name"></span>
+            <div
+              fxLayout="row"
+              fxLayoutAlign="center center"
+              fxLayoutGap="1rem"
+            >
+              <mat-icon class="wallet-icon">account_balance_wallet</mat-icon>
+              <span class="total-point"
+                >{{ user?.firstName }} {{ user?.lastName }}</span
+              >
+            </div>
+            <input
+              #imageProfileInput
+              (change)="saveImageToTemp(imageProfileInput)"
+              [fxShow]="false"
+              id="input-file-id"
+              multiple
+              type="file"
+            />
+            <label for="input-file-id" class="change-btn"
+              >Change Profile Picture</label
+            >
+          </div>
+        </div>
+      </div>
+      <form
+        [formGroup]="profileForm"
+        (ngSubmit)="save()"
+        fxLayout="row"
+        fxLayout.lt-md="column"
+        fxLayoutAlign="space-around start"
+        fxLayoutGap="2rem"
+        fxLayoutGap.lt-md=".5rem"
+      >
+        <div class="mobileUserEdit">
+          <div fxLayout="column">
+            <div fxFlex fxLayout="column" fxLayoutGap="1%">
+              <mat-form-field appearance="outline" floatLabel="always" fxFlex>
+                <mat-label fxFlex>First Name</mat-label>
+                <input
+                  formControlName="firstName"
+                  matInput
+                  name="firstName"
+                  placeholder="Write your first name"
+                  required
+                />
+                <mat-error>First name is required!</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex fxLayout="column" fxLayoutGap="1%">
+              <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Last Name</mat-label>
+                <input
+                  formControlName="lastName"
+                  matInput
+                  name="lastName"
+                  placeholder="Write your last name"
+                  required
+                />
+                <mat-error>Last name is required!</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div fxLayout="column">
+            <div fxFlex fxLayout="column" fxLayoutGap="1%">
+              <mat-form-field appearance="outline" floatLabel="always" fxFlex>
+                <mat-label fxFlex>Phone No.</mat-label>
+                <input
+                  formControlName="phone"
+                  matInput
+                  name="phone"
+                  placeholder="Write your phone number"
+                  required
+                />
+                <mat-error>First name is required!</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex fxLayout="column" fxLayoutGap="1%">
+              <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Email</mat-label>
+                <input
+                  formControlName="email"
+                  matInput
+                  name="email"
+                  placeholder="Write your email"
+                  required
+                />
+                <mat-error>Email is required!</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div fxLayout="row" fxLayoutGap="3%">
+            <div fxFlex="35%" fxLayout="column" fxLayoutGap="1%">
+              <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Gender</mat-label>
+                <mat-select formControlName="gender" placeholder="Select">
+                  <mat-option
+                    *ngFor="let gender of genders"
+                    [value]="gender.value"
+                  >
+                    {{ gender.label }}
+                  </mat-option>
+                </mat-select>
+                <mat-error>Gender is required!</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex fxLayout="column" fxLayoutGap="1%">
+              <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Date of birth</mat-label>
+                <input
+                  [matDatepicker]="datePicker"
+                  [max]="maxDate"
+                  formControlName="dateOfBirth"
+                  matInput
+                  placeholder="MM/DD/YYYY"
+                />
+                <mat-datepicker-toggle
+                  [for]="datePicker"
+                  matSuffix
+                ></mat-datepicker-toggle>
+                <mat-datepicker #datePicker></mat-datepicker>
+                <mat-error>Date is required!</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div *ngIf="token.isMerchant()">
+            <div fxLayout="column" fxLayoutGap="1%">
+              <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>NID No</mat-label>
+                <input
+                  formControlName="nid"
+                  matInput
+                  name="nid"
+                  placeholder="Write your NID No"
+                  required
+                  type="text"
+                />
+                <mat-error>Valid NID required!</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div fxLayout="column" fxLayoutGap="1%">
+              <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>License No</mat-label>
+                <input
+                  formControlName="license"
+                  matInput
+                  name="license"
+                  placeholder="Write your License No"
+                  required
+                  type="text"
+                />
+                <mat-error>Valid License No required!</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div
+            fxLayout="column"
+            fxLayoutAlign="space-between start"
+            fxLayoutGap="2rem"
+          >
+            <div class="mobileUserEdit">
+              <div fxLayout="row" fxLayoutGap="3%">
+                <div fxFlex fxLayout="column" fxLayoutGap="3%">
+                  <mat-form-field appearance="outline" floatLabel="always">
+                    <mat-label>District</mat-label>
+                    <mat-select
+                      (selectionChange)="onDistrictSelect()"
+                      formControlName="district"
+                      placeholder="Select District"
+                      required
+                    >
+                      <mat-option>
+                        <ngx-mat-select-search
+                          [formControl]="districtFiltering"
+                          [searching]="isSearching"
+                          noEntriesFoundLabel="No such Districts"
+                          placeholderLabel="Search"
+                        >
+                        </ngx-mat-select-search>
+                      </mat-option>
+                      <mat-option
+                        *ngFor="let district of filteredDistrictOptions | async"
+                        [value]="district.id"
+                      >
+                        {{ district.name }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error>District is required!</mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div fxFlex fxLayout="column" fxLayoutGap="3%">
+                  <mat-form-field appearance="outline" floatLabel="always">
+                    <mat-label>Thana</mat-label>
+                    <mat-select
+                      formControlName="thana"
+                      placeholder="Select Thana"
+                      required
+                    >
+                      <mat-option>
+                        <ngx-mat-select-search
+                          [formControl]="thanaFiltering"
+                          [searching]="isSearching"
+                          noEntriesFoundLabel="No such Thanas"
+                          placeholderLabel="Search"
+                        >
+                        </ngx-mat-select-search>
+                      </mat-option>
+                      <mat-option
+                        *ngFor="let thana of filteredThanaOptions | async"
+                        [value]="thana.id"
+                      >
+                        {{ thana.name }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error>Thana is required!</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div fxLayout="column">
+                <div fxFlex fxLayout="column" fxLayoutGap="1%">
+                  <mat-form-field appearance="outline" floatLabel="always">
+                    <mat-label>Address</mat-label>
+                    <textarea
+                      class="address-bar"
+                      formControlName="addressPlain"
+                      matInput
+                      name="address"
+                      type="text"
+                    ></textarea>
+                    <mat-error>Address is required!</mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div fxFlex fxLayout="column" fxLayoutGap="1%">
+                  <mat-form-field appearance="outline" floatLabel="always">
+                    <mat-label>Location</mat-label>
+                    <input
+                      #search
+                      (keydown.enter)="$event.preventDefault()"
+                      formControlName="location"
+                      matInput
+                      placeholder="Enter Location"
+                      required
+                    />
+                    <mat-error> >Location is required</mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div fxFlex fxLayout="column" fxLayoutGap="1%">
+                  <div appearance="outline" floatLabel="always">
+                    <agm-map
+                      (mapClick)="
+                        addMarker($event.coords.lat, $event.coords.lng)
+                      "
+                      [latitude]="location.x"
+                      [longitude]="location.y"
+                      [zoom]="zoom"
+                      class="agm-map"
+                    >
+                      <agm-marker
+                        [latitude]="location.x"
+                        [longitude]="location.y"
+                      ></agm-marker>
+                    </agm-map>
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  [disabled]="isLoading"
+                  class="signup-button"
+                  mat-raised-button
+                >
+                  <span class="signup-text">UPDATE</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div>
+          <mat-divider class="divider-line" fxHide.lt-md vertical></mat-divider>
+        </div> -->
+      </form>
+    </mat-card>
+  </div>
+</mat-card>

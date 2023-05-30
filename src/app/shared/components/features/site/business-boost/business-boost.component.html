@@ -1,0 +1,41 @@
+<div
+  class="business-boost-section"
+  fxLayout="row"
+  fxLayoutAlign="center center"
+>
+  <div fxFlex="70" fxLayout="column" fxLayoutGap=".5rem">
+    <div
+      fxLayout="row"
+      fxLayout.lt-md="column"
+      fxLayoutAlign="space-between center"
+      fxLayoutAlign.lt-md="space-between center"
+      fxLayoutGap.lt-md="3rem"
+    >
+      <div
+        fxLayout="column"
+        fxLayoutAlign="space-between start"
+        fxLayoutGap="3rem"
+      >
+        <div>
+          <b class="heading-section">Boost Your Business With Us</b>
+        </div>
+
+        <div>
+          <p class="order-description">
+            Promote your business. Reach out to more customer in your locality,
+            Sales more & be more, with just very low price.
+          </p>
+        </div>
+      </div>
+      <div>
+        <button
+          class="button-section"
+          mat-button
+          [routerLink]="['/auth/registration', { type: 'merchant' }]"
+        >
+          <span class="button-text">GET STARTED</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
